@@ -1,4 +1,4 @@
-package elte.szakdolgozat;
+package hu.ELTE.Szakdolgozat;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

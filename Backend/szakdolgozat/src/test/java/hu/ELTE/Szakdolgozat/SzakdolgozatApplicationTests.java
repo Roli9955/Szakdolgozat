@@ -1,4 +1,4 @@
-package elte.szakdolgozat;
+package hu.ELTE.Szakdolgozat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
