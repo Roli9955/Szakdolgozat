@@ -22,56 +22,41 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class User implements Serializable {
+public class Activity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Column
-    @NotNull
-    private String firstName;
+    private String description;
     
     @Column
     @NotNull
-    private String lastName;
+    private Boolean isTask;
+    
+    @Column
+    private Integer min;
+    
+    @Column
+    private Date deadline;
+    
+    @Column
+    private Boolean isCompleted;
     
     @Column
     @NotNull
-    private String email;
+    private Boolean locked;
     
     @Column
     @NotNull
-    private String loginName;
+    private Date date;
     
-    @Column
-    @NotNull
-    private String password;
-    
-    @Column
-    private Date lastLogin;
-    
-    @Column
-    private Integer maxHoliday;
-    
-    @Column
-    private Boolean canLogIn;
+    @OneToMany(mappedBy = "activity")
+    private List<UserActivity> userActivity;
     
     @JoinColumn
     @ManyToOne
-    private Permission permission;
-    
-    @OneToMany(mappedBy = "user")
-    private List<Holiday> holidays;
-    
-    @OneToMany(mappedBy = "user")
-    private List<UserActivity> activitys;
-    
-    @OneToMany(mappedBy = "owner")
-    private List<UserActivity> ownedActivity;
-    
-    @OneToMany(mappedBy = "user")
-    private List<UserWorkGroup> userWorkGroup;
-    
+    private ActivityGroup activityGroup;
     
 }
