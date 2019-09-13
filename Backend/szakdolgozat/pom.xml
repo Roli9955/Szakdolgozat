@@ -52,7 +52,7 @@
                 <dependency>
                     <groupId>com.microsoft.sqlserver</groupId>
                     <artifactId>mssql-jdbc</artifactId>
-                    <version>7.4.1.jre11</version>
+                    <scope>runtime</scope>
                 </dependency>
 
 	</dependencies>
