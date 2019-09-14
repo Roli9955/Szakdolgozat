@@ -1,1 +1,0 @@
---INSERT INTO [Szakdolgozat].[dbo].[Permission]([name]) VALUES ('Teszt');

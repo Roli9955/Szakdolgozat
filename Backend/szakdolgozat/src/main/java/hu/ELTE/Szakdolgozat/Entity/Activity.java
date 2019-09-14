@@ -3,6 +3,7 @@ package hu.ELTE.Szakdolgozat.Entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,7 +53,7 @@ public class Activity implements Serializable {
     @NotNull
     private Date date;
     
-    @OneToMany(mappedBy = "activity")
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
     private List<UserActivity> userActivity;
     
     @JoinColumn

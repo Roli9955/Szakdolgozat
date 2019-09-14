@@ -2,6 +2,7 @@ package hu.ELTE.Szakdolgozat.Entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ public class PermissionDetail implements Serializable {
     @NotNull
     private String name;
     
-    @ManyToMany(mappedBy = "details")
+    @ManyToMany(mappedBy = "details", cascade = CascadeType.ALL)
     private List<Permission> permissions;
     
 }
