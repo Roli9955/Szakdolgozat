@@ -18,9 +18,12 @@ public class UserController {
     private UserRepository userRepository;
     
     @GetMapping("")
-    private ResponseEntity<Iterable<User>> getAll(){
+    public ResponseEntity<Iterable<User>> getAll(){
         Iterable<User> users = userRepository.findAll();
         return ResponseEntity.ok(users);
     }
+    
+    
+    
     
 }
