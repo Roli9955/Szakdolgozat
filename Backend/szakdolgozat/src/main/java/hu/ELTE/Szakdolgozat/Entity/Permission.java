@@ -1,7 +1,9 @@
 package hu.ELTE.Szakdolgozat.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +33,7 @@ public class Permission implements Serializable {
     @NotNull
     private String name;
     
-    @OneToMany(mappedBy = "permission")
+    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL)
     private List<User> users;
     
     @JoinTable

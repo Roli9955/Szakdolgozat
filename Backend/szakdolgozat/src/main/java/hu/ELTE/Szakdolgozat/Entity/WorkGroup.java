@@ -2,6 +2,7 @@ package hu.ELTE.Szakdolgozat.Entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class WorkGroup implements Serializable {
     @ManyToMany
     private List<ActivityGroup>  activityGroup;
     
-    @OneToMany(mappedBy = "workGroup")
+    @OneToMany(mappedBy = "workGroup", cascade = CascadeType.ALL)
     private List<UserWorkGroup> userWorkGroup;
     
 }
