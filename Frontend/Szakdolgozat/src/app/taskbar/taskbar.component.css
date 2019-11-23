@@ -1,0 +1,10 @@
+.taskbar{
+    right: 0;
+    top: 0;
+    position: fixed;
+    width: 300px;
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
+    height: 95%;
+    background-color: aqua;
+}
