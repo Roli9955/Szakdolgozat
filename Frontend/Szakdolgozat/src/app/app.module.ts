@@ -7,6 +7,8 @@ import { MenuComponent } from './menu/menu.component';
 import { TaskbarComponent } from './taskbar/taskbar.component';
 import { ContentComponent } from './content/content.component';
 import { MainContainerComponent } from './main-container/main-container.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { WorkTimeComponent } from './work-time/work-time.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { MainContainerComponent } from './main-container/main-container.componen
     MenuComponent,
     TaskbarComponent,
     ContentComponent,
-    MainContainerComponent
+    MainContainerComponent,
+    MainPageComponent,
+    WorkTimeComponent
   ],
   imports: [
     BrowserModule,
