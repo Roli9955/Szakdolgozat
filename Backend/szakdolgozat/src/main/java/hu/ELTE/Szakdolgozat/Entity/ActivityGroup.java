@@ -29,7 +29,7 @@ public class ActivityGroup implements Serializable {
     private Integer id;
     
     @Column
-    private Activity parent;
+    private ActivityGroup parent;
     
     @Column
     @NotNull
