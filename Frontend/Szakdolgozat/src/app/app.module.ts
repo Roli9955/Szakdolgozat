@@ -9,6 +9,8 @@ import { ContentComponent } from './content/content.component';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { WorkTimeComponent } from './work-time/work-time.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { UploadWorkTimeComponent } from './upload-work-time/upload-work-time.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { WorkTimeComponent } from './work-time/work-time.component';
     ContentComponent,
     MainContainerComponent,
     MainPageComponent,
-    WorkTimeComponent
+    WorkTimeComponent,
+    CalendarComponent,
+    UploadWorkTimeComponent
   ],
   imports: [
     BrowserModule,
