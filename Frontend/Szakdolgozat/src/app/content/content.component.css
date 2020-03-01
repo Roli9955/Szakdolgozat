@@ -2,13 +2,13 @@
     width: 100%;
 }
 .left-content{
-    background-color: aqua;
+    /* background-color: aqua; */
     height: 100%;
     width: 80%;
 }
 
 .right-content{
-    background-color: bisque;
+    /* background-color: bisque; */
     height: 100%;
     width: 20%;
 }
