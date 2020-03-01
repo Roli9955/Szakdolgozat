@@ -1,10 +1,176 @@
-<h2 class="text-center">2019 Március 2</h2>
+<div class="mr-5">
+  <br>
+  <h2 class="text-center" id="date">{{ selectedDate }}</h2>
 
-<br>
+  <br>
 
-<div class="input-group">
+  <div class="input-group">
     <div class="input-group-prepend">
-      <span class="input-group-text" id="">asd</span>
+      <span class="input-group-text" id="">Feladat</span>
+    </div>
+    <select class="custom-select" id="inputGroupSelect01">
+      <option selected>Válassz</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="">Idő</span>
     </div>
     <input type="text" class="form-control">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="">Óra</span>
+    </div>
+    <input type="text" class="form-control">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="">Perc</span>
+    </div>
   </div>
+  <br><br>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Megjegyzés</span>
+    </div>
+    <textarea class="form-control" aria-label="With textarea"></textarea>
+  </div>
+
+  <br><br>
+  <button type="button" class="btn btn-primary mr-3">Mentés</button>
+  <button type="button" class="btn btn-primary">Törlés</button>
+
+  <br><br>
+
+  <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="table table-striped mb-0">
+      <thead>
+        <tr>
+          <th scope="col">Feladat</th>
+          <th scope="col">Idő</th>
+          <th scope="col">Megjegyzés</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+        <tr>
+          <th class="w-25">Teszt</th>
+          <td>60</td>
+          <td class="w-50">asd asdasd adasda a asdasda sd a sd as d as d as d asd as d sadddddddd asd as d as d a sd a s d
+            as d a sd a sd as as d as d as d as d</td>
+          <td class="text-right w-25"><button type="button" class="btn btn-primary mr-1">Módosítás</button>
+            <button type="button" class="btn btn-primary mr-1">Törlés</button></td>
+          <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>

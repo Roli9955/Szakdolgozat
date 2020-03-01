@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-upload-work-time',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadWorkTimeComponent implements OnInit {
 
-  constructor() { }
+  private months: string[] = ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"];
+
+  constructor(
+  ) { }
 
   ngOnInit() {
+  }
+
+  selectDate(year: number, month: number, day: number){
+    const date = document.querySelector("#date");
+    date.innerHTML = year + ". " + this.months[month - 1] + " " + day + ".";
   }
 
 }

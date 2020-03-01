@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { delay } from 'q';
+import { Component, OnInit, ElementRef, Output } from '@angular/core';
+import { UploadWorkTimeComponent } from '../upload-work-time/upload-work-time.component';
 
 @Component({
   selector: 'app-calendar',
@@ -12,10 +12,11 @@ export class CalendarComponent implements OnInit {
   private days: string[] = ["Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"];
   private months: string[] = ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"];
 
-  private actualYear = -1;
-  private actualMonth = -1;
+  private actualYear: number = -1;
+  private actualMonth: number = -1;
+  private selectedDay: number = -1;
 
-  private selectedDay = -1;
+  private selected: boolean;
 
   constructor(
     private ref: ElementRef
@@ -23,10 +24,13 @@ export class CalendarComponent implements OnInit {
     const date = new Date();
     this.actualYear = date.getFullYear();
     this.actualMonth = date.getMonth() + 1;
+    this.selectedDay = date.getDate();
+    this.selected = true;
   }
 
   ngOnInit() {
-    this.generateCalendar()
+    this.generateCalendar();
+    this.loadSelectedDay();
   }
 
   public generateCalendar() {
@@ -40,7 +44,7 @@ export class CalendarComponent implements OnInit {
 
     header += '<div class="row">';
     header += '<div class="col"><button id="prev" class="btn btn-light" ><</button></div>';
-    header += '<div class="col text-center font-weight-bold"><h3>' + this.actualYear + ' ' + this.months[this.actualMonth - 1] + '</h3></div>';
+    header += '<div class="col text-center font-weight-bold"><h3>' + this.actualYear + '. ' + this.months[this.actualMonth - 1] + '</h3></div>';
     header += '<div class="col text-right"><button id="after" class="btn btn-light">></button></div>';
     header += '</div>';
 
@@ -88,15 +92,12 @@ export class CalendarComponent implements OnInit {
     prev.addEventListener("click", this.changeMonth.bind(this));
     after.addEventListener("click", this.changeMonth.bind(this));
 
-    const days = this.ref.nativeElement.querySelectorAll(".day")
-    days.forEach(day => {
-      day.addEventListener("click", this.selectDay.bind(this));
-      day.style.cursor="pointer"
-      day.style.userSelect="none"
-    });
+    this.setDateTable();
+  
   }
 
   changeMonth(event) {
+    this.selected = false;
     var direct;
     if (event.target.id == "prev") {
       direct = -1;
@@ -116,11 +117,28 @@ export class CalendarComponent implements OnInit {
   }
 
   selectDay(event){
-    this.selectDay = event.target.innerText.trim();
+    this.selectedDay = event.target.innerText.trim();
+    this.selected = true;
+    this.setDateTable();
     this.loadSelectedDay();
   }
 
   loadSelectedDay(){
+    var upload = new UploadWorkTimeComponent();
+    upload.selectDate(this.actualYear, this.actualMonth, this.selectedDay);
+  }
 
+  setDateTable(){
+    const days = this.ref.nativeElement.querySelectorAll(".day")
+    for (let i = 0; i < days.length; i++) {
+      const day = days[i];
+      day.style.backgroundColor = "#FFFFFF";
+      day.addEventListener("click", this.selectDay.bind(this));
+      day.style.cursor="pointer"
+      day.style.userSelect="none"
+      if((i == (this.selectedDay - 1)) && this.selected){
+        day.style.backgroundColor = "#E6E6e6";
+      }
+    }
   }
 }
