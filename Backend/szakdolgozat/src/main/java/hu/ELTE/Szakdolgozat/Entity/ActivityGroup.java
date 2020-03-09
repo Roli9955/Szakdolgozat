@@ -1,15 +1,18 @@
 package hu.ELTE.Szakdolgozat.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -28,7 +31,7 @@ public class ActivityGroup implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column
+    @ManyToOne
     private ActivityGroup parent;
     
     @Column
@@ -44,9 +47,15 @@ public class ActivityGroup implements Serializable {
     private Boolean canAddActivity;
     
     @OneToMany(mappedBy = "activityGroup", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Activity> activties;
     
     @ManyToMany(mappedBy = "activityGroup", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<WorkGroup> workGroup;
+    
+    @OneToMany(mappedBy = "parent")
+    @JsonIgnore
+    private List<ActivityGroup> children;
     
 }

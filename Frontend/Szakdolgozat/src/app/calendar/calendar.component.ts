@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, Output } from '@angular/core';
 import { UploadWorkTimeComponent } from '../upload-work-time/upload-work-time.component';
+import { WorkTimeService } from '../services/work-time.service';
 
 @Component({
   selector: 'app-calendar',
@@ -18,14 +19,18 @@ export class CalendarComponent implements OnInit {
 
   private selected: boolean;
 
+  private uploadWorkTimeComponent;
+
   constructor(
-    private ref: ElementRef
+    private ref: ElementRef,
+    private workTimeService: WorkTimeService
   ) {
     const date = new Date();
     this.actualYear = date.getFullYear();
     this.actualMonth = date.getMonth() + 1;
     this.selectedDay = date.getDate();
     this.selected = true;
+    this.uploadWorkTimeComponent = new UploadWorkTimeComponent(this.workTimeService)
   }
 
   ngOnInit() {
@@ -124,8 +129,9 @@ export class CalendarComponent implements OnInit {
   }
 
   loadSelectedDay(){
-    var upload = new UploadWorkTimeComponent();
+    var upload = this.uploadWorkTimeComponent;
     upload.selectDate(this.actualYear, this.actualMonth, this.selectedDay);
+    console.log("aaa")
   }
 
   setDateTable(){

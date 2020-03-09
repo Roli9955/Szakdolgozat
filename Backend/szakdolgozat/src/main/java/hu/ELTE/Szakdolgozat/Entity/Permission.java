@@ -34,6 +34,7 @@ public class Permission implements Serializable {
     private String name;
     
     @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<User> users;
     
     @JoinTable

@@ -7,6 +7,5 @@ export class ActivityGroup {
     public name: string;
     public canAddChild: boolean;
     public canAddActivity: boolean;
-    public activities: Activity[];
 
 }

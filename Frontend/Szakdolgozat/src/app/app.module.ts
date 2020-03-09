@@ -11,6 +11,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { WorkTimeComponent } from './work-time/work-time.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { UploadWorkTimeComponent } from './upload-work-time/upload-work-time.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UploadWorkTimeComponent } from './upload-work-time/upload-work-time.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

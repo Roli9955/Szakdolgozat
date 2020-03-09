@@ -1,7 +1,8 @@
 package hu.ELTE.Szakdolgozat.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,6 +55,7 @@ public class Activity implements Serializable {
     private Date date;
     
     @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<UserActivity> userActivity;
     
     @JoinColumn
