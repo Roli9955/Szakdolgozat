@@ -54,12 +54,23 @@ public class Activity implements Serializable {
     @NotNull
     private Date date;
     
-    @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
+    @JoinColumn
+    @ManyToOne
+    @NotNull
     @JsonIgnore
-    private List<UserActivity> userActivity;
+    private User user;
     
+    @JoinColumn
+    @ManyToOne
+    @NotNull
+    @JsonIgnore
+    private User owner;
+
     @JoinColumn
     @ManyToOne
     private ActivityGroup activityGroup;
     
+    @JoinColumn
+    @ManyToOne
+    private WorkGroup workGroup;
 }

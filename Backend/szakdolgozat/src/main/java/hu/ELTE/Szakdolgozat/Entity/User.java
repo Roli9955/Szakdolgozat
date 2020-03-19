@@ -66,10 +66,10 @@ public class User implements Serializable {
     private List<Holiday> holidays;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<UserActivity> activitys;
+    private List<Activity> activitys;
     
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<UserActivity> ownedActivity;
+    private List<Activity> ownedActivity;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserWorkGroup> userWorkGroup;

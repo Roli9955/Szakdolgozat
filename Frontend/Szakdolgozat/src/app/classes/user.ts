@@ -1,7 +1,6 @@
 import { Permission } from './permission';
 import { Holiday } from './holiday';
 import { Activity } from './activity';
-import { UserActivity } from './user-activity';
 import { UserWorkGroup } from './user-work-group';
 
 export class User {
@@ -18,7 +17,6 @@ export class User {
     public permission: Permission;
     public holidays: Holiday[];
     public activitys: Activity[];
-    public ownedActivity: UserActivity[];
     public userWorkGroup: UserWorkGroup[];
 
 }

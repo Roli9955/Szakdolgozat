@@ -3,6 +3,13 @@
 
             <div class="container m-md-2 px-md-3 h-100" id="calendar"></div>
 
+            <div *ngIf="selectedActivity != null" class="container p-4">
+                <b>Projekt:</b> {{ selectedActivity.workGroup.name }} <br>
+                <b>Feladat:</b> {{ selectedActivity.activityGroup.name }} <br>
+                <b>Idő:</b> {{ selectedActivityHour }}<b> Óra</b> {{ selectedActivityMin }} <b> Perc</b> <br>
+                <b>Megjegyzés:</b> {{ selectedActivity.description }} <br>
+            </div>
+
     </div>
     <div class="h-100 w-50 d-inline-block float-right border-left col px-md-5">
 
@@ -48,30 +55,25 @@
 
             <br><br>
 
-            <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <table class="table table-striped mb-0">
-                    <thead>
-                        <tr>
-                            <th scope="col">Feladat</th>
-                            <th scope="col">Idő</th>
-                            <th scope="col">Megjegyzés</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let activity of activities">
-                            <th class="w-25">{{ activity.activityGroup.name }}</th>
-                            <td>{{ activity.min }}</td>
-                            <td class="w-50">{{ activity.description }}</td>
-                            <td class="text-right w-25">
-                                <button type="button" class="btn btn-primary mr-1">Módosítás</button>
-                                <button type="button" class="btn btn-danger mr-1">Törlés</button>
-                            </td>
-                            <!-- <td><button type="button" class="btn btn-primary mr-1">Törlés</button></td> -->
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">Projekt</th>
+                        <th scope="col">Feladat</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let activity of activities" (click)="selectActivity(activity)">
+                        <th>{{ activity.workGroup.name }}</th>
+                        <th>{{ activity.activityGroup.name }}</th>
+                        <td class="text-right">
+                            <button type="button" class="btn btn-primary mr-1">🔧</button>
+                            <button type="button" class="btn btn-danger mr-1">🗑️</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
 
         </div>
