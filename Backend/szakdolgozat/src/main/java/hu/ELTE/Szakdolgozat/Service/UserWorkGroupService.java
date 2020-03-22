@@ -12,33 +12,40 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserWorkGroupService {
- 
+
     @Autowired
     private UserWorkGroupRepository userWorkGroupRepository;
-    
+
     @Autowired
     private AuthenticatedUser authenticatedUser;
-    
-    public Iterable<WorkGroup> getUserWorkGroupByDate(Integer year, Integer month, Integer day){
-        
+
+    public Iterable<WorkGroup> getUserWorkGroupByDate(Integer year, Integer month, Integer day) {
+
         Date date = Date.valueOf(year + "-" + month + "-" + day);
-        
+
         Iterable<UserWorkGroup> iUserWorkGroups = this.userWorkGroupRepository.findByUser(this.authenticatedUser.getUser());
         List<WorkGroup> workGroups = new ArrayList();
-        
-        for(UserWorkGroup uwg: iUserWorkGroups){
-            
+
+        for (UserWorkGroup uwg : iUserWorkGroups) {
+
             int dateStatusFrom = date.compareTo(uwg.getInWorkGroupFrom());
-            int dateStatusTo = date.compareTo(uwg.getInWorkGroupTo());
-            
-            if(uwg.getInWorkGroupTo() == null){
-                workGroups.add(uwg.getWorkGroup());
-            } else if(dateStatusFrom > 0){
-                
+            int dateStatusTo;
+
+            if (uwg.getInWorkGroupTo() != null) {
+                dateStatusTo = date.compareTo(uwg.getInWorkGroupTo());
+                if(dateStatusFrom >= 0 && dateStatusTo <= 0){
+                    workGroups.add(uwg.getWorkGroup());
+                }
+            } else {
+                if (dateStatusFrom >= 0) {
+                    workGroups.add(uwg.getWorkGroup());
+                }
             }
         }
         
-        return null;
+        Iterable<WorkGroup> result =  workGroups;
+
+        return result;
     }
-    
+
 }

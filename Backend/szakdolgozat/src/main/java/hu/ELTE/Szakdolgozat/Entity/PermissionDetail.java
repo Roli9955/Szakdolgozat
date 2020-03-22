@@ -3,6 +3,7 @@ package hu.ELTE.Szakdolgozat.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,5 +39,10 @@ public class PermissionDetail implements Serializable {
     @ManyToMany(mappedBy = "details", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Permission> permissions;
+    
+    @Override
+    public String toString(){
+        return this.id + " - " + this.name + " - " + this.roleTag;
+    }
     
 }

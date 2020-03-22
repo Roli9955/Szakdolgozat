@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserWorkGroupRepository extends CrudRepository<UserWorkGroup, Integer> {
     
-    Iterable<UserWorkGroup> findByUser(User user);
+    public Iterable<UserWorkGroup> findByUser(User user);
     
 }

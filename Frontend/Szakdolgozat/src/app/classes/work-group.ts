@@ -7,6 +7,5 @@ export class WorkGroup {
     public name: string;
     public scale: number;
     public activityGroup: ActivityGroup[];
-    public userWorkGroup: UserWorkGroup[];
 
 }

@@ -1,9 +1,12 @@
 <div class="h-100 row mx-md-n5" id="work-time-container">
-    <div class="h-100 w-50 d-inline-block float-left col px-md-5">
+    <div class="h-100 w-50 d-inline-block float-left col px-md-5 p-3">
 
             <div class="container m-md-2 px-md-3 h-100" id="calendar"></div>
 
-            <div *ngIf="selectedActivity != null" class="container p-4">
+            <br>
+            <hr>
+
+            <div *ngIf="selectedActivity != null" class="container m-4">
                 <b>Projekt:</b> {{ selectedActivity.workGroup.name }} <br>
                 <b>Feladat:</b> {{ selectedActivity.activityGroup.name }} <br>
                 <b>Idő:</b> {{ selectedActivityHour }}<b> Óra</b> {{ selectedActivityMin }} <b> Perc</b> <br>
@@ -13,7 +16,7 @@
     </div>
     <div class="h-100 w-50 d-inline-block float-right border-left col px-md-5">
 
-        <div class="mr-5">
+        <div class="mr-5" [formGroup]="activityForm">
             <br>
             <h2 class="text-center" id="date"></h2>
 
@@ -21,22 +24,29 @@
 
             <div class="input-group">
                 <div class="input-group-prepend">
+                    <span class="input-group-text" id="">Projekt</span>
+                </div>
+                <select formControlName="workGroup" class="custom-select" (change)="selectWorkGroup()">
+                    <option *ngFor="let workGroup of workGroups" value="{{ workGroup.id }}">{{ workGroup.name }}</option>
+                </select>
+                <div class="input-group-prepend">
                     <span class="input-group-text" id="">Feladat</span>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01">
-                    <option selected>Válassz</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select formControlName="activityGroup" class="custom-select">
+                    <option *ngFor="let activityGroup of selectedWorkGroup.activityGroup" value="{{ activityGroup.id }}">{{ activityGroup.name }}</option>
                 </select>
+                
+            </div>
+            <br>
+            <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="">Idő</span>
                 </div>
-                <input type="text" class="form-control">
+                <input formControlName="hour" type="text" class="form-control">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="">Óra</span>
                 </div>
-                <input type="text" class="form-control">
+                <input formControlName="min" type="text" class="form-control">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="">Perc</span>
                 </div>
@@ -46,12 +56,12 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Megjegyzés</span>
                 </div>
-                <textarea class="form-control" aria-label="With textarea"></textarea>
+                <textarea formControlName="comment" class="form-control" aria-label="With textarea"></textarea>
             </div>
 
             <br><br>
-            <button type="button" class="btn btn-primary mr-3">Mentés</button>
-            <button type="button" class="btn btn-primary">Törlés</button>
+            <button type="button" class="btn btn-primary mr-3" (click)="addNewActivity()">Mentés</button>
+            <button type="button" class="btn btn-primary" (click)="clearForm()">Törlés</button>
 
             <br><br>
 
@@ -69,7 +79,8 @@
                         <th>{{ activity.activityGroup.name }}</th>
                         <td class="text-right">
                             <button type="button" class="btn btn-primary mr-1">🔧</button>
-                            <button type="button" class="btn btn-danger mr-1">🗑️</button>
+                            <button type="button" class="btn btn-danger mr-1" data-toggle="modal"
+                            data-target="#deleteActivity" (click)="selectForDelete(activity)">🗑️</button>
                         </td>
                     </tr>
                 </tbody>
@@ -78,5 +89,29 @@
 
         </div>
 
+    </div>
+</div>
+
+<div class="modal fade" id="deleteActivity" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cég törlése</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Biztosan törölni szeretné a következő tevékenységet: 
+                <br>
+                <b>Projekt:</b> {{ selectedForDelete.workGroup.name }} <br>
+                <b>Feladat:</b> {{ selectedForDelete.activityGroup.name }} <br>
+                <b>Megjegyzés:</b> {{ selectedForDelete.description }} <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Törlés</button>
+            </div>
+        </div>
     </div>
 </div>

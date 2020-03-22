@@ -26,7 +26,6 @@ public class UserWorkGroupController {
     ){
         Iterable<WorkGroup> iWorkGroups = this.userWorkGroupService.getUserWorkGroupByDate(year, month, day);
         return ResponseEntity.ok(iWorkGroups);
-        
     }
     
 }

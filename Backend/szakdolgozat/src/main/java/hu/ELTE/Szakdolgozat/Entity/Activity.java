@@ -57,7 +57,6 @@ public class Activity implements Serializable {
     @JoinColumn
     @ManyToOne
     @NotNull
-    @JsonIgnore
     private User user;
     
     @JoinColumn
