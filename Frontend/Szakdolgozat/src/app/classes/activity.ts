@@ -1,4 +1,5 @@
-import { UserActivity } from './user-activity';
+import { ActivityGroup } from './activity-group';
+import { WorkGroup } from './work-group';
 
 export class Activity {
 
@@ -10,6 +11,7 @@ export class Activity {
     public isCompleted: boolean;
     public locked: boolean;
     public date: Date;
-    public userActivity: UserActivity[];
-
+    public activityGroup: ActivityGroup;
+    public workGroup: WorkGroup;
+    
 }

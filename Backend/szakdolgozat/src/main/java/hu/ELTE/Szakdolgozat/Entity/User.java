@@ -1,5 +1,6 @@
 package hu.ELTE.Szakdolgozat.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -63,15 +64,19 @@ public class User implements Serializable {
     private Permission permission;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Holiday> holidays;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<UserActivity> activitys;
+    @JsonIgnore
+    private List<Activity> activitys;
     
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<UserActivity> ownedActivity;
+    @JsonIgnore
+    private List<Activity> ownedActivity;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<UserWorkGroup> userWorkGroup;
     
     

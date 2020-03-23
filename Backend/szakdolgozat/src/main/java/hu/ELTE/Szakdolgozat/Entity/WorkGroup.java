@@ -1,5 +1,6 @@
 package hu.ELTE.Szakdolgozat.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -41,6 +42,11 @@ public class WorkGroup implements Serializable {
     private List<ActivityGroup>  activityGroup;
     
     @OneToMany(mappedBy = "workGroup", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<UserWorkGroup> userWorkGroup;
+    
+    @OneToMany(mappedBy = "workGroup", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Activity> activities;
     
 }
