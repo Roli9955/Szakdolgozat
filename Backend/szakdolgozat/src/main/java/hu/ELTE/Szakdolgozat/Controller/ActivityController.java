@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,16 @@ public class ActivityController {
             return ResponseEntity.badRequest().build();
         } else {
             return ResponseEntity.ok(deleted);
+        }
+    }
+    
+    @PutMapping("/edit")
+    public ResponseEntity<Activity> editActivity(@RequestBody() Activity activity){
+        Activity edited = this.activityService.editActivity(activity);
+        if(edited == null){
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(edited);
         }
     }
     

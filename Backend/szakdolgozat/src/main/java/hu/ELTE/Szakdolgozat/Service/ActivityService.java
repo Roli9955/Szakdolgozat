@@ -6,10 +6,13 @@ import hu.ELTE.Szakdolgozat.Entity.ActivityGroup;
 import hu.ELTE.Szakdolgozat.Entity.PermissionDetail;
 import hu.ELTE.Szakdolgozat.Entity.User;
 import hu.ELTE.Szakdolgozat.Entity.UserWorkGroup;
+import hu.ELTE.Szakdolgozat.Entity.WorkGroup;
+import hu.ELTE.Szakdolgozat.Repository.ActivityGroupRepository;
 import hu.ELTE.Szakdolgozat.Repository.ActivityRepository;
 import hu.ELTE.Szakdolgozat.Repository.PermissionDetailRepository;
 import hu.ELTE.Szakdolgozat.Repository.UserRepository;
 import hu.ELTE.Szakdolgozat.Repository.UserWorkGroupRepository;
+import hu.ELTE.Szakdolgozat.Repository.WorkGroupRepository;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +37,18 @@ public class ActivityService {
 
     @Autowired
     private PermissionDetailRepository permissionDetailRepository;
+    
+    @Autowired
+    private WorkGroupRepository workGroupRepository;
+    
+    @Autowired
+    private ActivityGroupRepository activityGroupRepository;
 
     public Iterable<Activity> getActivitiesByDate(Integer year, Integer month, Integer day) {
 
         Date date = Date.valueOf(year + "-" + month + "-" + day);
 
-        Iterable<Activity> iUserActivities = this.activityRepository.findByUser(this.authenticatedUser.getUser());
+        Iterable<Activity> iUserActivities = this.activityRepository.findByOwner(this.authenticatedUser.getUser());
         List<Activity> iActivity = new ArrayList();
 
         for (Activity ua : iUserActivities) {
@@ -114,6 +123,35 @@ public class ActivityService {
         } else {
             return null;
         }
+    }
+    
+    public Activity editActivity(Activity activity){
+        
+        Optional<Activity> oActivity = this.activityRepository.findById(activity.getId());
+        if(!oActivity.isPresent()) return null;
+        
+        if(this.authenticatedUser.getUser().getId().equals(oActivity.get().getOwner().getId())){
+            if(!activity.getWorkGroup().getId().equals(oActivity.get().getWorkGroup().getId())){
+                Optional<WorkGroup> oWorkGroup = this.workGroupRepository.findById(activity.getWorkGroup().getId());
+                if(!oWorkGroup.isPresent()) return null;
+                oActivity.get().setWorkGroup(oWorkGroup.get());
+            }
+            
+            //edit
+            
+            if(!activity.getActivityGroup().getId().equals(oActivity.get().getActivityGroup().getId())){
+                Optional<ActivityGroup> oActivityGroup = this.activityGroupRepository.findById(activity.getId());
+                if(!oActivityGroup.isPresent()) return null;
+                oActivity.get().setActivityGroup(oActivityGroup.get());
+            }
+            
+            oActivity.get().setMin(activity.getMin());
+            oActivity.get().setDescription(activity.getDescription());
+            
+            return this.activityRepository.save(oActivity.get());
+        }
+        
+        return null;
     }
 
 }
