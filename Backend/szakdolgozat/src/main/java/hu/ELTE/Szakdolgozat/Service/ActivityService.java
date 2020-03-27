@@ -6,10 +6,13 @@ import hu.ELTE.Szakdolgozat.Entity.ActivityGroup;
 import hu.ELTE.Szakdolgozat.Entity.PermissionDetail;
 import hu.ELTE.Szakdolgozat.Entity.User;
 import hu.ELTE.Szakdolgozat.Entity.UserWorkGroup;
+import hu.ELTE.Szakdolgozat.Entity.WorkGroup;
+import hu.ELTE.Szakdolgozat.Repository.ActivityGroupRepository;
 import hu.ELTE.Szakdolgozat.Repository.ActivityRepository;
 import hu.ELTE.Szakdolgozat.Repository.PermissionDetailRepository;
 import hu.ELTE.Szakdolgozat.Repository.UserRepository;
 import hu.ELTE.Szakdolgozat.Repository.UserWorkGroupRepository;
+import hu.ELTE.Szakdolgozat.Repository.WorkGroupRepository;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +37,18 @@ public class ActivityService {
 
     @Autowired
     private PermissionDetailRepository permissionDetailRepository;
+    
+    @Autowired
+    private WorkGroupRepository workGroupRepository;
+    
+    @Autowired
+    private ActivityGroupRepository activityGroupRepository;
 
     public Iterable<Activity> getActivitiesByDate(Integer year, Integer month, Integer day) {
 
         Date date = Date.valueOf(year + "-" + month + "-" + day);
 
-        Iterable<Activity> iUserActivities = this.activityRepository.findByUser(this.authenticatedUser.getUser());
+        Iterable<Activity> iUserActivities = this.activityRepository.findByOwner(this.authenticatedUser.getUser());
         List<Activity> iActivity = new ArrayList();
 
         for (Activity ua : iUserActivities) {
@@ -64,7 +73,13 @@ public class ActivityService {
                         activity.setOwner(this.authenticatedUser.getUser());
                         activity.setActivityGroup(ag);
                         activity.setWorkGroup(uwg.getWorkGroup());
-                        if (activity.getIsTask()) {
+                        activity.setUser(this.authenticatedUser.getUser());
+                        activity.setDeadline(null);
+                        activity.setIsCompleted(false);
+                        activity.setIsTask(false);
+
+                        // For Task
+                        /*if (activity.getIsTask()) {
                             Optional<PermissionDetail> oPermission = this.permissionDetailRepository.findByRoleTag("ROLE_ADD_TASK");
                             if (!oPermission.isPresent()) {
                                 return null;
@@ -84,8 +99,7 @@ public class ActivityService {
                             }
                             if(l) return null;
                         } else {
-                            activity.setUser(this.authenticatedUser.getUser());
-                        }
+                        }*/
 
                         Activity result = this.activityRepository.save(activity);
                         result.setUser(null);
@@ -114,6 +128,37 @@ public class ActivityService {
         } else {
             return null;
         }
+    }
+    
+    public Activity editActivity(Activity activity){
+        
+        Optional<Activity> oActivity = this.activityRepository.findById(activity.getId());
+        if(!oActivity.isPresent()) return null;
+
+        if(!this.authenticatedUser.getUser().getId().equals(oActivity.get().getOwner().getId())) return null;
+
+        Optional<WorkGroup> oWorkGroup = this.workGroupRepository.findById(activity.getWorkGroup().getId());
+        if(!oWorkGroup.isPresent()) return null;
+        oActivity.get().setWorkGroup(oWorkGroup.get());
+
+        boolean l = true;
+        for(ActivityGroup ag: oWorkGroup.get().getActivityGroup()){
+            if(activity.getActivityGroup().getId().equals(ag.getId())){
+                oActivity.get().setActivityGroup(ag);
+                l = false;
+            }
+        }
+        if(l) return null;
+
+        oActivity.get().setMin(activity.getMin());
+        oActivity.get().setDescription(activity.getDescription());
+
+        Activity result = this.activityRepository.save(oActivity.get());
+        result.setUser(null);
+        result.setActivityGroup(null);
+        result.setWorkGroup(null);
+        return result;
+
     }
 
 }

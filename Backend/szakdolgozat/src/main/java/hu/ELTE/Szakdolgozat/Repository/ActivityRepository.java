@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ActivityRepository extends CrudRepository<Activity, Integer> {
     
-    public Iterable<Activity> findByUser(User user);
+    public Iterable<Activity> findByOwner(User user);
     
 }

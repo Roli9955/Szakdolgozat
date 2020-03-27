@@ -40,16 +40,13 @@
             <br>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="">Idő</span>
+                    <span class="input-group-text" id="">Óra</span>
                 </div>
                 <input formControlName="hour" type="text" class="form-control">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="">Óra</span>
-                </div>
-                <input formControlName="min" type="text" class="form-control">
-                <div class="input-group-prepend">
                     <span class="input-group-text" id="">Perc</span>
                 </div>
+                <input formControlName="min" type="text" class="form-control">
             </div>
             <br><br>
             <div class="input-group">
@@ -60,7 +57,8 @@
             </div>
 
             <br><br>
-            <button type="button" class="btn btn-primary mr-3" (click)="addNewActivity()">Mentés</button>
+            <button *ngIf="!edit" type="button" class="btn btn-primary mr-3" (click)="addNewActivity()">Mentés</button>
+            <button *ngIf="edit" type="button" class="btn btn-primary mr-3" (click)="uploadEdit()">Mentés</button>
             <button type="button" class="btn btn-primary" (click)="clearForm()">Törlés</button>
 
             <br><br>
@@ -78,7 +76,7 @@
                         <th>{{ activity.workGroup.name }}</th>
                         <th>{{ activity.activityGroup.name }}</th>
                         <td class="text-right">
-                            <button type="button" class="btn btn-primary mr-1">🔧</button>
+                            <button type="button" class="btn btn-primary mr-1" (click)="editActivity(activity)">🔧</button>
                             <button type="button" class="btn btn-danger mr-1" data-toggle="modal"
                             data-target="#deleteActivity" (click)="selectForDelete(activity)">🗑️</button>
                         </td>
@@ -96,14 +94,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cég törlése</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tevékenység törlése</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 Biztosan törölni szeretné a következő tevékenységet: 
-                <br>
+                <br><br>
                 <b>Projekt:</b> {{ selectedForDelete.workGroup.name }} <br>
                 <b>Feladat:</b> {{ selectedForDelete.activityGroup.name }} <br>
                 <b>Megjegyzés:</b> {{ selectedForDelete.description }} <br>
