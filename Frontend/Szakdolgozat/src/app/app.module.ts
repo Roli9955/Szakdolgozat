@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HolidayComponent } from './holiday/holiday.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     WorkTimeComponent,
     CalendarComponent,
     UploadWorkTimeComponent,
-    WorkTimeComponentDialog
+    WorkTimeComponentDialog,
+    HolidayComponent
   ],
   imports: [
     BrowserModule,
