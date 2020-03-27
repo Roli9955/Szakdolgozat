@@ -20,4 +20,8 @@ export class ActivityService {
   deleteActivity(activityId: number): Promise<Activity>{
     return this.httpService.delete(this.url + "/delete/" +  activityId);
   }
+
+  editActivity(activity: Activity): Promise<Activity>{
+    return this.httpService.put(this.url + "/edit", activity);
+  }
 }

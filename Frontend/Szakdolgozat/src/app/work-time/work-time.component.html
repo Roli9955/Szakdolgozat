@@ -57,7 +57,8 @@
             </div>
 
             <br><br>
-            <button type="button" class="btn btn-primary mr-3" (click)="addNewActivity()">Mentés</button>
+            <button *ngIf="!edit" type="button" class="btn btn-primary mr-3" (click)="addNewActivity()">Mentés</button>
+            <button *ngIf="edit" type="button" class="btn btn-primary mr-3" (click)="uploadEdit()">Mentés</button>
             <button type="button" class="btn btn-primary" (click)="clearForm()">Törlés</button>
 
             <br><br>

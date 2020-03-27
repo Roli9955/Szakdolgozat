@@ -73,7 +73,13 @@ public class ActivityService {
                         activity.setOwner(this.authenticatedUser.getUser());
                         activity.setActivityGroup(ag);
                         activity.setWorkGroup(uwg.getWorkGroup());
-                        if (activity.getIsTask()) {
+                        activity.setUser(this.authenticatedUser.getUser());
+                        activity.setDeadline(null);
+                        activity.setIsCompleted(false);
+                        activity.setIsTask(false);
+
+                        // For Task
+                        /*if (activity.getIsTask()) {
                             Optional<PermissionDetail> oPermission = this.permissionDetailRepository.findByRoleTag("ROLE_ADD_TASK");
                             if (!oPermission.isPresent()) {
                                 return null;
@@ -93,8 +99,7 @@ public class ActivityService {
                             }
                             if(l) return null;
                         } else {
-                            activity.setUser(this.authenticatedUser.getUser());
-                        }
+                        }*/
 
                         Activity result = this.activityRepository.save(activity);
                         result.setUser(null);
@@ -129,29 +134,31 @@ public class ActivityService {
         
         Optional<Activity> oActivity = this.activityRepository.findById(activity.getId());
         if(!oActivity.isPresent()) return null;
-        
-        if(this.authenticatedUser.getUser().getId().equals(oActivity.get().getOwner().getId())){
-            if(!activity.getWorkGroup().getId().equals(oActivity.get().getWorkGroup().getId())){
-                Optional<WorkGroup> oWorkGroup = this.workGroupRepository.findById(activity.getWorkGroup().getId());
-                if(!oWorkGroup.isPresent()) return null;
-                oActivity.get().setWorkGroup(oWorkGroup.get());
+
+        if(!this.authenticatedUser.getUser().getId().equals(oActivity.get().getOwner().getId())) return null;
+
+        Optional<WorkGroup> oWorkGroup = this.workGroupRepository.findById(activity.getWorkGroup().getId());
+        if(!oWorkGroup.isPresent()) return null;
+        oActivity.get().setWorkGroup(oWorkGroup.get());
+
+        boolean l = true;
+        for(ActivityGroup ag: oWorkGroup.get().getActivityGroup()){
+            if(activity.getActivityGroup().getId().equals(ag.getId())){
+                oActivity.get().setActivityGroup(ag);
+                l = false;
             }
-            
-            //edit
-            
-            if(!activity.getActivityGroup().getId().equals(oActivity.get().getActivityGroup().getId())){
-                Optional<ActivityGroup> oActivityGroup = this.activityGroupRepository.findById(activity.getId());
-                if(!oActivityGroup.isPresent()) return null;
-                oActivity.get().setActivityGroup(oActivityGroup.get());
-            }
-            
-            oActivity.get().setMin(activity.getMin());
-            oActivity.get().setDescription(activity.getDescription());
-            
-            return this.activityRepository.save(oActivity.get());
         }
-        
-        return null;
+        if(l) return null;
+
+        oActivity.get().setMin(activity.getMin());
+        oActivity.get().setDescription(activity.getDescription());
+
+        Activity result = this.activityRepository.save(oActivity.get());
+        result.setUser(null);
+        result.setActivityGroup(null);
+        result.setWorkGroup(null);
+        return result;
+
     }
 
 }
