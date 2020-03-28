@@ -3,7 +3,7 @@ import { WorkTimeService } from '../services/work-time.service';
 import { Activity } from '../classes/activity';
 import { WorkGroup } from '../classes/work-group';
 import { UserWorkGroupService } from '../services/user-work-group.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { ActivityService } from '../services/activity.service';
 import { ActivityGroup } from '../classes/activity-group';
 import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';

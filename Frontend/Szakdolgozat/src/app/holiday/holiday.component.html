@@ -1,9 +1,38 @@
-<div class="h-100 row mx-md-n5">
-    <div class="h-100 w-50 d-inline-block float-left col px-md-5">
-        left
+<div class="h-100">
+    <div class="h-100 w-50 d-inline-block float-left p-md-4">
+        
+        <h4 class="text-center">Szabadság kiadása</h4>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Év</span>
+            </div>
+            <select class="custom-select">
+                <option *ngFor="let year of years" value="{{year}}">{{year}}</option>
+            </select>
+            <div class="input-group-prepend">
+                <span class="input-group-text">Dolgozó</span>
+            </div>
+            <select class="custom-select">
+                <option *ngFor="let user of users" value="{{user.id}}">{{user.lastName}} {{user.firstName}}</option>
+            </select>
+            
+        </div>
+
     </div>
 
-    <div class="h-100 w-50 d-inline-block float-right border-left col px-md-5">
-        right
+    <div class="h-100 w-50 d-inline-block float-right border-left p-md-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Név</th>
+                    <th scope="col">Időpont</th>
+                    <th scope="col">Nap</th>
+                </tr>
+            </thead>
+            <tbody id="usersHoliday"></tbody>
+        </table>
     </div>
 </div>

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,9 +34,14 @@ public class Holiday implements Serializable {
     @Column
     @NotNull
     private Date holidayTo;
+
+    @Column
+    @NotNull
+    private Integer days;
     
     @JoinColumn
     @ManyToOne
+    @JsonIgnore
     private User user;
     
 }

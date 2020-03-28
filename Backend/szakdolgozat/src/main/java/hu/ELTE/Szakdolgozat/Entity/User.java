@@ -64,7 +64,6 @@ public class User implements Serializable {
     private Permission permission;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Holiday> holidays;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
+import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HolidayService {
+export class UserService {
 
-  private url: string = "holiday";
+  private url: string = "user";
 
   constructor(
     private httpService: HttpService
   ) { }
 
-  getYears(): Promise<number[]>{
-    return this.httpService.get(this.url + "/year");
+  getUsersForHoliday(): Promise<User[]>{
+    return this.httpService.get(this.url + "/holiday");
   }
-
 }

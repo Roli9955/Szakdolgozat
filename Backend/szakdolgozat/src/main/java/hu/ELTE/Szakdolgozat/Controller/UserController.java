@@ -19,10 +19,16 @@ public class UserController {
     private UserService userService;
     
     @GetMapping("")
-    @Secured({"ROLE_ADMINISTRATION"})
+    //@Secured({"ROLE_HOLIDAY_ADMIN"})
     public ResponseEntity<Iterable<User>> getUsers(){
         Iterable<User> iUser = this.userService.getAllUser();
         return ResponseEntity.ok(iUser);
     }
-    
+
+    @GetMapping("/holiday")
+    public ResponseEntity<Iterable<User>> getUserForHoliday(){
+        Iterable<User> iUser = this.userService.getUsersForHoliday();
+        return ResponseEntity.ok(iUser);
+    }
+
 }

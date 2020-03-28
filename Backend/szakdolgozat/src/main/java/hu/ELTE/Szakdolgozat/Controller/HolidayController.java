@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/holiday")
@@ -21,6 +23,12 @@ public class HolidayController {
     public ResponseEntity<Iterable<Holiday>> getHolidayByUser(){
         Iterable<Holiday> iHoliday = this.holidayService.getHolidayByUser();
         return  ResponseEntity.ok(iHoliday);
+    }
+
+    @GetMapping("/year")
+    public ResponseEntity<List<Integer>> getYears(){
+        List<Integer> years = this.holidayService.getYears();
+        return  ResponseEntity.ok(years);
     }
 
 }
