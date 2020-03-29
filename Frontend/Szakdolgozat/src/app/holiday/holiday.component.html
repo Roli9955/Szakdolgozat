@@ -1,9 +1,92 @@
-<div class="h-100 row mx-md-n5">
-    <div class="h-100 w-50 d-inline-block float-left col px-md-5">
-        left
+<div class="h-100">
+    <div class="h-100 w-50 d-inline-block float-left p-md-4" [formGroup]="holidayForm">
+        
+        <h4 class="text-center">Szabadság tervező</h4>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Év</span>
+            </div>
+            <select class="custom-select" formControlName="year" (change)="selectYear()">
+                <option *ngFor="let year of years" value="{{year}}">{{year}}</option>
+            </select>
+            <div class="input-group-prepend">
+                <span class="input-group-text">Dolgozó</span>
+            </div>
+            <select class="custom-select" (change)="selectUser()" formControlName="user">
+                <option *ngFor="let user of users" value="{{user.id}}">{{user.lastName}} {{user.firstName}}</option>
+            </select>
+            
+        </div>
+
+        <br>
+
+        <b>Összes szabadság:</b> {{ selectedUser.maxHoliday }} nap
+        <br>
+        <b>Kivett szabadságok szám:</b> {{ selectedUser.onHolidays }} nap
+        <br>
+        <b>Kiadható szabadságok száma:</b> {{ selectedUser.maxHoliday - selectedUser.onHolidays }} nap
+
+        <br><br><hr><br>
+
+        <h5>Szabadság kiadása</h5>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Első nap</span>
+            </div>
+            <input class="form-control" type="date" formControlName="from">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Utolsó nap</span>
+            </div>
+            <input class="form-control" type="date" formControlName="to">
+        </div>
+
+        <br><br>
+    
+        <button type="button" class="btn btn-primary mr-3" (click)="addHoliday()">Mentés</button>
     </div>
 
-    <div class="h-100 w-50 d-inline-block float-right border-left col px-md-5">
-        right
+
+    <div class="h-100 w-50 d-inline-block float-right border-left p-md-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Név</th>
+                    <th scope="col">Időpont</th>
+                    <th scope="col">Nap</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="usersHoliday"></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteHoliday" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Szabadság törlése</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Biztosan törölni szeretné a következő szabadságot: 
+                <br><br>
+                <b>Név:</b> {{ userForSelected.lastName  }} {{ userForSelected.firstName  }}<br>
+                <b>Időszak:</b> {{ selectedForDelete.holidayFrom }} -  {{ selectedForDelete.holidayTo }} <br>
+                <b>Napok:</b> {{ selectedForDelete.days }} <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Törlés</button>
+            </div>
+        </div>
     </div>
 </div>

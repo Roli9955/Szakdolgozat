@@ -8,7 +8,7 @@ import { TaskbarComponent } from './taskbar/taskbar.component';
 import { ContentComponent } from './content/content.component';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { MainPageComponent } from './main-page/main-page.component';
-import { WorkTimeComponent, WorkTimeComponentDialog } from './work-time/work-time.component';
+import { WorkTimeComponent } from './work-time/work-time.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { UploadWorkTimeComponent } from './upload-work-time/upload-work-time.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HolidayComponent } from './holiday/holiday.component';
+import { SnackComponent, MySnack } from './snack/snack.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +30,9 @@ import { HolidayComponent } from './holiday/holiday.component';
     WorkTimeComponent,
     CalendarComponent,
     UploadWorkTimeComponent,
-    WorkTimeComponentDialog,
-    HolidayComponent
+    HolidayComponent,
+    SnackComponent,
+    MySnack
   ],
   imports: [
     BrowserModule,
@@ -41,10 +43,10 @@ import { HolidayComponent } from './holiday/holiday.component';
     BrowserAnimationsModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [SnackComponent],
   bootstrap: [AppComponent],
   entryComponents: [
-    WorkTimeComponentDialog
+    MySnack
   ]
 })
 export class AppModule { }

@@ -21,4 +21,17 @@ public class UserService extends UtilsService{
         
         return iUsers;
     }
+
+    public Iterable<User> getUsersForHoliday(){
+        Iterable<User> iUser = this.userRepository.findAllByOrderByLastName();
+        for(User u: iUser){
+            u.setEmail(null);
+            u.setLoginName(null);
+            u.setPassword(null);
+            u.setLastLogin(null);
+            u.setCanLogIn(null);
+            u.setPermission(null);
+        }
+        return iUser;
+    }
 }
