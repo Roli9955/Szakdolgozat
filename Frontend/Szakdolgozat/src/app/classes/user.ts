@@ -19,4 +19,6 @@ export class User {
     public activitys: Activity[];
     public userWorkGroup: UserWorkGroup[];
 
+    public onHolidays: number;
+
 }

@@ -4,10 +4,7 @@ import hu.ELTE.Szakdolgozat.Entity.Holiday;
 import hu.ELTE.Szakdolgozat.Service.HolidayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,26 @@ public class HolidayController {
     public ResponseEntity<List<Integer>> getYears(){
         List<Integer> years = this.holidayService.getYears();
         return  ResponseEntity.ok(years);
+    }
+
+    @PostMapping("/add/user/{id}")
+    public ResponseEntity<Holiday> addNewHolidayByUserId(@PathVariable("id") Integer userId, @RequestBody Holiday holiday){
+        Holiday res = this.holidayService.addNewHolidayByUserId(userId, holiday);
+        if(res == null){
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(res);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Holiday> deleteHoliday(@PathVariable("id") Integer holidayId){
+        Holiday holiday = this.holidayService.deleteHoliday(holidayId);
+        if(holiday == null){
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(holiday);
+        }
     }
 
 }

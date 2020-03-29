@@ -7,6 +7,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ActivityService } from '../services/activity.service';
 import { ActivityGroup } from '../classes/activity-group';
 import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { SnackComponent } from '../snack/snack.component';
 
 
 export interface SnackBarMsg {
@@ -50,14 +51,14 @@ export class WorkTimeComponent implements OnInit {
     hour: new FormControl(),
     min: new FormControl(),
     comment: new FormControl()
-  })
+  });
 
   constructor(
     private ref: ElementRef,
     private workTimeService: WorkTimeService,
     private userWorkGroupService: UserWorkGroupService,
     private activitySerevice: ActivityService,
-    private snackBar: MatSnackBar
+    private snackBar: SnackComponent
   ) {
     const date = new Date();
     this.actualYear = date.getFullYear();
@@ -240,25 +241,16 @@ export class WorkTimeComponent implements OnInit {
         if (activity != null) {
           this.updateForm();
 
-          this.sendMsg("Tevékenység sikeresen rögzítve");
+          this.snackBar.sendMsg("Tevékenység sikeresen rögzítve");
 
           this.clearForm();
         } else {
-          this.sendMsg("Tevékenység rögzítése sikertelen");
+          this.snackBar.sendMsg("Tevékenység rögzítése sikertelen");
         }
       });
 
     }
 
-  }
-
-  sendMsg(msg: string) {
-    this.snackBar.openFromComponent(WorkTimeComponentDialog, {
-      duration: this.duration * 1000,
-      data: {
-        msg: msg
-      }
-    });
   }
 
   setSelectedActivityToDefault() {
@@ -277,7 +269,7 @@ export class WorkTimeComponent implements OnInit {
 
     this.updateForm();
 
-    this.sendMsg("Tevékenység sikeresen törlésre került");
+    this.snackBar.sendMsg("Tevékenység sikeresen törlésre került");
     this.selectedForDeleteToDefault();
     this.setSelectedActivityToDefault();
   }
@@ -321,7 +313,7 @@ export class WorkTimeComponent implements OnInit {
     const comment = this.activityForm.controls['comment'].value
 
     if (!workGroup || !activityGroup || !hour || !min || !comment) {
-      this.sendMsg("Minden mező kitöltése kötelező!");
+      this.snackBar.sendMsg("Minden mező kitöltése kötelező!");
       return false;
     }
 
@@ -343,32 +335,15 @@ export class WorkTimeComponent implements OnInit {
         if (activity != null) {
 
           this.updateForm();
-          this.sendMsg("Tevékenység sikeresen modosításra került");
+          this.snackBar.sendMsg("Tevékenység sikeresen modosításra került");
           this.clearForm();
           this.edit = false;
 
         } else {
-          this.sendMsg("Tevékenység modosítása nem sikerült");
+          this.snackBar.sendMsg("Tevékenység modosítása nem sikerült");
         }
       });
     }
-  }
-
-}
-
-@Component({
-  selector: 'app-work-time-dialog',
-  templateUrl: './work-time-dialog.component.html',
-  styleUrls: ['./work-time.component.css']
-})
-export class WorkTimeComponentDialog {
-
-  public msg: string;
-
-  constructor(
-    @Inject(MAT_SNACK_BAR_DATA) public data: SnackBarMsg
-  ) {
-    this.msg = this.data.msg;
   }
 
 }
