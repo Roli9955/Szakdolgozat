@@ -6,7 +6,6 @@ import { UserWorkGroupService } from '../services/user-work-group.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivityService } from '../services/activity.service';
 import { ActivityGroup } from '../classes/activity-group';
-import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { SnackComponent } from '../snack/snack.component';
 
 
@@ -218,6 +217,10 @@ export class WorkTimeComponent implements OnInit {
     for (let workGroup of this.workGroups) {
       if (workGroup.id == workGroupId) {
         this.selectedWorkGroup = workGroup;
+        this.selectedWorkGroup.activityGroup.forEach(ag => {
+          ag.name = ag.name.replace(new RegExp(" - ", "g"), "");
+        });
+        this.treeSort();
         this.activityForm.controls['activityGroup'].setValue(workGroup.activityGroup[0].id);
         return;
       }
@@ -345,5 +348,29 @@ export class WorkTimeComponent implements OnInit {
       });
     }
   }
+
+  treeSort() {
+    let activityGroup: ActivityGroup[] = this.selectedWorkGroup.activityGroup;
+    this.selectedWorkGroup.activityGroup = []
+		for (let i = 0; i < activityGroup.length; i++) {
+			if (activityGroup[i].parent == null) {
+        let root = activityGroup[i];
+        this.selectedWorkGroup.activityGroup.push(root);
+				this.inorder(root, " - ", activityGroup);
+			}
+		}
+	}
+
+	inorder(root: ActivityGroup, deep: string, activityGroup: ActivityGroup[]) {
+		for (let i = 0; i < activityGroup.length; i++) {
+			if (activityGroup[i].parent == null) continue;
+			if (activityGroup[i].parent.id == root.id) {
+				let root = activityGroup[i];
+        root.name = deep + root.name;
+        this.selectedWorkGroup.activityGroup.push(root);
+				this.inorder(root, deep + " - ", activityGroup);
+			}
+		}
+	}
 
 }

@@ -6,6 +6,5 @@ export class ActivityGroup {
     public parent: ActivityGroup;
     public name: string;
     public canAddChild: boolean;
-    public canAddActivity: boolean;
 
 }

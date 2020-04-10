@@ -42,9 +42,9 @@ public class ActivityGroup implements Serializable {
     @NotNull
     private Boolean canAddChild;
     
-    @Column
+    /*@Column
     @NotNull
-    private Boolean canAddActivity;
+    private Boolean canAddActivity;*/
     
     @OneToMany(mappedBy = "activityGroup", cascade = CascadeType.ALL)
     @JsonIgnore

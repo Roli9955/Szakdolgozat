@@ -48,6 +48,7 @@ public class User implements Serializable {
     
     @Column
     @NotNull
+    @JsonIgnore
     private String password;
     
     @Column
@@ -58,6 +59,11 @@ public class User implements Serializable {
     
     @Column
     private Boolean canLogIn;
+
+    @Column
+    @NotNull
+    @JsonIgnore
+    private Boolean deleted;
     
     @JoinColumn
     @ManyToOne

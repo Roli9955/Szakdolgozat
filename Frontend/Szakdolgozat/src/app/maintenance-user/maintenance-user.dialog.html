@@ -1,0 +1,36 @@
+<h3>
+    Felhasználó adatai 
+    <button type="button" class="btn btn-primary mr-2" (click)="edit()">🔧</button>
+    <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#deleteUser" (click)="delete()">🗑️</button>
+</h3>
+<hr>
+<div class="w-50 float-left">
+    <b>Vezetéknév: </b>{{ user.lastName }}
+    <br> 
+    <b>Keresztnév: </b>{{ user.firstName }}
+    <br>
+    <b>Bejelentkezési név: </b>{{ user.loginName }}
+    <br>
+    <b>E-mail cím: </b>{{ user.email }}
+    <br>
+    <b>Utolsó bejelentkezés: </b>{{ user.lastLogin | date:'yyyy. MM. dd. HH:mm' }}
+    <br>
+    <b>Engedélyezett: </b>{{ user.canLogIn ? "✔️" : "❌" }}
+    <br>
+    <b>Összes szabadság: </b>{{ user.maxHoliday }}
+    <br>
+    <b>Jogosultságok: </b>
+    <br>
+    <ul>
+        <li *ngIf="user.permission.details?.length == 0">Nincs hozzárendelt jogosultság</li>
+        <li *ngFor="let detail of user.permission.details">{{ detail.name }}</li>
+    </ul>
+</div>
+<div class="w-50 float-right">
+    <b>Projektek: </b>
+    <br>
+    <ul>
+        <li *ngIf="userWorkGroups?.length == 0">Nincs hozzárendelt projekt</li>
+        <li *ngFor="let userWorkGroup of userWorkGroups">{{ userWorkGroup.workGroup.name }}: {{ userWorkGroup.inWorkGroupFrom }} - {{ userWorkGroup.inWorkGroupTo }}</li>
+    </ul>
+</div>

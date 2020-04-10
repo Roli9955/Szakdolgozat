@@ -1,0 +1,26 @@
+<h3>
+    Projekt adatai 
+    <button type="button" class="btn btn-primary mr-2" (click)="edit()">🔧</button>
+    <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#deleteProject" (click)="closeDialog()">🗑️</button>
+</h3>
+<hr>
+<div class="w-50 float-left">
+    <b>Név: </b>{{ project.name }}
+    <br> 
+    <b>Arány: </b>{{ project.scale }}
+    <br>
+    <b>Hozárendelt felhasználók: </b>
+    <br>
+    <ul>
+        <li *ngIf="userWorkGroups?.length == 0">Nincs hozzárendelt felhasználó</li>
+        <li *ngFor="let userWorkGroup of userWorkGroups">{{ userWorkGroup.user.lastName }} {{ userWorkGroup.user.firstName }}: {{ userWorkGroup.inWorkGroupFrom }} - {{ userWorkGroup.inWorkGroupTo }}</li>
+    </ul>
+</div>
+<div class="w-50 float-right">
+    <b>Feladatok: </b>
+    <br>
+    <ul>
+        <li *ngIf="activityGroups?.length == 0">Nincs hozzárendelt feladat</li>
+        <li *ngFor="let activityGroup of activityGroups">{{ activityGroup.name }}</li>
+    </ul>
+</div>

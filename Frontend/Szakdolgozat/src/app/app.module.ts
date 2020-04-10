@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HolidayComponent } from './holiday/holiday.component';
 import { SnackComponent, MySnack } from './snack/snack.component';
+import { MaintenanceUserComponent, MaintenanceUserDialog } from './maintenance-user/maintenance-user.component';
+import { MaintenanceProjectComponent, MaintenanceProjectDialog } from './maintenance-project/maintenance-project.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,11 @@ import { SnackComponent, MySnack } from './snack/snack.component';
     UploadWorkTimeComponent,
     HolidayComponent,
     SnackComponent,
-    MySnack
+    MySnack,
+    MaintenanceUserComponent,
+    MaintenanceUserDialog,
+    MaintenanceProjectComponent,
+    MaintenanceProjectDialog
   ],
   imports: [
     BrowserModule,
@@ -46,7 +52,9 @@ import { SnackComponent, MySnack } from './snack/snack.component';
   providers: [SnackComponent],
   bootstrap: [AppComponent],
   entryComponents: [
-    MySnack
+    MySnack,
+    MaintenanceUserDialog,
+    MaintenanceProjectDialog
   ]
 })
 export class AppModule { }

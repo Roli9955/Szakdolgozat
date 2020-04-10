@@ -3,15 +3,7 @@ package hu.ELTE.Szakdolgozat.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,10 +28,20 @@ public class WorkGroup implements Serializable {
     @Column
     @NotNull
     private Integer scale;
+
+    @Column
+    @NotNull
+    private Boolean deleted;
     
     @JoinTable
     @ManyToMany
     private List<ActivityGroup>  activityGroup;
+
+    @Transient
+    private Integer userCount;
+
+    @Transient
+    private Integer activityGroupCount;
     
     @OneToMany(mappedBy = "workGroup", cascade = CascadeType.ALL)
     @JsonIgnore
