@@ -1,0 +1,115 @@
+<div class="w-100">
+    <div class="h-100 w-75 float-left p-md-2" [formGroup]="workGroupForm">
+        <div class="w-50 float-left p-md-2">
+            <h4 class="text-center">Új projekt</h4>
+            <br>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Név</span>
+                </div>
+                <input formControlName="name" type="text" class="form-control">
+            </div>
+            <br>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Arány</span>
+                </div>
+                <input formControlName="scale" type="text" class="form-control">
+            </div>
+
+            <hr>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Felhasználó</span>
+                </div>
+                <select class="custom-select" formControlName="user">
+                    <option *ngFor="let user of users" value="{{user.id}}">{{ user.lastName }} {{ user.firstName }}</option>
+                </select>
+                <button type="button" class="btn btn-light mr-1" (click)="addUser()">+</button>
+            </div>
+            <br>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Első nap</span>
+                </div>
+                <input class="form-control" type="date" formControlName="from">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Utolsó nap</span>
+                </div>
+                <input class="form-control" type="date" formControlName="to">
+            </div>
+
+            <br>
+            <button *ngIf="!edit" type="button" class="btn btn-primary mr-1" (click)="addNewProject()">Mentés</button>
+            <button *ngIf="edit" type="button" class="btn btn-primary mr-1" (click)="editWorkGroup()">Módosít</button>
+            <button type="button" class="btn btn-danger mr-1" (click)="update()">Törlés</button>
+        </div>
+
+        <div class="h-100 w-50 float-right p-md-2">
+
+            <table class="table border">
+                <thead>
+                    <tr>
+                        <th scope="col">Felhasználó</th>
+                        <th scope="col">Tól</th>
+                        <th scope="col">Ig</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let userWorkGroup of newUserWorkGroup">
+                        <td>{{ userWorkGroup.user.lastName }} {{ userWorkGroup.user.firstName }}</td>
+                        <td>{{ userWorkGroup.inWorkGroupFrom | date:'yyyy-MM-dd' }}</td>
+                        <td>{{ userWorkGroup.inWorkGroupTo | date:'yyyy-MM-dd' }}</td>
+                        <td><button type="button" class="btn btn-danger mr-1" (click)="deleteUserFromWorkGroup(userWorkGroup.user)">🗑️</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="h-100 w-25 float-right border-left">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Név</th>
+                    <th scope="col">Arány</th>
+                    <th scope="col">Felhasználók</th>
+                    <th scope="col">Feladatok</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let workGroup of workGroups" (click)="showProject(workGroup)">
+                    <td>{{ workGroup.name }}</td>
+                    <td>{{ workGroup.scale }}</td>
+                    <td>{{ workGroup.userCount }}</td>
+                    <td>{{ workGroup.activityGroupCount }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteProject" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Projekt törlése</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Biztosan törölni szeretné a következő projektet: 
+                <br><br>
+                <b>Projekt neve:</b> {{ selectedProject.name }} <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteProject()">Törlés</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 package hu.ELTE.Szakdolgozat.Controller;
 
+import hu.ELTE.Szakdolgozat.Entity.UserWorkGroup;
 import hu.ELTE.Szakdolgozat.Entity.WorkGroup;
 import hu.ELTE.Szakdolgozat.Service.UserWorkGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,16 @@ public class UserWorkGroupController {
     ){
         Iterable<WorkGroup> iWorkGroups = this.userWorkGroupService.getUserWorkGroupByDate(year, month, day);
         return ResponseEntity.ok(iWorkGroups);
+    }
+
+    @GetMapping("/user/{id}")
+    public  ResponseEntity<Iterable<UserWorkGroup>> getWorkGroupsByUser(@PathVariable("id") Integer userId){
+        Iterable<UserWorkGroup> iUserWorkGroups = this.userWorkGroupService.getWorkGroupyByUser(userId);
+        if(iUserWorkGroups == null){
+            return ResponseEntity.badRequest().build();
+        } else {
+            return  ResponseEntity.ok(iUserWorkGroups);
+        }
     }
     
 }

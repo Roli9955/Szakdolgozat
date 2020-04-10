@@ -1,0 +1,102 @@
+<div class="w-100">
+    <div class="h-100 w-25 float-left p-md-3" [formGroup]="userForm">
+        <h4 class="text-center">Új felhasználó</h4>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Vezetéknév</span>
+            </div>
+            <input formControlName="lastName" type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Keresztnév</span>
+            </div>
+            <input formControlName="firstName" type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Bejelentkezési név</span>
+            </div>
+            <input formControlName="loginName" type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">E-mail cím</span>
+            </div>
+            <input formControlName="email" type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Összes szabadság</span>
+            </div>
+            <input formControlName="maxHoliday" type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Engedélyezett</span>
+            </div>
+            <select class="custom-select" formControlName="canLogIn">
+                <option value="true">Igen</option>
+                <option value="false">Nem</option>
+            </select>
+        </div>
+        <br>
+        <button *ngIf="!edit" type="button" class="btn btn-primary mr-1" (click)="addNewUser()">Mentés</button>
+        <button *ngIf="edit" type="button" class="btn btn-primary mr-1" (click)="uploadEdit()">Módosít</button>
+        <button type="button" class="btn btn-danger mr-1" (click)="clearForm()">Törlés</button>
+    </div>
+
+    <div class="h-100 w-75 float-right p-md-3 border-left">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Vezetéknév</th>
+                <th scope="col">Keresztnév</th>
+                <th scope="col">Bejelentkezési név</th>
+                <th scope="col">E-mail cím</th>
+                <th scope="col">Utolsó bejelentkezés</th>
+                <th scope="col">Engedélyezett</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users" (click)="showUser(user)">
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.loginName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.lastLogin | date:'yyyy. MM. dd. HH:mm' }}</td>
+                <td>{{ user.canLogIn ? "✔️" : "❌" }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Felhasználó törlése</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Biztosan törölni szeretné a következő felhasználót: 
+                <br><br>
+                <b>Név:</b> {{ selectedUser.lastName }} {{ selectedUser.firstName }} <br>
+                <b>E-mail cím:</b> {{ selectedUser.email }} <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser()">Törlés</button>
+            </div>
+        </div>
+    </div>
+</div>

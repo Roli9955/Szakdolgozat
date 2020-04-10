@@ -8,4 +8,7 @@ export class WorkGroup {
     public scale: number;
     public activityGroup: ActivityGroup[];
 
+    public userCount: number;
+    public activityGroupCount: number;
+
 }
