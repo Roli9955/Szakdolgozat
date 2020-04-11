@@ -17,6 +17,9 @@ jobs:
       name: "backend test and build"
       language: java
       jdk: oraclejdk8
+      before_script:
+        - cd Backend/szakdolgozat/
+        - chmod +x mvnw
       script:
         - ./mvnw install
 
