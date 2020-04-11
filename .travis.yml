@@ -1,3 +1,6 @@
+sudo: required
+dist: trusty
+
 jobs:
  include:
     - stage: backend
@@ -29,5 +32,5 @@ jobs:
     #   script:
     #     - ng build
 
-#  notifications:
-#   email: false
+ notifications:
+  email: false
