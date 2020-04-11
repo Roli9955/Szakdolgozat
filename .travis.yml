@@ -1,0 +1,34 @@
+sudo: required
+
+jobs:
+ include:
+    - stage: backend
+      name: "backend tests"
+      language: java
+      jdk: oraclejdk8    
+      before_script:
+        - cd Backend
+      script:
+        - ./mvnw clean test -B
+        
+    # - stage: backend
+    #   name: "backend test and build"
+    #   language: java
+    #   jdk: oraclejdk8
+    #   script:
+    #     - ./mvnw clean install -B
+
+    # - stage: frontend
+    #   name: "frontend build"
+    #   language: node_js
+    #   node_js:
+    #     - 10.15.3
+    #   before_script:
+    #     - cd frondend/spark
+    #     - npm install -g @angular/cli
+    #     - npm install --save-dev @angular-devkit/build-angular
+    #   script:
+    #     - ng build
+
+ notifications:
+  email: false
