@@ -11,14 +11,14 @@ jobs:
         - cd Backend/szakdolgozat/
         - chmod +x mvnw
       script:
-        - ./mvnw clean test -B
+        - ./mvnw test
         
     - stage: backend
       name: "backend test and build"
       language: java
       jdk: oraclejdk8
       script:
-        - ./mvnw clean install -B
+        - ./mvnw install
 
     # - stage: frontend
     #   name: "frontend build"
