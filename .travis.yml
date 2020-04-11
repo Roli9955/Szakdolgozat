@@ -29,5 +29,5 @@ jobs:
     #   script:
     #     - ng build
 
- notifications:
-  email: false
+#  notifications:
+#   email: false
