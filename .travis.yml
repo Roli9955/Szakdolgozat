@@ -7,7 +7,7 @@ jobs:
       language: java
       jdk: oraclejdk8    
       before_script:
-        - cd Backend
+        - cd Backend/szakdolgozat
       script:
         - ./mvnw clean test -B
         
