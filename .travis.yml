@@ -8,6 +8,7 @@ jobs:
       jdk: oraclejdk8    
       before_script:
         - cd Backend/szakdolgozat
+        - chmod +x mvnw
       script:
         - ./mvnw clean test -B
         
