@@ -7,4 +7,5 @@ export class ActivityGroup {
     public name: string;
     public canAddChild: boolean;
 
+    public selected: boolean;
 }

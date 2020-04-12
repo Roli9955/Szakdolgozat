@@ -1,0 +1,103 @@
+<div class="w-100">
+    <div class="h-100 w-25 float-left p-md-2" [formGroup]="activityGroupForm">
+        <h4 class="text-center">Új feladat</h4>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Név</span>
+            </div>
+            <input formControlName="name" type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Szülő</span>
+            </div>
+            <select class="custom-select" formControlName="parent">
+                <option value="-1">- Nincs -</option>
+                <option *ngFor="let activityGroup of activityGroupsCanAddChild" value="{{activityGroup.id}}">{{ activityGroup.name }}</option>
+            </select>
+        </div>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Bővíthető</span>
+            </div>
+            <select class="custom-select" formControlName="child">
+                <option value="true">Igen</option>
+                <option value="false">Nem</option>
+            </select>
+        </div>
+        <br>
+        <!-- <button type="button" class="btn btn-primary mr-1">Mentés</button> -->
+        <button  type="button" class="btn btn-primary mr-1" (click)="addNewActivityGroup()">Mentés</button>
+        <button type="button" class="btn btn-danger mr-1" (click)="clearForm()">Törlés</button>
+    </div>
+    <div class="h-100 w-75 float-right border-left">
+        <div class="h-100 w-50 float-left p-md-2">
+            <table class="table border">
+                <thead>
+                    <tr>
+                        <th scope="col">Név</th>
+                        <th scope="col">Szülő</th>
+                        <th scope="col">Bontható</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let activityGroup of activityGroups">
+                        <td>{{ activityGroup.name }}</td>
+                        <td>{{ activityGroup.parent != null ? activityGroup.parent.name : "- Nincs -" }}</td>
+                        <td>{{ activityGroup.canAddChild ? "✔️" : "❌" }}</td>
+                        <td>
+                            <button type="button" class="btn btn-danger mr-1" data-toggle="modal" data-target="#deleteActivityGroup" (click)="selectForDelete(activityGroup)">🗑️</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="h-100 w-50 float-right p-md-2">
+            <table class="table border">
+                <thead>
+                    <tr>
+                        <th scope="col">Név</th>
+                        <th scope="col">Arány</th>
+                        <th scope="col">Felhasználók</th>
+                        <th scope="col">Feladatok</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let workGroup of workGroups" (click)="showProject(workGroup)">
+                        <td>{{ workGroup.name }}</td>
+                        <td>{{ workGroup.scale }}</td>
+                        <td>{{ workGroup.userCount }}</td>
+                        <td>{{ workGroup.activityGroupCount }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteActivityGroup" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Feladat törlése</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Biztosan törölni szeretné a következő feladatot: 
+                <br><br>
+                <b>Feladat neve:</b> {{ selectedForDelete.name }} <br><br>
+                <b>Figyelmeztetés: A gyerek feladatok is törlésre kerülnek!</b>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Törlés</button>
+            </div>
+        </div>
+    </div>
+</div>
