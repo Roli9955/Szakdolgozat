@@ -41,7 +41,11 @@ public class ActivityGroup implements Serializable {
     @Column
     @NotNull
     private Boolean canAddChild;
-    
+
+    @Column
+    @NotNull
+    private Boolean deleted;
+
     /*@Column
     @NotNull
     private Boolean canAddActivity;*/

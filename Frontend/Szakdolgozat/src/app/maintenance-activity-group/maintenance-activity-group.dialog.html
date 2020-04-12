@@ -1,0 +1,24 @@
+<h3>
+    Projekt feladatai 
+    <button *ngIf="!edit" type="button" class="btn btn-primary mr-2" (click)="editWorkGroup()">🔧</button>
+    <button *ngIf="edit" type="button" class="btn btn-primary mr-2" (click)="saveWorkGroup()">Mentés</button>
+</h3>
+<hr>
+<div class="w-100">
+    <table class="table border">
+        <thead>
+            <tr>
+                <th scope="col">Név</th>
+                <th scope="col">Szülő</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let activityGroup of activityGroups" (click)="selectActivityGroup(activityGroup)">
+                <td>{{ activityGroup.name }}</td>
+                <td>{{ activityGroup.parent != null ? activityGroup.parent.name : "- Nincs -" }}</td>
+                <td>{{ activityGroup.selected ? "✔️" : "❌" }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

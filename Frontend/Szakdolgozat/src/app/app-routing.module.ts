@@ -5,6 +5,7 @@ import { WorkTimeComponent } from './work-time/work-time.component';
 import { HolidayComponent } from './holiday/holiday.component';
 import { MaintenanceUserComponent } from './maintenance-user/maintenance-user.component';
 import { MaintenanceProjectComponent } from './maintenance-project/maintenance-project.component';
+import { MaintenanceActivityGroupComponent } from './maintenance-activity-group/maintenance-activity-group.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: 'work-time', component: WorkTimeComponent},
   {path: 'holiday', component: HolidayComponent},
   {path: 'maintenance-user', component: MaintenanceUserComponent},
-  {path: 'maintenance-project', component: MaintenanceProjectComponent}
+  {path: 'maintenance-project', component: MaintenanceProjectComponent},
+  {path: 'maintenance-activity-group', component: MaintenanceActivityGroupComponent}
 ];
 
 @NgModule({

@@ -20,6 +20,7 @@ import { HolidayComponent } from './holiday/holiday.component';
 import { SnackComponent, MySnack } from './snack/snack.component';
 import { MaintenanceUserComponent, MaintenanceUserDialog } from './maintenance-user/maintenance-user.component';
 import { MaintenanceProjectComponent, MaintenanceProjectDialog } from './maintenance-project/maintenance-project.component';
+import { MaintenanceActivityGroupComponent, MaintenanceActivityGroupDialog } from './maintenance-activity-group/maintenance-activity-group.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import { MaintenanceProjectComponent, MaintenanceProjectDialog } from './mainten
     MaintenanceUserComponent,
     MaintenanceUserDialog,
     MaintenanceProjectComponent,
-    MaintenanceProjectDialog
+    MaintenanceProjectDialog,
+    MaintenanceActivityGroupComponent,
+    MaintenanceActivityGroupDialog
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { MaintenanceProjectComponent, MaintenanceProjectDialog } from './mainten
   entryComponents: [
     MySnack,
     MaintenanceUserDialog,
-    MaintenanceProjectDialog
+    MaintenanceProjectDialog,
+    MaintenanceActivityGroupDialog
   ]
 })
 export class AppModule { }

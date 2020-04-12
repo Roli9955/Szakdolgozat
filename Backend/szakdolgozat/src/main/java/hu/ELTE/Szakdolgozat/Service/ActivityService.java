@@ -32,17 +32,9 @@ public class ActivityService {
     @Autowired
     private AuthenticatedUser authenticatedUser;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PermissionDetailRepository permissionDetailRepository;
     
     @Autowired
     private WorkGroupRepository workGroupRepository;
-    
-    @Autowired
-    private ActivityGroupRepository activityGroupRepository;
 
     public Iterable<Activity> getActivitiesByDate(Integer year, Integer month, Integer day) {
 
