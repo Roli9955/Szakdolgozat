@@ -8,4 +8,6 @@ export class Permission {
     public users: User[];
     public details: PermissionDetail[];
 
+    public userCount: number;
+
 }
