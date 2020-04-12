@@ -3,15 +3,7 @@ package hu.ELTE.Szakdolgozat.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,12 +25,15 @@ public class Permission implements Serializable {
     @NotNull
     private String name;
     
-    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "permission")
     @JsonIgnore
     private List<User> users;
     
     @JoinTable
     @ManyToMany
     private List<PermissionDetail> details;
+
+    @Transient
+    private Integer userCount;
     
 }

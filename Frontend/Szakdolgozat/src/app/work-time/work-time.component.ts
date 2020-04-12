@@ -86,6 +86,7 @@ export class WorkTimeComponent implements OnInit {
 
     const firstDay = ((new Date(this.actualYear, this.actualMonth - 1, 1).getDay() + 6) % 7) + 1;
     const dayInMonth = new Date(this.actualYear, this.actualMonth, 0).getDate();
+    console.log(dayInMonth)
     var header = '';
 
     header += '<div class="row">';
@@ -101,8 +102,9 @@ export class WorkTimeComponent implements OnInit {
     header += '</tr></thead><tbody>';
     var start = false;
     var day = 1;
-    var lastDay = 1;
+    var lastDay = -6;
     for (let i = 1; lastDay <= dayInMonth; i++) {
+      lastDay += 7;
       var row = '<tr>'
       for (let j = 1; j <= 7; j++) {
         if (start && day <= dayInMonth) {
@@ -124,7 +126,6 @@ export class WorkTimeComponent implements OnInit {
         }
       }
       row += '</tr>';
-      lastDay += 7;
       header += row;
     }
     header += '</tbody></table>';

@@ -6,6 +6,7 @@ import { HolidayComponent } from './holiday/holiday.component';
 import { MaintenanceUserComponent } from './maintenance-user/maintenance-user.component';
 import { MaintenanceProjectComponent } from './maintenance-project/maintenance-project.component';
 import { MaintenanceActivityGroupComponent } from './maintenance-activity-group/maintenance-activity-group.component';
+import { MaintenancePermissionComponent } from './maintenance-permission/maintenance-permission.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'holiday', component: HolidayComponent},
   {path: 'maintenance-user', component: MaintenanceUserComponent},
   {path: 'maintenance-project', component: MaintenanceProjectComponent},
-  {path: 'maintenance-activity-group', component: MaintenanceActivityGroupComponent}
+  {path: 'maintenance-activity-group', component: MaintenanceActivityGroupComponent},
+  {path: 'maintenance-permission', component: MaintenancePermissionComponent}
 ];
 
 @NgModule({

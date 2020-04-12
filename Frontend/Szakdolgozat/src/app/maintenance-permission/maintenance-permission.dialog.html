@@ -1,0 +1,46 @@
+<h3>
+    Jogosultsági csoport: {{ permission.name }}
+    <button *ngIf="!edit" type="button" class="btn btn-primary mr-2" (click)="enableEdit()">🔧</button>
+    <button *ngIf="edit" type="button" class="btn btn-primary mr-2" (click)="savePermission()">Mentés</button>
+</h3>
+<hr>
+<div class="w-100">
+    <div class="h-100 w-50 float-left p-md-2">
+        <table class="table border">
+            <thead>
+                <tr>
+                    <th scope="col">Név</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let permissionDetail of permissionDetails" (click)="editPermissionDetail(permissionDetail)">
+                    <td>{{ permissionDetail.name }}</td>
+                    <td>{{ permissionDetail.selected ? "✔️" : "❌" }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    <div class="h-100 w-50 float-right p-md-2">
+                <table class="table border">
+                    <thead>
+                        <tr>
+                            <th scope="col">Név</th>
+                            <th scope="col">Bejelentkezési név</th>
+                            <th scope="col">E-mail cím</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users" (click)="editUser(user)">
+                            <td>{{ user.lastName }} {{ user.firstName }}</td>
+                            <td>{{ user.loginName}}</td>
+                            <td>{{ user.email}}</td>
+                            <td>{{ user.selected ? "✔️" : "❌" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+    </div>
+</div>

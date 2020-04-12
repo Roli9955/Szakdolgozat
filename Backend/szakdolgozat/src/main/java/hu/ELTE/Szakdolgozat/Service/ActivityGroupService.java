@@ -48,6 +48,7 @@ public class ActivityGroupService {
             }
             activityGroup.setId(null);
             activityGroup.setParent(oParent.get());
+            activityGroup.setDeleted(false);
             return new Result<ActivityGroup, String>(this.activityGroupRepository.save(activityGroup), "");
         } else {
             activityGroup.setId(null);
@@ -57,6 +58,7 @@ public class ActivityGroupService {
                 if(!oParent.get().getCanAddChild()) return null;
                 activityGroup.setParent(oParent.get());
             }
+            activityGroup.setDeleted(false);
             return new Result<ActivityGroup, String>(this.activityGroupRepository.save(activityGroup), "");
         }
     }

@@ -1,0 +1,39 @@
+<div class="w-100">
+    <div class="h-100 w-50 float-left p-md-2" [formGroup]="permissionForm">
+        <h4 class="text-center">Új jogosulstági csoport</h4>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Név</span>
+            </div>
+            <input formControlName="name" type="text" class="form-control">
+        </div>
+        <br>
+        <button *ngIf="edit" type="button" class="btn btn-primary mr-1" (click)="uplodaEdit()">Módosítás</button>
+        <button *ngIf="!edit" type="button" class="btn btn-primary mr-1" (click)="addNewPermission()">Mentés</button>
+        <button type="button" class="btn btn-danger mr-1" (click)="clearForm()">Törlés</button>
+    </div>
+    <div class="h-100 w-50 float-right p-md-2">
+        <table class="table border">
+            <thead>
+                <tr>
+                    <th scope="col">Név</th>
+                    <th scope="col">Jogosulságok száma</th>
+                    <th scope="col">Felhasználók száma</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let permission of permissions" (click)="showPermission(permission)">
+                    <td>{{ permission.name }}</td>
+                    <td>{{ permission.details?.length }}</td>
+                    <td>{{ permission.userCount }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary mr-1" (click)="editLoad($event, permission)">🔧</button>
+                        <button type="button" class="btn btn-danger mr-1" (click)="delete($event, permission.id)">🗑️</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

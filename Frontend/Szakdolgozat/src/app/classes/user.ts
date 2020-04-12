@@ -20,5 +20,6 @@ export class User {
     public userWorkGroup: UserWorkGroup[];
 
     public onHolidays: number;
+    public selected: boolean;
 
 }

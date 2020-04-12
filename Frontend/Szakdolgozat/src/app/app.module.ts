@@ -21,6 +21,7 @@ import { SnackComponent, MySnack } from './snack/snack.component';
 import { MaintenanceUserComponent, MaintenanceUserDialog } from './maintenance-user/maintenance-user.component';
 import { MaintenanceProjectComponent, MaintenanceProjectDialog } from './maintenance-project/maintenance-project.component';
 import { MaintenanceActivityGroupComponent, MaintenanceActivityGroupDialog } from './maintenance-activity-group/maintenance-activity-group.component';
+import { MaintenancePermissionComponent, MaintenancePermissionDialog } from './maintenance-permission/maintenance-permission.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { MaintenanceActivityGroupComponent, MaintenanceActivityGroupDialog } fro
     MaintenanceProjectComponent,
     MaintenanceProjectDialog,
     MaintenanceActivityGroupComponent,
-    MaintenanceActivityGroupDialog
+    MaintenanceActivityGroupDialog,
+    MaintenancePermissionComponent,
+    MaintenancePermissionDialog
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,8 @@ import { MaintenanceActivityGroupComponent, MaintenanceActivityGroupDialog } fro
     MySnack,
     MaintenanceUserDialog,
     MaintenanceProjectDialog,
-    MaintenanceActivityGroupDialog
+    MaintenanceActivityGroupDialog,
+    MaintenancePermissionDialog
   ]
 })
 export class AppModule { }
