@@ -25,7 +25,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class ActivityGroup implements Serializable {
+public class ActivityGroup extends BasicEntity implements Serializable {
+
+    public static final String herder[] =  {"Feladat csoport neve", "Szülő feladat neve", "Bontható"};
+    public static final Integer columns = herder.length;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,10 +48,6 @@ public class ActivityGroup implements Serializable {
     @Column
     @NotNull
     private Boolean deleted;
-
-    /*@Column
-    @NotNull
-    private Boolean canAddActivity;*/
     
     @OneToMany(mappedBy = "activityGroup", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -61,5 +60,18 @@ public class ActivityGroup implements Serializable {
     @OneToMany(mappedBy = "parent")
     @JsonIgnore
     private List<ActivityGroup> children;
-    
+
+    @Override
+    public String getData(Integer id) {
+        switch (id){
+            case 0:
+                return this.name != null ? this.name : "";
+            case 1:
+                return this.parent != null ? this.parent.getName() : "Nincs";
+            case 2:
+                return this.canAddChild != null ? this.canAddChild.toString() : "";
+            default:
+                return "";
+        }
+    }
 }

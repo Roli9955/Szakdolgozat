@@ -2,13 +2,7 @@ package hu.ELTE.Szakdolgozat.Entity;
 
 import java.io.Serializable;
 import java.sql.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -21,8 +15,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Holiday implements Serializable {
-    
+public class Holiday extends BasicEntity implements Serializable {
+
+    public static final String herder[] =  {"Felhasználó neve", "Mikortól", "Meddig"};
+    public static final Integer columns = herder.length;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -38,10 +35,27 @@ public class Holiday implements Serializable {
     @Column
     @NotNull
     private Integer days;
+
+    @Transient
+    private Integer userId;
     
     @JoinColumn
     @ManyToOne
     @JsonIgnore
     private User user;
+
+    @Override
+    public String getData(Integer id) {
+        switch (id){
+            case 0:
+                return this.user != null ? this.user.getLastName() + " " + this.user.getFirstName() : "";
+            case 1:
+                return this.holidayFrom != null ? this.holidayFrom.toString() : "";
+            case 2:
+                return this.holidayTo != null ? this.holidayTo.toString() : "";
+            default:
+                return "";
+        }
+    }
     
 }

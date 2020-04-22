@@ -40,9 +40,4 @@ public class PermissionDetail implements Serializable {
     @JsonIgnore
     private List<Permission> permissions;
     
-    @Override
-    public String toString(){
-        return this.id + " - " + this.name + " - " + this.roleTag;
-    }
-    
 }

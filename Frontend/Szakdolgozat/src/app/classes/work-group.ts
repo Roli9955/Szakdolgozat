@@ -1,5 +1,4 @@
 import { ActivityGroup } from './activity-group';
-import { UserWorkGroup } from './user-work-group';
 
 export class WorkGroup {
 
@@ -10,5 +9,7 @@ export class WorkGroup {
 
     public userCount: number;
     public activityGroupCount: number;
+
+    public visible: boolean;
 
 }

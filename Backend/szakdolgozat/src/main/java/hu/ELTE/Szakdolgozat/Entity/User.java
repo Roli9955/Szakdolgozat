@@ -24,7 +24,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class User implements Serializable {
+public class User extends BasicEntity implements Serializable {
+
+    public static final String herder[] =  {"Vezetéknév", "Keresztnév", "E-mail", "Bejelentkezési név", "Utolsó bejelentkezés", "Szabadságok száma", "Engedélyezett"};
+    public static final Integer columns = herder.length;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,6 +86,26 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<UserWorkGroup> userWorkGroup;
-    
-    
+
+    @Override
+    public String getData(Integer id) {
+        switch (id){
+            case 0:
+                return this.lastName != null ? this.lastName : "";
+            case 1:
+                return this.firstName != null ? this.firstName : "";
+            case 2:
+                return this.email != null ? this.email : "";
+            case 3:
+                return this.loginName != null ? this.loginName : "";
+            case 4:
+                return this.lastLogin != null ? this.lastLogin.toString() : "";
+            case 5:
+                return this.holidays != null ? this.holidays.toString() : "";
+            case 6:
+                return this.canLogIn != null ? this.canLogIn.toString() : "";
+            default:
+                return "";
+        }
+    }
 }

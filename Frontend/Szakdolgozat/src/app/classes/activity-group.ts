@@ -8,4 +8,6 @@ export class ActivityGroup {
     public canAddChild: boolean;
 
     public selected: boolean;
+
+    public visible: boolean;
 }

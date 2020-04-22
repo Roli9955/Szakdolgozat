@@ -22,6 +22,8 @@ import { MaintenanceUserComponent, MaintenanceUserDialog } from './maintenance-u
 import { MaintenanceProjectComponent, MaintenanceProjectDialog } from './maintenance-project/maintenance-project.component';
 import { MaintenanceActivityGroupComponent, MaintenanceActivityGroupDialog } from './maintenance-activity-group/maintenance-activity-group.component';
 import { MaintenancePermissionComponent, MaintenancePermissionDialog } from './maintenance-permission/maintenance-permission.component';
+import { ListingProjectComponent } from './listing-project/listing-project.component';
+import { ListingHolidayComponent } from './listing-holiday/listing-holiday.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { MaintenancePermissionComponent, MaintenancePermissionDialog } from './m
     MaintenanceActivityGroupComponent,
     MaintenanceActivityGroupDialog,
     MaintenancePermissionComponent,
-    MaintenancePermissionDialog
+    MaintenancePermissionDialog,
+    ListingProjectComponent,
+    ListingHolidayComponent
   ],
   imports: [
     BrowserModule,

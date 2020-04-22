@@ -15,7 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Permission implements Serializable {
+public class Permission extends BasicEntity implements Serializable {
+
+    public static final String herder[] =  {"Jogosultság csoport"};
+    public static final Integer columns = herder.length;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,5 +38,15 @@ public class Permission implements Serializable {
 
     @Transient
     private Integer userCount;
+
+    @Override
+    public String getData(Integer id) {
+        switch (id){
+            case 0:
+                return this.name != null ? this.name : "";
+            default:
+                return "";
+        }
+    }
     
 }

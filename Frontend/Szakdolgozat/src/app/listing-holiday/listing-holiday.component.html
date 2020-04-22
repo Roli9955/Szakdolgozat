@@ -1,0 +1,47 @@
+<div class="w-100 h-100">
+    <button type="button" class="btn btn-light m-2" (click)="resetFilet()">Szűrő törlése</button>
+    <button type="button" class="btn btn-light m-2" (click)="makeExcel()">Excel</button>
+
+    <br>
+    <table class="table table-striped border" [formGroup]="filter">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Felhasználó</span>
+                        </div>
+                        <select (change)="filterData()" formControlName="user" class="custom-select">
+                            <option value="-1">Összes</option>
+                            <option *ngFor="let user of users" value="{{user.id}}">{{ user.loginName }}</option>
+                        </select>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Év</span>
+                        </div>
+                        <select (change)="filterData()" formControlName="year" class="custom-select">
+                            <option value="-1">Összes</option>
+                            <option *ngFor="let year of years" value="{{year}}">{{ year }}</option>
+                        </select>
+                    </div>
+                </th>
+                <th scope="col">Mettől</th>
+                <th scope="col">Meddig</th>
+                <th scope="col">Napok száma</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let holiday of holidays">
+                <td *ngIf="holiday.visible">{{ holiday.user.loginName }}</td>
+                <td *ngIf="holiday.visible">{{ holiday.holidayFrom | date:'yyyy' }}</td>
+                <td *ngIf="holiday.visible">{{ holiday.holidayFrom | date:'MM-dd' }}</td>
+                <td *ngIf="holiday.visible">{{ holiday.holidayTo | date:'MM-dd' }}</td>
+                <td *ngIf="holiday.visible">{{ holiday.days }}</td>
+            </tr>
+        </tbody>
+    </table> 
+    
+</div>

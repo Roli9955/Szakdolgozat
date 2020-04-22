@@ -1,5 +1,6 @@
 import { ActivityGroup } from './activity-group';
 import { WorkGroup } from './work-group';
+import { User } from './user';
 
 export class Activity {
 
@@ -13,5 +14,8 @@ export class Activity {
     public date: Date;
     public activityGroup: ActivityGroup;
     public workGroup: WorkGroup;
+    public user: User;
+
+    public visible: boolean;
     
 }

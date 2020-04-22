@@ -20,8 +20,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class UserWorkGroup implements Serializable {
-    
+public class UserWorkGroup extends BasicEntity implements Serializable {
+
+    public static final String herder[] =  {"Projekt neve", "Felhasználó neve", "Mikortól", "Meddig"};
+    public static final Integer columns = herder.length;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -40,5 +43,20 @@ public class UserWorkGroup implements Serializable {
     @JoinColumn
     @ManyToOne
     private User user;
-    
+
+    @Override
+    public String getData(Integer id) {
+        switch (id){
+            case 0:
+                return this.workGroup != null ? this.workGroup.getName() : "";
+            case 1:
+                return this.user != null ? this.user.getLastName() + " " + this.user.getFirstName() : "";
+            case 2:
+                return this.inWorkGroupFrom != null ? this.inWorkGroupFrom.toString() : "";
+            case 3:
+                return this.inWorkGroupTo != null ? this.inWorkGroupTo.toString() : "";
+            default:
+                return "";
+        }
+    }
 }
