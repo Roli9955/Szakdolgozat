@@ -15,8 +15,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class WorkGroup implements Serializable {
-    
+public class WorkGroup extends BasicEntity implements Serializable {
+
+    public static final String herder[] =  {"Projekt neve"};
+    public static final Integer columns = herder.length;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -50,5 +53,14 @@ public class WorkGroup implements Serializable {
     @OneToMany(mappedBy = "workGroup", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Activity> activities;
-    
+
+    @Override
+    public String getData(Integer id) {
+        switch (id){
+            case 0:
+                return this.name != null ? this.name : "";
+            default:
+                return "";
+        }
+    }
 }

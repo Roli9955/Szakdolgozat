@@ -24,8 +24,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Activity implements Serializable {
-    
+public class Activity extends BasicEntity implements Serializable{
+
+    public static final String herder[] =  {"Feladat neve", "Leírás", "Perc", "Határidő", "Teljesített", "Dátum", "Felhasználó", "Tulajdonos", "Projekt neve"};
+    public static final Integer columns = herder.length;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -72,4 +75,31 @@ public class Activity implements Serializable {
     @JoinColumn
     @ManyToOne
     private WorkGroup workGroup;
+
+    @Override
+    public String getData(Integer id){
+        switch (id){
+            case 0:
+                return this.activityGroup != null ? this.activityGroup.getName() : "";
+            case 1:
+                return this.description != null ? this.description : "";
+            case 2:
+                return this.min != null ? this.min.toString() : "";
+            case 3:
+                return this.deadline != null ? this.deadline.toString() : "";
+            case 4:
+                return this.isCompleted != null ? this.isCompleted.toString() : "";
+            case 5:
+                return this.date != null ? this.date.toString() : "";
+            case 6:
+                return this.user != null ? this.user.getLoginName() : "";
+            case 7:
+                return this.owner != null ? this.owner.getLoginName() : "";
+            case 8:
+                return this.workGroup != null ? this.workGroup.getName() : "";
+            default:
+                return "";
+        }
+    }
+
 }

@@ -7,6 +7,8 @@ import { MaintenanceUserComponent } from './maintenance-user/maintenance-user.co
 import { MaintenanceProjectComponent } from './maintenance-project/maintenance-project.component';
 import { MaintenanceActivityGroupComponent } from './maintenance-activity-group/maintenance-activity-group.component';
 import { MaintenancePermissionComponent } from './maintenance-permission/maintenance-permission.component';
+import { ListingProjectComponent } from './listing-project/listing-project.component';
+import { ListingHolidayComponent } from './listing-holiday/listing-holiday.component';
 
 
 const routes: Routes = [
@@ -16,7 +18,9 @@ const routes: Routes = [
   {path: 'maintenance-user', component: MaintenanceUserComponent},
   {path: 'maintenance-project', component: MaintenanceProjectComponent},
   {path: 'maintenance-activity-group', component: MaintenanceActivityGroupComponent},
-  {path: 'maintenance-permission', component: MaintenancePermissionComponent}
+  {path: 'maintenance-permission', component: MaintenancePermissionComponent},
+  {path: 'listing-project', component: ListingProjectComponent},
+  {path: 'listing-holiday', component: ListingHolidayComponent}
 ];
 
 @NgModule({

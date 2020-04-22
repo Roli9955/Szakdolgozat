@@ -1,0 +1,52 @@
+<div class="w-100 h-100">
+    <button type="button" class="btn btn-light m-2" (click)="resetFilet()">Szűrő törlése</button>
+    <button type="button" class="btn btn-light m-2" (click)="makeExcel()">Excel</button>
+
+    <br>
+    <table class="table table-striped border" [formGroup]="filter">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Projekt</span>
+                        </div>
+                        <select (change)="selectProject()" formControlName="project" class="custom-select">
+                            <option value="-1">Összes</option>
+                            <option *ngFor="let project of projects" value="{{project.id}}">{{ project.name }}</option>
+                        </select>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Feladat</span>
+                        </div>
+                        <select (change)="selectActivityGroup()" formControlName="activity" class="custom-select">
+                            <option value="-1">Összes</option>
+                            <option *ngFor="let activityGroup of activityGroups" value="{{activityGroup.id}}">{{ activityGroup.name }}</option>
+                        </select>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Felhasználó</span>
+                        </div>
+                        <select (change)="selectUser()" formControlName="user" class="custom-select">
+                            <option value="-1">Összes</option>
+                            <option *ngFor="let user of users" value="{{user.id}}">{{ user.loginName }}</option>
+                        </select>
+                    </div>
+                </th>
+                <th scope="col">
+                    Dátum
+                </th>
+                <th scope="col">Idő</th>
+                <th scope="col">Megjegyzések</th>
+            </tr>
+        </thead>
+        <tbody id="data"></tbody>
+    </table> 
+    
+</div>

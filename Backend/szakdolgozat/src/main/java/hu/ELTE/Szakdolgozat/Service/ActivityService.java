@@ -1,6 +1,7 @@
 package hu.ELTE.Szakdolgozat.Service;
 
 import hu.ELTE.Szakdolgozat.AuthenticatedUser;
+import hu.ELTE.Szakdolgozat.Class.ExcelMaker;
 import hu.ELTE.Szakdolgozat.Entity.Activity;
 import hu.ELTE.Szakdolgozat.Entity.ActivityGroup;
 import hu.ELTE.Szakdolgozat.Entity.PermissionDetail;
@@ -28,6 +29,12 @@ public class ActivityService {
 
     @Autowired
     private UserWorkGroupRepository userWorkGroupRepository;
+
+    @Autowired
+    private ActivityGroupRepository activityGroupRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private AuthenticatedUser authenticatedUser;
@@ -69,29 +76,6 @@ public class ActivityService {
                         activity.setDeadline(null);
                         activity.setIsCompleted(false);
                         activity.setIsTask(false);
-
-                        // For Task
-                        /*if (activity.getIsTask()) {
-                            Optional<PermissionDetail> oPermission = this.permissionDetailRepository.findByRoleTag("ROLE_ADD_TASK");
-                            if (!oPermission.isPresent()) {
-                                return null;
-                            }
-                            boolean l = true;
-                            for (PermissionDetail pd : this.authenticatedUser.getUser().getPermission().getDetails()) {
-                                if (oPermission.get().getId().equals(pd.getId())) {
-                                    if(activity.getUser() == null) return  null;
-                                    Optional<User> oUser = this.userRepository.findById(activity.getUser().getId());
-                                    if (!oUser.isPresent()) {
-                                        return null;
-                                    }
-                                    activity.setUser(oUser.get());
-                                    l = false;
-                                    break;
-                                }
-                            }
-                            if(l) return null;
-                        } else {
-                        }*/
 
                         Activity result = this.activityRepository.save(activity);
                         result.setUser(null);
@@ -151,6 +135,63 @@ public class ActivityService {
         result.setWorkGroup(null);
         return result;
 
+    }
+
+    public Iterable<Activity> getAllActivity(){
+        Iterable<Activity> iterable = this.activityRepository.findAll();
+        return iterable;
+    }
+
+    public ExcelMaker<Activity> makeExcel(Integer projectId, Integer activityGroupId, Integer userId){
+        Iterable<Activity> iActivity = null;
+        Optional<WorkGroup> oWorkGroup = null;
+        Optional<ActivityGroup> oActivityGroup = null;
+        Optional<User> oUser = null;
+
+        int code = 0;
+        if(projectId > -1){
+            oWorkGroup = this.workGroupRepository.findByIdAndDeletedFalse(projectId);
+            if(!oWorkGroup.isPresent()) return null;
+            code += 1;
+        }
+        if(activityGroupId > -1){
+            oActivityGroup = this.activityGroupRepository.findByIdAndDeletedFalse(activityGroupId);
+            if(!oActivityGroup.isPresent()) return null;
+            code += 2;
+        }
+        if(userId > -1){
+            oUser = this.userRepository.findById(userId);
+            code += 4;
+        }
+
+        switch (code){
+            case 1:
+                iActivity = this.activityRepository.findByWorkGroup(oWorkGroup.get());
+                break;
+            case 2:
+                iActivity = this.activityRepository.findByActivityGroup(oActivityGroup.get());
+                break;
+            case 3:
+                iActivity = this.activityRepository.findByWorkGroupAndActivityGroup(oWorkGroup.get(), oActivityGroup.get());
+                break;
+            case 4:
+                iActivity = this.activityRepository.findByUser(oUser.get());
+                break;
+            case 5:
+                iActivity = this.activityRepository.findByWorkGroupAndUser(oWorkGroup.get(), oUser.get());
+                break;
+            case 6:
+                iActivity = this.activityRepository.findByActivityGroupAndUser(oActivityGroup.get(), oUser.get());
+                break;
+            case 7:
+                iActivity = this.activityRepository.findByWorkGroupAndActivityGroupAndUser(oWorkGroup.get(), oActivityGroup.get(), oUser.get());
+                break;
+            default:
+                iActivity = this.activityRepository.findAll();
+                break;
+        }
+
+        return new ExcelMaker<Activity>("Tevékenység", Activity.herder, iActivity, Activity.columns);
     }
 
 }

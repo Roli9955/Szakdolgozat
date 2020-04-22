@@ -372,6 +372,6 @@ export class WorkTimeComponent implements OnInit {
 				this.inorder(root, deep + " - ", activityGroup);
 			}
 		}
-	}
+  }
 
 }
