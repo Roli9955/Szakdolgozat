@@ -1,0 +1,26 @@
+<div class="w-100" [formGroup]="taskForm">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Határidő</span>
+    </div>
+    <input formControlName="date" class="form-control" type="date">
+  </div>
+  <br>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Megjegyzés</span>
+    </div>
+    <textarea formControlName="msg" class="form-control" aria-label="With textarea"></textarea>
+  </div>
+  <br>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="">Felhasználó</span>
+    </div>
+    <select formControlName="user" class="custom-select">
+      <option *ngFor="let user of users" value="{{ user.id }}">{{ user.lastName }} {{ user.firstName }}</option>
+    </select>
+  </div>
+  <br>
+  <button class="btn btn-primary w-100" (click)="save()">Mentés</button>
+</div>

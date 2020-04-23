@@ -1,20 +1,51 @@
 <div class="w-100 h-100 p-md-2 border-left">
 
-    <button class="btn btn-light w-100">Feladat rögzítése</button>
+  <button class="btn btn-light w-100" (click)="newTask()">Feladat rögzítése</button>
 
-    <br><br>
-     
-      <table class="table border">
-        <thead class="thead-light border">
-          <tr>
-            <th class="text-center" scope="col">Feladatok</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>asdasds</td>
-          </tr>
-        </tbody>
-      </table>
+  <br><br>
 
+  <table class="table border">
+    <thead class="thead-light border">
+      <tr>
+        <th class="text-center" scope="col">Feladatok</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td class="{{taskColor(task.deadline)}}">
+          <b>Határidő: </b>{{ task.deadline }}
+          <br>
+          <b>Leírás: </b>{{ task.description }}
+          <br>
+          <button (click)="completeTask(task)" class="btn btn-success w-25 m-md-2">Kész</button>
+          <button *ngIf="task.user.id == task.owner.id" class="btn btn-danger w-25 m-md-2" data-toggle="modal"
+          data-target="#deleteTask" (click)="taskSelectForDelete(task)">Törlés</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="deleteTask" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Tevékenység törlése</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              Biztosan törölni szeretné a következő tevékenységet: 
+              <br><br>
+              <b>Projekt:</b> Feladat <br>
+              <b>Feladat:</b> - <br>
+              <b>Megjegyzés:</b> {{ selectedForDelete.description }} <br>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Törlés</button>
+          </div>
+      </div>
+  </div>
 </div>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface ActivityRepository extends CrudRepository<Activity, Integer> {
     
     public Iterable<Activity> findByOwner(User user);
+    public Iterable<Activity> findByUserAndIsTaskTrueAndIsCompletedFalseOrderByDeadline(User user);
 
     public Iterable<Activity> findByWorkGroup(WorkGroup workGroup);
     public Iterable<Activity> findByActivityGroup(ActivityGroup activityGroup);

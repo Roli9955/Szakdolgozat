@@ -51,6 +51,17 @@ export class ListingProjectComponent implements OnInit {
           ag.visible = true;
         })
       });
+      let task = new WorkGroup();
+      task.id = -1;
+      task.name = "Feladatok";
+      task.activityGroup =  [];
+      let ag = new ActivityGroup();
+      ag.id = -1;
+      ag.name = "";
+      ag.visible = true;
+      task.activityGroup.push(ag);
+      task.visible = true;
+      res.push(task);
       return res;
     });
     this.activities = await this.activityService.getAllActivity().then(res => {
@@ -90,8 +101,14 @@ export class ListingProjectComponent implements OnInit {
             for (let k = 0; k < this.activities.length; k++) {
               const activity = this.activities[k];
               if(activity.visible){
-                if(activity.activityGroup.id == activityGroup.id){
-                  row += "<tr><td></td><td></td><td>" + activity.user.loginName + "</td><td>" + activity.date + "</td><td>" + Math.floor(activity.min/60) + " óra " + activity.min % 60 + " perc</td><td class='w-25'>" + activity.description + "</td></tr>"
+                if(activity.isTask){
+                  if(project.id == -1){
+                    row += "<tr><td></td><td></td><td>" + activity.user.loginName + "</td><td>" + activity.date + "</td><td></td><td class='w-25'>" + activity.description + "</td></tr>";
+                  }
+                } else {
+                  if(activity.activityGroup.id == activityGroup.id){
+                    row += "<tr><td></td><td></td><td>" + activity.user.loginName + "</td><td>" + activity.date + "</td><td>" + Math.floor(activity.min/60) + " óra " + activity.min % 60 + " perc</td><td class='w-25'>" + activity.description + "</td></tr>"
+                  }
                 }
               }
             }

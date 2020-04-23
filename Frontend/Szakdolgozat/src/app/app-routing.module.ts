@@ -9,6 +9,7 @@ import { MaintenanceActivityGroupComponent } from './maintenance-activity-group/
 import { MaintenancePermissionComponent } from './maintenance-permission/maintenance-permission.component';
 import { ListingProjectComponent } from './listing-project/listing-project.component';
 import { ListingHolidayComponent } from './listing-holiday/listing-holiday.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: 'maintenance-activity-group', component: MaintenanceActivityGroupComponent},
   {path: 'maintenance-permission', component: MaintenancePermissionComponent},
   {path: 'listing-project', component: ListingProjectComponent},
-  {path: 'listing-holiday', component: ListingHolidayComponent}
+  {path: 'listing-holiday', component: ListingHolidayComponent},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({

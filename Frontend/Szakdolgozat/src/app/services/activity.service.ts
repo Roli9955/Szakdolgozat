@@ -40,4 +40,20 @@ export class ActivityService {
     let blob = new Blob([data], { type: type });
     saveAs(blob, "export.xlsx");
   }
+
+  getAllTasks(): Promise<Activity[]>{
+    return this.httpService.get(this.url + "/task/me");
+  }
+
+  completeTask(activity: Activity): Promise<Activity>{
+    return this.httpService.put(this.url + "/task/complete", activity);
+  }
+
+  deleteTask(id: number): Promise<Activity>{
+    return this.httpService.delete(this.url + "/delete/task/" + id)
+  }
+
+  addTask(activity: Activity): Promise<Activity>{
+    return this.httpService.post(this.url + "/add/task", activity);
+  }
 }

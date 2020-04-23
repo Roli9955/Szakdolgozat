@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 public class ActivityService {
@@ -47,13 +49,17 @@ public class ActivityService {
 
         Date date = Date.valueOf(year + "-" + month + "-" + day);
 
-        Iterable<Activity> iUserActivities = this.activityRepository.findByOwner(this.authenticatedUser.getUser());
+        Iterable<Activity> iUserActivities = this.activityRepository.findByUser(this.authenticatedUser.getUser());
         List<Activity> iActivity = new ArrayList();
 
         for (Activity ua : iUserActivities) {
             if (ua.getDate().equals(date)) {
-                ua.getWorkGroup().setActivityGroup(null);
-                iActivity.add(ua);
+                if(!ua.getIsTask()) {
+                    ua.getWorkGroup().setActivityGroup(null);
+                    iActivity.add(ua);
+                } else if(ua.getIsCompleted()){
+                    iActivity.add(ua);
+                }
             }
         }
 
@@ -192,6 +198,44 @@ public class ActivityService {
         }
 
         return new ExcelMaker<Activity>("Tevékenység", Activity.herder, iActivity, Activity.columns);
+    }
+
+    public Iterable<Activity> getOwnTasks(){
+        Iterable<Activity> iActivities = this.activityRepository.findByUserAndIsTaskTrueAndIsCompletedFalseOrderByDeadline(this.authenticatedUser.getUser());
+        return iActivities;
+    }
+
+    public Activity completeActivity(Activity activity){
+        Optional<Activity> oActivity = this.activityRepository.findById(activity.getId());
+        if(!oActivity.isPresent()) return null;
+        if(oActivity.get().getUser().getId().equals(this.authenticatedUser.getUser().getId())){
+            oActivity.get().setIsCompleted(true);
+            java.util.Date date = new java.util.Date();
+            oActivity.get().setDate(new Date(date.getTime()));
+            return this.activityRepository.save(oActivity.get());
+        } else {
+            return null;
+        }
+    }
+
+    public Activity deleteTask(Integer taskId){
+        Optional<Activity> oActivity = this.activityRepository.findById(taskId);
+        if(!oActivity.isPresent()) return null;
+        this.activityRepository.delete(oActivity.get());
+        return oActivity.get();
+    }
+
+    public Activity addTask(Activity activity){
+        Optional<User> oUser = this.userRepository.findById(activity.getUser().getId());
+        if(!oUser.isPresent()) return null;
+
+        activity.setId(null);
+        activity.setIsCompleted(false);
+        activity.setIsTask(true);
+        activity.setOwner(this.authenticatedUser.getUser());
+        activity.setUser(oUser.get());
+
+        return this.activityRepository.save(activity);
     }
 
 }

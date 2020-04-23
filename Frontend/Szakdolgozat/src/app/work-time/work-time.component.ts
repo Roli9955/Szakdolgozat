@@ -86,7 +86,7 @@ export class WorkTimeComponent implements OnInit {
 
     const firstDay = ((new Date(this.actualYear, this.actualMonth - 1, 1).getDay() + 6) % 7) + 1;
     const dayInMonth = new Date(this.actualYear, this.actualMonth, 0).getDate();
-    console.log(dayInMonth)
+    
     var header = '';
 
     header += '<div class="row">';
@@ -269,9 +269,10 @@ export class WorkTimeComponent implements OnInit {
 
   async delete() {
 
-    console.log(this.activitySerevice.deleteActivity(this.selectedForDelete.id));
+    this.activitySerevice.deleteActivity(this.selectedForDelete.id).then(() => {
+      this.updateForm();
+    });
 
-    this.updateForm();
 
     this.snackBar.sendMsg("Tevékenység sikeresen törlésre került");
     this.selectedForDeleteToDefault();

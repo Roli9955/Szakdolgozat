@@ -98,4 +98,40 @@ public class ActivityController {
         excel.getFile().delete();
     }
 
+    @GetMapping("/task/me")
+    public ResponseEntity<Iterable<Activity>> getOwnActivity(){
+        Iterable<Activity> iActivities = this.activityService.getOwnTasks();
+        return ResponseEntity.ok(iActivities);
+    }
+
+    @PutMapping("/task/complete")
+    public ResponseEntity<Activity> completeActivity(@RequestBody Activity activity){
+        Activity res = this.activityService.completeActivity(activity);
+        if(res == null){
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(res);
+        }
+    }
+
+    @DeleteMapping("/delete/task/{id}")
+    public ResponseEntity<Activity> deleteTask(@PathVariable("id") Integer taskId){
+        Activity activity = this.activityService.deleteTask(taskId);
+        if(activity == null){
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(activity);
+        }
+    }
+
+    @PostMapping("/add/task")
+    public ResponseEntity<Activity> addtask(@RequestBody Activity activity){
+        Activity res = this.activityService.addTask(activity);
+        if(res == null){
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(res);
+        }
+    }
+
 }
