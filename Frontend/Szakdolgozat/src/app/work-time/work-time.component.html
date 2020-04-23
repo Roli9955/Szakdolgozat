@@ -7,9 +7,9 @@
             <hr>
 
             <div *ngIf="selectedActivity != null" class="container m-4">
-                <b>Projekt:</b> {{ selectedActivity.workGroup.name }} <br>
-                <b>Feladat:</b> {{ selectedActivity.activityGroup.name }} <br>
-                <b>Idő:</b> {{ selectedActivityHour }}<b> Óra</b> {{ selectedActivityMin }} <b> Perc</b> <br>
+                <b>Projekt:</b> {{ selectedActivity.isTask ? "Feladat" : selectedActivity.workGroup.name }} <br>
+                <b>Feladat:</b> {{ selectedActivity.isTask ? "-" :selectedActivity.activityGroup.name }} <br>
+                <b>Idő:</b> {{ selectedActivity.isTask ? "-" : selectedActivityHour }}<b> Óra</b> {{ selectedActivity.isTask ? "-" : selectedActivityMin }} <b> Perc</b> <br>
                 <b>Megjegyzés:</b> {{ selectedActivity.description }} <br>
             </div>
 
@@ -73,11 +73,13 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let activity of activities" (click)="selectActivity(activity)">
-                        <th>{{ activity.workGroup.name }}</th>
-                        <th>{{ activity.activityGroup.name }}</th>
+                        <th *ngIf="!activity.isTask">{{ activity.workGroup.name }}</th>
+                        <th *ngIf="!activity.isTask">{{ activity.activityGroup.name }}</th>
+                        <th *ngIf="activity.isTask">Feladat</th>
+                        <th *ngIf="activity.isTask"></th>
                         <td class="text-right">
-                            <button type="button" class="btn btn-primary mr-1" (click)="editActivity(activity)">🔧</button>
-                            <button type="button" class="btn btn-danger mr-1" data-toggle="modal"
+                            <button *ngIf="!activity.isTask" type="button" class="btn btn-primary mr-1" (click)="editActivity(activity)">🔧</button>
+                            <button *ngIf="activity.user.id == activity.owner.id" type="button" class="btn btn-danger mr-1" data-toggle="modal"
                             data-target="#deleteActivity" (click)="selectForDelete(activity)">🗑️</button>
                         </td>
                     </tr>
@@ -102,8 +104,8 @@
             <div class="modal-body">
                 Biztosan törölni szeretné a következő tevékenységet: 
                 <br><br>
-                <b>Projekt:</b> {{ selectedForDelete.workGroup.name }} <br>
-                <b>Feladat:</b> {{ selectedForDelete.activityGroup.name }} <br>
+                <b>Projekt:</b> {{ selectedForDelete.isTask ? "Feladat" : selectedForDelete.workGroup.name }} <br>
+                <b>Feladat:</b> {{ selectedForDelete.isTask ? "-" : selectedForDelete.activityGroup.name }} <br>
                 <b>Megjegyzés:</b> {{ selectedForDelete.description }} <br>
             </div>
             <div class="modal-footer">

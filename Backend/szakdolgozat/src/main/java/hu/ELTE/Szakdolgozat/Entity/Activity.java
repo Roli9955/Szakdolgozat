@@ -49,9 +49,9 @@ public class Activity extends BasicEntity implements Serializable{
     @Column
     private Boolean isCompleted;
     
-    @Column
-    @NotNull
-    private Boolean locked;
+//    @Column
+//    @NotNull
+//    private Boolean locked;
     
     @Column
     @NotNull
@@ -65,7 +65,6 @@ public class Activity extends BasicEntity implements Serializable{
     @JoinColumn
     @ManyToOne
     @NotNull
-    @JsonIgnore
     private User owner;
 
     @JoinColumn

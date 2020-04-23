@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
-import { TaskbarComponent } from './taskbar/taskbar.component';
+import { TaskbarComponent, TaskbarComponentDialog } from './taskbar/taskbar.component';
 import { ContentComponent } from './content/content.component';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -24,6 +24,7 @@ import { MaintenanceActivityGroupComponent, MaintenanceActivityGroupDialog } fro
 import { MaintenancePermissionComponent, MaintenancePermissionDialog } from './maintenance-permission/maintenance-permission.component';
 import { ListingProjectComponent } from './listing-project/listing-project.component';
 import { ListingHolidayComponent } from './listing-holiday/listing-holiday.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,9 @@ import { ListingHolidayComponent } from './listing-holiday/listing-holiday.compo
     MaintenancePermissionComponent,
     MaintenancePermissionDialog,
     ListingProjectComponent,
-    ListingHolidayComponent
+    ListingHolidayComponent,
+    TaskbarComponentDialog,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { ListingHolidayComponent } from './listing-holiday/listing-holiday.compo
     MaintenanceUserDialog,
     MaintenanceProjectDialog,
     MaintenanceActivityGroupDialog,
-    MaintenancePermissionDialog
+    MaintenancePermissionDialog,
+    TaskbarComponentDialog
   ]
 })
 export class AppModule { }
