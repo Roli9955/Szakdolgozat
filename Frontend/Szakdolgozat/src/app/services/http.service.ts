@@ -8,13 +8,12 @@ export class HttpService {
 
   private get options() {
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic YWRtaW46YWRtaW4='
+      'Content-Type': 'application/json'
     };
 
-    // if (window.localStorage.getItem('token')) {
-    //   headers['Authorization'] = `Basic ${window.localStorage.getItem('token')}`;
-    // }
+    if (window.localStorage.getItem('token')) {
+      headers['Authorization'] = `Basic ${window.localStorage.getItem('token')}`;
+    }
 
     return {
       headers: new HttpHeaders(headers)

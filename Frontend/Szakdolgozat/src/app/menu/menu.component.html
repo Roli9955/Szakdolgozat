@@ -1,19 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li *ngIf="!authService.getIsLoggedIn()" class="nav-item active">
+                <a class="nav-link" routerLink="login">Munkaidő nyílvántartó rendszer</a>
+            </li>
+            <li *ngIf="authService.getIsLoggedIn()" class="nav-item active">
                 <a class="nav-link" routerLink="">Főoldal</a>
             </li>
-            <li class="nav-item active">
+            <li *ngIf="authService.getIsLoggedIn()" class="nav-item active">
                 <a class="nav-link" routerLink="work-time">Munkaidő-nyilvántartó</a>
             </li>
-            <li class="nav-item active">
+            <li *ngIf="authService.getIsLoggedIn() && havePermission('ROLE_HOLIDAY_ADMIN')" class="nav-item active">
                 <a class="nav-link" routerLink="holiday">Szabadság tervező</a>
             </li>
-            <li class="nav-item active">
+            <li *ngIf="authService.getIsLoggedIn()" class="nav-item active">
                 <a class="nav-link" routerLink="">Időbeosztás tervező</a>
             </li>
-            <li class="nav-item dropdown active">
+            <li *ngIf="authService.getIsLoggedIn() && havePermission('ROLE_LISTING')" class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Listázás
                 </a>
@@ -23,27 +26,21 @@
                     <a class="dropdown-item" routerLink="listing-holiday">Szabadságok</a>
                 </div>
             </li>
-            <li class="nav-item active dropdown">
+            <li *ngIf="authService.getIsLoggedIn()" class="nav-item active dropdown">
                 <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Karbantartás
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="maintenance-user">Felhasználók</a>
+                    <a *ngIf="authService.getIsLoggedIn() && havePermission('ROLE_USER_ADMIN')" class="dropdown-item" routerLink="maintenance-user">Felhasználók</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="maintenance-project">Projektek</a>
+                    <a *ngIf="authService.getIsLoggedIn() && havePermission('ROLE_PROJECT_ADMIN')" class="dropdown-item" routerLink="maintenance-project">Projektek</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="maintenance-activity-group">Feladatok</a>
+                    <a *ngIf="authService.getIsLoggedIn() && havePermission('ROLE_ACTIVITY_GROUP_ADMIN')" class="dropdown-item" routerLink="maintenance-activity-group">Feladatok</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="maintenance-permission">Jogosultságok</a>
+                    <a *ngIf="authService.getIsLoggedIn() && havePermission('ROLE_PERMISSION_ADMIN')" class="dropdown-item" routerLink="maintenance-permission">Jogosultságok</a>
                 </div>
             </li> 
-            <!-- <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li> -->
         </ul>
-        <!-- <form class="form-inline my-2 my-lg-0"> -->
-        <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-        <button class="btn btn-outline text-light my-2 my-sm-0" type="submit">Kijelentkezés</button>
-        <!-- </form> -->
+        <button *ngIf="authService.getIsLoggedIn()" class="btn btn-outline text-light my-2 my-sm-0" type="submit" (click)="logout()">Kijelentkezés</button>
     </div>
 </nav>

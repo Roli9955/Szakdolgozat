@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
+  }
+
+  logout(){
+    this.authService.logOut();
+  }
+
+  havePermission(permission: string){
+    var l: boolean = false;
+    this.authService.getUser().permission.details.forEach(p => {
+      if(p.roleTag == permission){
+        l = true;
+        return;
+      }
+    });
+
+    return l;
   }
 
 }

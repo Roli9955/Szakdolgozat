@@ -18,8 +18,20 @@ export class ActivityGroupService {
     return this.httpService.get(this.url)
   }
 
+  getAllActivityGroupWithOutEasyLogIn(): Promise<ActivityGroup[]>{
+    return this.httpService.get(this.url + "/no/easy-log-in")
+  }
+
+  getAllEasyLogInActivityGroups(): Promise<ActivityGroup[]>{
+    return this.httpService.get(this.url + "/easy-log-in")
+  }
+
   addNewActivityGroup(activityGroup: ActivityGroup): Promise<ActivityGroup>{
     return this.httpService.post(this.url + "/add", activityGroup);
+  }
+
+  addNewActivityGroupForEasyLogIn(activityGroup: ActivityGroup): Promise<ActivityGroup>{
+    return this.httpService.post(this.url + "/add/easy-log-in", activityGroup);
   }
 
   deleteActivityGroup(id: number): Promise<ActivityGroup>{
@@ -29,4 +41,5 @@ export class ActivityGroupService {
   editWorkGroupActivityGroups(workGroup: WorkGroup): Promise<WorkGroup>{
     return this.httpService.put(this.url + "/edit/work-group", workGroup)
   }
+
 }

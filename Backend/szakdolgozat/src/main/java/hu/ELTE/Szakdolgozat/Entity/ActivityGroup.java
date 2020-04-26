@@ -47,6 +47,10 @@ public class ActivityGroup extends BasicEntity implements Serializable {
 
     @Column
     @NotNull
+    private Boolean easyLogIn;
+
+    @Column
+    @NotNull
     private Boolean deleted;
     
     @OneToMany(mappedBy = "activityGroup", cascade = CascadeType.ALL)

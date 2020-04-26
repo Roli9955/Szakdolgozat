@@ -26,8 +26,30 @@ public class ActivityGroupService {
         return this.activityGroupRepository.findByDeletedFalse();
     }
 
+    public Iterable<ActivityGroup> getAllActivityGroupsWithOutEasyLogIn(){
+        return this.activityGroupRepository.findByDeletedFalseAndEasyLogInFalse();
+    }
+
+    public Iterable<ActivityGroup> getAllEasyLogInActivityGroups(){
+        return this.activityGroupRepository.findByDeletedFalseAndEasyLogInTrue();
+    }
+
+    public Result<ActivityGroup, String> addNewActivityGroupForEasyLogIn(ActivityGroup activityGroup){
+        List<ActivityGroup> iActivityGroup = this.activityGroupRepository.findByNameAndDeletedFalseAndEasyLogInTrue(activityGroup.getName());
+        if(iActivityGroup.size() > 0) return new Result<ActivityGroup, String>(null, "Ilyen néven már létezik egyszerűsített bejelentkezési feladat");
+        activityGroup.setWorkGroup(null);
+        activityGroup.setDeleted(false);
+        activityGroup.setId(null);
+        activityGroup.setParent(null);
+        activityGroup.setChildren(null);
+        activityGroup.setEasyLogIn(true);
+        activityGroup.setCanAddChild(false);
+
+        return new Result<ActivityGroup, String>(this.activityGroupRepository.save(activityGroup), "");
+    }
+
     public Result<ActivityGroup, String> addNewActivityGroup(ActivityGroup activityGroup){
-        List<ActivityGroup> iActivityGroup = this.activityGroupRepository.findByNameAndDeletedFalse(activityGroup.getName());
+        List<ActivityGroup> iActivityGroup = this.activityGroupRepository.findByNameAndDeletedFalseAndEasyLogInFalse(activityGroup.getName());
         if(iActivityGroup.size() > 0){
             if(activityGroup.getParent() == null){
                 return new Result<ActivityGroup, String>(null, "Ilyen néven már létezik feladat");

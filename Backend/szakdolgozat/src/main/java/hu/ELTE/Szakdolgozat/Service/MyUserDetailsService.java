@@ -26,9 +26,6 @@ public class MyUserDetailsService implements UserDetailsService{
     @Autowired
     private AuthenticatedUser authenticatedUser;
 
-    @Autowired
-    private PermissionDetailRepository permissionDetailRepository;
-
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException {
@@ -41,7 +38,7 @@ public class MyUserDetailsService implements UserDetailsService{
 
         User user = oUser.get();
         authenticatedUser.setUser(user);
-        
+
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
         if(user.getPermission() == null){
@@ -55,5 +52,5 @@ public class MyUserDetailsService implements UserDetailsService{
         return new org.springframework.security.core.userdetails.User(user.getLoginName(), user.getPassword(), grantedAuthorities);
 
     }
-    
+
 }

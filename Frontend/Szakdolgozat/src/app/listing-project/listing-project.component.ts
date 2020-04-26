@@ -44,7 +44,7 @@ export class ListingProjectComponent implements OnInit {
   }
 
   async update(){
-    this.projects = await this.workGroupService.getAllWorkGroup().then(res => {
+    this.projects = await this.workGroupService.getAllWorkGroup().then(async res => {
       res.forEach(p => {
         p.visible = true;
         p.activityGroup.forEach(ag => {
@@ -62,6 +62,18 @@ export class ListingProjectComponent implements OnInit {
       task.activityGroup.push(ag);
       task.visible = true;
       res.push(task);
+
+      let easyLogIn = new WorkGroup();
+      easyLogIn.id = -2;
+      easyLogIn.name = "Egyszerűsített bejeletnkezések";
+      easyLogIn.activityGroup = await this.activityGroupService.getAllEasyLogInActivityGroups().then(act => {
+        act.forEach(a => {
+          a.visible = true;
+        });
+        return act;
+      });
+      easyLogIn.visible = true;
+      res.push(easyLogIn);
       return res;
     });
     this.activities = await this.activityService.getAllActivity().then(res => {
@@ -106,8 +118,14 @@ export class ListingProjectComponent implements OnInit {
                     row += "<tr><td></td><td></td><td>" + activity.user.loginName + "</td><td>" + activity.date + "</td><td></td><td class='w-25'>" + activity.description + "</td></tr>";
                   }
                 } else {
-                  if(activity.activityGroup.id == activityGroup.id){
-                    row += "<tr><td></td><td></td><td>" + activity.user.loginName + "</td><td>" + activity.date + "</td><td>" + Math.floor(activity.min/60) + " óra " + activity.min % 60 + " perc</td><td class='w-25'>" + activity.description + "</td></tr>"
+                  if(activity.min == null){
+                    if(activity.activityGroup.id == activityGroup.id){
+                      row += "<tr><td></td><td></td><td>" + activity.user.loginName + "</td><td>" + activity.date + "</td><td></td><td class='w-25'></td></tr>"
+                    }
+                  } else {
+                    if(activity.activityGroup.id == activityGroup.id){
+                      row += "<tr><td></td><td></td><td>" + activity.user.loginName + "</td><td>" + activity.date + "</td><td>" + Math.floor(activity.min/60) + " óra " + activity.min % 60 + " perc</td><td class='w-25'>" + activity.description + "</td></tr>"
+                    }
                   }
                 }
               }

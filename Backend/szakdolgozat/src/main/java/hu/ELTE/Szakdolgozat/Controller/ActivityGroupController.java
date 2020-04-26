@@ -26,9 +26,31 @@ public class ActivityGroupController {
         return ResponseEntity.ok(iActivityGroup);
     }
 
+    @GetMapping("/no/easy-log-in")
+    public ResponseEntity<Iterable<ActivityGroup>> getAllActivityGroupWithOutEasyLogin(){
+        Iterable<ActivityGroup> iActivityGroup = this.activityGroupService.getAllActivityGroupsWithOutEasyLogIn();
+        return ResponseEntity.ok(iActivityGroup);
+    }
+
+    @GetMapping("/easy-log-in")
+    public ResponseEntity<Iterable<ActivityGroup>> getAllEasyLogInActivityGroups(){
+        Iterable<ActivityGroup> iActivityGroup = this.activityGroupService.getAllEasyLogInActivityGroups();
+        return ResponseEntity.ok(iActivityGroup);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Object> addNewActivityGroup(@RequestBody ActivityGroup activityGroup){
         Result<ActivityGroup, String> res = this.activityGroupService.addNewActivityGroup(activityGroup);
+        if(res.getRes1() == null){
+            return ResponseEntity.badRequest().body(res.getRes2());
+        } else {
+            return ResponseEntity.ok(res.getRes1());
+        }
+    }
+
+    @PostMapping("/add/easy-log-in")
+    public ResponseEntity<Object> addNewActivityGroupForEasyLogIn(@RequestBody ActivityGroup activityGroup){
+        Result<ActivityGroup, String> res = this.activityGroupService.addNewActivityGroupForEasyLogIn(activityGroup);
         if(res.getRes1() == null){
             return ResponseEntity.badRequest().body(res.getRes2());
         } else {
@@ -55,6 +77,7 @@ public class ActivityGroupController {
             return ResponseEntity.ok(res);
         }
     }
+
 
 
 }

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
@@ -18,7 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends  WebSecurityConfigurerAdapter{
 
     @Autowired
-    private MyUserDetailsService userDetailService;
+    private UserDetailsService userDetailService;
     
     @Autowired
     protected void configureAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -34,7 +35,7 @@ public class WebSecurityConfig extends  WebSecurityConfigurerAdapter{
                 .and()
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/h2/**").permitAll()
+                .antMatchers("/h2/**", "/activity-group/easy-log-in" ,"/easy-log-in/activity-group/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .httpBasic()
