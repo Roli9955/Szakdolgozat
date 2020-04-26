@@ -29,7 +29,8 @@ export class MaintenanceActivityGroupComponent implements OnInit {
   public activityGroupForm = new FormGroup({
     name: new FormControl(),
     parent: new FormControl(),
-    child: new FormControl()
+    child: new FormControl(),
+    easyLogIn: new FormControl()
   });
 
   constructor(
@@ -60,6 +61,9 @@ export class MaintenanceActivityGroupComponent implements OnInit {
     this.activityGroupForm.controls['name'].setValue("");
     this.activityGroupForm.controls['parent'].setValue(-1);
     this.activityGroupForm.controls['child'].setValue("true");
+    this.activityGroupForm.controls['easyLogIn'].setValue("false");
+    this.activityGroupForm.controls['child'].enable();
+      this.activityGroupForm.controls['parent'].enable();
   }
 
   treeSort(res: ActivityGroup[]) {
@@ -94,6 +98,7 @@ export class MaintenanceActivityGroupComponent implements OnInit {
     const name = this.activityGroupForm.controls['name'].value;
     const parent = this.activityGroupForm.controls['parent'].value;
     const child = this.activityGroupForm.controls['child'].value;
+    const easyLogIn = this.activityGroupForm.controls['easyLogIn'].value;
 
     if(!name){
       this.snackBar.sendMsg("A név megadása kötelező");
@@ -102,16 +107,26 @@ export class MaintenanceActivityGroupComponent implements OnInit {
 
     this.newActivityGroup.name = name;
     this.newActivityGroup.canAddChild = child;
+    this.newActivityGroup.easyLogIn = easyLogIn;
     if(parent != -1){
       this.newActivityGroup.parent = new ActivityGroup();
       this.newActivityGroup.parent.id = parent;
     }
 
-    this.activityGroupService.addNewActivityGroup(this.newActivityGroup).then(res => {
-      this.update();
-    }).catch(err => {
-      this.snackBar.sendMsg(err.error);
-    });
+    if(easyLogIn == "false"){
+      this.activityGroupService.addNewActivityGroup(this.newActivityGroup).then(res => {
+        this.update();
+      }).catch(err => {
+        this.snackBar.sendMsg(err.error);
+      });
+    } else {
+      this.activityGroupService.addNewActivityGroupForEasyLogIn(this.newActivityGroup).then(res => {
+        this.update();
+      }).catch(err => {
+        this.snackBar.sendMsg(err.error);
+      });
+    }
+
   }
 
   selectForDelete(activityGroup: ActivityGroup){
@@ -135,6 +150,18 @@ export class MaintenanceActivityGroupComponent implements OnInit {
     ref.afterClosed().subscribe(() => {
       this.update();
     })
+  }
+
+  easyLogInChange(){
+    const easyLogIn = this.activityGroupForm.controls['easyLogIn'].value;
+
+    if(easyLogIn == "true"){
+      this.activityGroupForm.controls['child'].disable();
+      this.activityGroupForm.controls['parent'].disable();
+    } else {
+      this.activityGroupForm.controls['child'].enable();
+      this.activityGroupForm.controls['parent'].enable();
+    }
   }
 
 }
@@ -161,7 +188,7 @@ export class MaintenanceActivityGroupDialog {
   async load(){
     this.edit = false;
     this.activityGroups = [];
-    await this.activityGroupService.getAllActivityGroup().then(res => {
+    await this.activityGroupService.getAllActivityGroupWithOutEasyLogIn().then(res => {
       this.treeSort(res);
     });
     this.project = this.data.project;

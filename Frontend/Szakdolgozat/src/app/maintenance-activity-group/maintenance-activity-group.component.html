@@ -29,6 +29,16 @@
             </select>
         </div>
         <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Egyszerűsített bejelentkezés</span>
+            </div>
+            <select (change)="easyLogInChange()" class="custom-select" formControlName="easyLogIn">
+                <option value="true">Igen</option>
+                <option value="false">Nem</option>
+            </select>
+        </div>
+        <br>
         <button  type="button" class="btn btn-primary mr-1" (click)="addNewActivityGroup()">Mentés</button>
         <button type="button" class="btn btn-danger mr-1" (click)="clearForm()">Törlés</button>
     </div>
@@ -40,6 +50,7 @@
                         <th scope="col">Név</th>
                         <th scope="col">Szülő</th>
                         <th scope="col">Bontható</th>
+                        <th scope="col">Egyszerű. bejel.</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -48,6 +59,7 @@
                         <td>{{ activityGroup.name }}</td>
                         <td>{{ activityGroup.parent != null ? activityGroup.parent.name : "- Nincs -" }}</td>
                         <td>{{ activityGroup.canAddChild ? "✔️" : "❌" }}</td>
+                        <td>{{ activityGroup.easyLogIn ? "✔️" : "❌" }}</td>
                         <td>
                             <button type="button" class="btn btn-danger mr-1" data-toggle="modal" data-target="#deleteActivityGroup" (click)="selectForDelete(activityGroup)">🗑️</button>
                         </td>

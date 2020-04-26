@@ -16,20 +16,20 @@ export class AuthService {
     private router: Router
   ) { }
 
-  public getIsLoggedIn(): boolean{
+  getIsLoggedIn(): boolean{
     return  this.isLoggedIn;
   }
 
-  public getUser(): User{
+  getUser(): User{
     return this.user;
   }
 
-  public async login(username: string, password: string): Promise<User>{
+  async login(username: string, password: string): Promise<User>{
     
     try {
       const token = btoa(username + ":" + password);
       window.localStorage.setItem('token', token);
-      const user: User = await this.httpService.put<User>('login', username);
+      const user: User = await this.httpService.put<User>('login', null);
       this.isLoggedIn = true;
       this.user = user;
       return Promise.resolve(user);
@@ -40,17 +40,28 @@ export class AuthService {
 
   }
 
-  public logOut(){
+  logOut(){
     this.isLoggedIn = false;
     this.user = null;
     window.localStorage.setItem('token', '');
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
-  public loginWithToken(){
+  loginWithToken(){
     const token = window.localStorage.getItem('token');
     const [username, password] = atob(token).split(':');
     this.login(username, password);
+  }
+
+  async easyLogIn(username: string, activityGroupId: number): Promise<User>{
+    try {
+      let user = new User();
+      user.loginName = username;
+      user = await this.httpService.post("easy-log-in/activity-group/" + activityGroupId, user);
+      return Promise.resolve(user);
+    } catch (e) {
+      return Promise.reject();
+    }
   }
 
 }

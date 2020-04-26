@@ -1,1 +1,44 @@
-<p>login works!</p>
+<div class="w-100 h-100">
+    <div class="w-50 h-100 float-left p-md-5" [formGroup]="loginForm">
+        <h3 class="text-center">Bejelentkezés</h3>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Bejelentkezési név</span>
+            </div>
+            <input formControlName="loginName" type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Jelszó</span>
+            </div>
+            <input formControlName="password" type="password" class="form-control">
+        </div>
+        <br>
+        <button type="button" class="btn btn-primary mr-1" (click)="login()">Bejelentkezés</button>
+
+    </div>
+    <div class="w-50 h-100 float-right p-md-5" [formGroup]="easyLoginForm">
+        <h3 class="text-center">Egyszerűsített bejelentkezés</h3>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Bejelentkezési név</span>
+            </div>
+            <input formControlName="loginName" type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Jelszó</span>
+            </div>
+            <select formControlName="activityGroup" class="custom-select">
+                <option *ngFor="let activityGroup of activityGroups" value="{{activityGroup.id}}">{{ activityGroup.name }}</option>
+            </select>
+        </div>
+        <br>
+        <button type="button" class="btn btn-primary mr-1" (click)="easyLogin()">Rögzítés</button>
+
+    </div>
+</div>
