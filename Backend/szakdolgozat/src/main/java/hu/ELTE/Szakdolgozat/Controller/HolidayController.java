@@ -55,7 +55,7 @@ public class HolidayController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Holiday>> gettHolidays(){
+    public ResponseEntity<Iterable<Holiday>> getHolidays(){
         Iterable<Holiday> iHolidays = this.holidayService.getHolidays();
         return ResponseEntity.ok(iHolidays);
     }
