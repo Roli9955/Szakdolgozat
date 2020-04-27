@@ -1,7 +1,6 @@
 package hu.ELTE.Szakdolgozat.Service;
 
 import hu.ELTE.Szakdolgozat.Class.Result;
-import hu.ELTE.Szakdolgozat.Entity.Activity;
 import hu.ELTE.Szakdolgozat.Entity.ActivityGroup;
 import hu.ELTE.Szakdolgozat.Entity.WorkGroup;
 import hu.ELTE.Szakdolgozat.Repository.ActivityGroupRepository;

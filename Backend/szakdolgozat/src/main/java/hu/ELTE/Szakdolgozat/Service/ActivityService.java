@@ -40,7 +40,6 @@ public class ActivityService {
 
     @Autowired
     private AuthenticatedUser authenticatedUser;
-
     
     @Autowired
     private WorkGroupRepository workGroupRepository;
@@ -51,7 +50,6 @@ public class ActivityService {
 
         Iterable<Activity> iUserActivities = this.activityRepository.findByUser(this.authenticatedUser.getUser());
         List<Activity> iActivity = new ArrayList();
-
         for (Activity ua : iUserActivities) {
             if (ua.getDate().equals(date)) {
                 if(!ua.getIsTask()) {
