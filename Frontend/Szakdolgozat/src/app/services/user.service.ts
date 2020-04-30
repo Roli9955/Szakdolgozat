@@ -32,4 +32,12 @@ export class UserService {
   editUser(user: User): Promise<User>{
     return this.httpService.put(this.url + "/edit", user);
   }
+
+  checkUserLoggedIn(userName: String): Promise<User>{
+    return this.httpService.get("loged-ever/" + userName);
+  }
+
+  setNotLoggedUserPassword(user: User): Promise<User>{
+    return this.httpService.post("set-not-logged-user-password", user);
+  }
 }

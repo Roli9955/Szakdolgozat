@@ -1,11 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { SnackComponent } from '../snack/snack.component';
 import { Router } from '@angular/router';
 import { ActivityGroup } from '../classes/activity-group';
 import { ActivityGroupService } from '../services/activity-group.service';
+import { UserService } from '../services/user.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { User } from '../classes/user';
 
+
+export interface DialogData{
+  user: User
+}
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,7 +36,9 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private snackBar: SnackComponent,
     private router: Router,
-    private activityGroupService: ActivityGroupService
+    private activityGroupService: ActivityGroupService,
+    private userService: UserService,
+    private dialog: MatDialog
   ) { }
 
   async ngOnInit() {
@@ -46,14 +55,29 @@ export class LoginComponent implements OnInit {
     const loginName = this.loginForm.controls['loginName'].value;
     const password = this.loginForm.controls['password'].value;
 
-    try {
-      await this.authService.login(loginName, password);
-      this.router.navigate(['/']);
-      this.snackBar.sendMsg('Sikeres bejelentkezés!');
-    } catch (e) {
-      this.snackBar.sendMsg('Sikertelen bejelentkezés!');
+    if(!loginName){
+      this.snackBar.sendMsg("Bejelentkezési név megadása kötelező");
+      return;
     }
 
+    this.userService.checkUserLoggedIn(loginName).then(async res => {
+      if(res == null){
+        try {
+          await this.authService.login(loginName, password);
+          this.router.navigate(['/']);
+          this.snackBar.sendMsg('Sikeres bejelentkezés!');
+        } catch (e) {
+          this.snackBar.sendMsg('Sikertelen bejelentkezés!');
+        }
+      } else {
+        const dialogRef = this.dialog.open(LoginComponentDialog, {
+          width: '20%',
+          data:{
+            user: res
+          }
+        })
+      }
+    })
   }
 
   async easyLogin(){
@@ -76,6 +100,43 @@ export class LoginComponent implements OnInit {
     } catch (e) {
       this.snackBar.sendMsg('Sikertelen rögzítés!');
     }
+  }
+
+}
+
+@Component({
+  templateUrl: './login.component.dialog.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponentDialog {
+
+  public user: User;
+
+  public form = new FormGroup({
+    password: new FormControl()
+  });
+
+  constructor(
+    private dialogRef: MatDialogRef<LoginComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: DialogData,
+    private userService: UserService,
+    private snackBar: SnackComponent
+  ){
+    this.user = data.user;
+  }
+
+  save(){
+    const password = this.form.controls['password'].value;
+
+    if(!password){
+      this.snackBar.sendMsg("Jelszó megadása kötelező");
+      return;
+    }
+
+    this.user.password = password;
+    this.userService.setNotLoggedUserPassword(this.user).then(() => {
+      this.dialogRef.close();
+    });
   }
 
 }

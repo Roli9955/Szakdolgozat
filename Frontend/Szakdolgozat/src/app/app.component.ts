@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
+import { Permission } from './classes/permission';
+import { PermissionDetail } from './classes/permission-detail';
 
 @Component({
   selector: 'app-root',

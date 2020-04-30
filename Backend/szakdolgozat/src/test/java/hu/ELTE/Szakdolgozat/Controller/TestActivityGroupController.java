@@ -84,7 +84,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN", "ROLE_LISTING"})
     public void testGetAllActivityGroupReturnOk() throws Exception{
         List<ActivityGroup> tmp = new ArrayList<>();
         tmp.add(activityGroupNotNull);
@@ -95,7 +95,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testGetAllActivityGroupNoEasyLogInReturnOk() throws Exception{
         List<ActivityGroup> tmp = new ArrayList<>();
         tmp.add(activityGroupNotNull);
@@ -105,7 +105,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {})
     public void testGetAllActivityGroupOnlyEasyLogInReturnOk() throws Exception{
         List<ActivityGroup> tmp = new ArrayList<>();
         tmp.add(activityGroupNoEasyLoginNotNull);
@@ -115,7 +115,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testPostActivityGroupReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -126,7 +126,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testPostActivityGroupSameNameReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -137,7 +137,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testPostActivityGroupSameNameAndWrongParentReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -148,7 +148,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testPostActivityGroupParentNotCanAddChildReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -159,7 +159,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testPostActivityGroupSameNameUnderSameParentReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -170,7 +170,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testPostActivityGroupEasyLogInReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -181,7 +181,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testPostActivityGroupEasyLogInReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -192,7 +192,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testDeleteActivityGroupReturnOk() throws Exception{
         List<ActivityGroup> list = new ArrayList<>();
         list.add(activityGroupNotNull);
@@ -200,14 +200,14 @@ public class TestActivityGroupController {
         this.mvc.perform(delete("/activity-group/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testDeleteActivityGroupReturnBadRequest() throws Exception{
         doReturn(null).when(activityGroupService).deleteActivityGroup(activityGroupNotNull.getId());
         this.mvc.perform(delete("/activity-group/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testPostEditWorkGroupReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -217,7 +217,7 @@ public class TestActivityGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_ACTIVITY_GROUP_ADMIN"})
     public void testPostEditWorkGroupReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);

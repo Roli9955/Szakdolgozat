@@ -66,7 +66,7 @@ public class TestPermissionDetailController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testGetAllPermissionDetailsReturnOk() throws Exception{
         List<PermissionDetail> iPermissionDetails = new ArrayList<>();
         iPermissionDetails.add(permissionDetailNotNull);
@@ -77,7 +77,7 @@ public class TestPermissionDetailController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testGetAllPermissionDetailsReturnOk2() throws Exception{
         List<PermissionDetail> iPermissionDetails = new ArrayList<>();
         Iterable<PermissionDetail> res = iPermissionDetails;

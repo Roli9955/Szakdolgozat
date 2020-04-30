@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { User } from '../classes/user';
 import { HttpService } from './http.service';
 import { Router } from '@angular/router';
+import { Permission } from '../classes/permission';
+import { PermissionDetail } from '../classes/permission-detail';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,7 @@ export class AuthService {
       const user: User = await this.httpService.put<User>('login', null);
       this.isLoggedIn = true;
       this.user = user;
+      this.setUserRole()
       return Promise.resolve(user);
     } catch (e) {
       window.localStorage.setItem('token', '');
@@ -61,6 +64,16 @@ export class AuthService {
       return Promise.resolve(user);
     } catch (e) {
       return Promise.reject();
+    }
+  }
+
+  setUserRole(){
+    if(this.user.permission == null){
+      this.user.permission = new Permission();
+      this.user.permission.details = [];
+      let pd: PermissionDetail = new PermissionDetail();
+      pd.roleTag ="ROLE_USER";
+      this.user.permission.details.push(pd);
     }
   }
 

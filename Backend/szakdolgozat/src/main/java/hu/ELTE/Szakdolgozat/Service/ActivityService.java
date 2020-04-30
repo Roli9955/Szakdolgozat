@@ -224,14 +224,18 @@ public class ActivityService {
     }
 
     public Activity addTask(Activity activity){
-        Optional<User> oUser = this.userRepository.findById(activity.getUser().getId());
-        if(!oUser.isPresent()) return null;
+        if(activity.getUser() == null){
+            activity.setUser(this.authenticatedUser.getUser());
+        } else {
+            Optional<User> oUser = this.userRepository.findById(activity.getUser().getId());
+            if(!oUser.isPresent()) return null;
+            activity.setUser(oUser.get());
+        }
 
         activity.setId(null);
         activity.setIsCompleted(false);
         activity.setIsTask(true);
         activity.setOwner(this.authenticatedUser.getUser());
-        activity.setUser(oUser.get());
 
         return this.activityRepository.save(activity);
     }

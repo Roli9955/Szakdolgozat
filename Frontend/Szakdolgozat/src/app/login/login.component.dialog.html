@@ -1,0 +1,10 @@
+<div class="w-100">
+    <div class="input-group" [formGroup]="form">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Jelszó</span>
+        </div>
+        <input formControlName="password" type="password" class="form-control">
+    </div>
+    <br>
+    <button type="button" class="btn btn-primary mr-1 w-100" (click)="save()">Jelszó mentése</button>
+</div>

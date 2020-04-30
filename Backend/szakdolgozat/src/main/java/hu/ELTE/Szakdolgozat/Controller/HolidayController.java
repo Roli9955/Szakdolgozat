@@ -7,6 +7,7 @@ import hu.ELTE.Szakdolgozat.Service.HolidayService;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,18 +24,21 @@ public class HolidayController {
     private HolidayService holidayService;
 
     @GetMapping("/me")
+    @Secured({"ROLE_USER"})
     public ResponseEntity<Iterable<Holiday>> getHolidayByUser(){
         Iterable<Holiday> iHoliday = this.holidayService.getHolidayByUser();
         return  ResponseEntity.ok(iHoliday);
     }
 
     @GetMapping("/year")
+    @Secured({"ROLE_HOLIDAY_ADMIN", "ROLE_LISTING"})
     public ResponseEntity<List<Integer>> getYears(){
         List<Integer> years = this.holidayService.getYears();
         return  ResponseEntity.ok(years);
     }
 
     @PostMapping("/add/user/{id}")
+    @Secured({"ROLE_HOLIDAY_ADMIN"})
     public ResponseEntity<Holiday> addNewHolidayByUserId(@PathVariable("id") Integer userId, @RequestBody Holiday holiday){
         Holiday res = this.holidayService.addNewHolidayByUserId(userId, holiday);
         if(res == null){
@@ -45,6 +49,7 @@ public class HolidayController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @Secured({"ROLE_HOLIDAY_ADMIN"})
     public ResponseEntity<Holiday> deleteHoliday(@PathVariable("id") Integer holidayId){
         Holiday holiday = this.holidayService.deleteHoliday(holidayId);
         if(holiday == null){
@@ -55,12 +60,14 @@ public class HolidayController {
     }
 
     @GetMapping("")
+    @Secured({"ROLE_LISTING"})
     public ResponseEntity<Iterable<Holiday>> getHolidays(){
         Iterable<Holiday> iHolidays = this.holidayService.getHolidays();
         return ResponseEntity.ok(iHolidays);
     }
 
     @GetMapping("/excel/user/{user}/year/{year}")
+    @Secured({"ROLE_LISTING"})
     public void makeExcel(
             HttpServletResponse response,
             @PathVariable("user") Integer userId,

@@ -8,7 +8,6 @@ import hu.ELTE.Szakdolgozat.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -27,7 +26,7 @@ public class HolidayService {
     private UserRepository userRepository;
 
     public Iterable<Holiday> getHolidayByUser(){
-        Iterable<Holiday> iHoliday = this.holidayRepository.findByUser(this.authenticatedUser.getUser());
+        Iterable<Holiday> iHoliday = this.holidayRepository.findByUserAndDeletedFalse(this.authenticatedUser.getUser());
         return iHoliday;
     }
 
@@ -47,20 +46,22 @@ public class HolidayService {
 
         holiday.setId(null);
         holiday.setUser(oUser.get());
+        holiday.setDeleted(false);
 
         return this.holidayRepository.save(holiday);
     }
 
     public  Holiday deleteHoliday(Integer holidayId){
-        Optional<Holiday> oHoliday = this.holidayRepository.findById(holidayId);
+        Optional<Holiday> oHoliday = this.holidayRepository.findByIdAndDeletedFalse(holidayId);
         if(!oHoliday.isPresent()) return  null;
-        this.holidayRepository.delete(oHoliday.get());
+        oHoliday.get().setDeleted(true);
+        this.holidayRepository.save(oHoliday.get());
 
         return oHoliday.get();
     }
 
     public Iterable<Holiday> getHolidays(){
-        Iterable<Holiday> iHolidays = this.holidayRepository.findAll();
+        Iterable<Holiday> iHolidays = this.holidayRepository.findByDeletedFalse();
         for(Holiday h: iHolidays){
             h.setUserId(h.getUser().getId());
         }
@@ -83,10 +84,10 @@ public class HolidayService {
 
         switch (code){
             case 1:
-                iHoliday = this.holidayRepository.findByUser(oUser.get());
+                iHoliday = this.holidayRepository.findByUserAndDeletedFalse(oUser.get());
                 break;
             case 2:
-                Iterable<Holiday> list = this.holidayRepository.findAll();
+                Iterable<Holiday> list = this.holidayRepository.findByDeletedFalse();
                 List<Holiday> sorted = new ArrayList<>();
                 for(Holiday h: list){
                     cal.setTime(h.getHolidayFrom());
@@ -97,7 +98,7 @@ public class HolidayService {
                 iHoliday = sorted;
                 break;
             case 3:
-                Iterable<Holiday> list2 =this.holidayRepository.findByUser(oUser.get());
+                Iterable<Holiday> list2 =this.holidayRepository.findByUserAndDeletedFalse(oUser.get());
                 List<Holiday> sorted2 = new ArrayList<>();
                 for(Holiday h: list2){
                     cal.setTime(h.getHolidayFrom());
@@ -108,7 +109,7 @@ public class HolidayService {
                 iHoliday = sorted2;
                 break;
             default:
-                iHoliday = this.holidayRepository.findAll();
+                iHoliday = this.holidayRepository.findByDeletedFalse();
                 break;
         }
 

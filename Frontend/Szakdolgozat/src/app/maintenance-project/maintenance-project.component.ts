@@ -8,6 +8,7 @@ import { UserWorkGroup } from '../classes/user-work-group';
 import { SnackComponent } from '../snack/snack.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivityGroup } from '../classes/activity-group';
+import { UtilService } from '../services/util.service';
 
 export interface DialogData {
 	project: WorkGroup
@@ -42,7 +43,8 @@ export class MaintenanceProjectComponent implements OnInit {
 		private workGroupService: WorkGroupService,
 		private userService: UserService,
 		private snackBar: SnackComponent,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private utilService: UtilService
 	) {
 		this.edit = false;
 		this.newUserWorkGroup = [];
@@ -91,6 +93,11 @@ export class MaintenanceProjectComponent implements OnInit {
 			return;
 		}
 
+		if(!this.utilService.isNumber(scale)){
+			this.snackBar.sendMsg("Az arány mező nem megfelelő formátumot tartalmaz");
+			return;
+		}
+
 		this.newWorkGroup.name = name;
 		this.newWorkGroup.scale = scale;
 
@@ -114,6 +121,11 @@ export class MaintenanceProjectComponent implements OnInit {
 
 		if (!from) {
 			this.snackBar.sendMsg("Kötelező első napot megadni");
+			return;
+		}
+
+		if(new Date(from) > new Date(to)){
+			this.snackBar.sendMsg("Ez első nap nem lehet nagyobb az utolsó napnál");
 			return;
 		}
 

@@ -7,6 +7,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ActivityService } from '../services/activity.service';
 import { ActivityGroup } from '../classes/activity-group';
 import { SnackComponent } from '../snack/snack.component';
+import { UtilService } from '../services/util.service';
 
 
 export interface SnackBarMsg {
@@ -57,7 +58,8 @@ export class WorkTimeComponent implements OnInit {
     private workTimeService: WorkTimeService,
     private userWorkGroupService: UserWorkGroupService,
     private activitySerevice: ActivityService,
-    private snackBar: SnackComponent
+    private snackBar: SnackComponent,
+    private utilService: UtilService
   ) {
     const date = new Date();
     this.actualYear = date.getFullYear();
@@ -65,6 +67,7 @@ export class WorkTimeComponent implements OnInit {
     this.selectedDay = date.getDate();
     this.selected = true;
     this.selectedWorkGroup = new WorkGroup();
+    this.selectedWorkGroup.activityGroup = [];
     this.newActivity = new Activity();
     this.newActivity.workGroup = new WorkGroup();
     this.newActivity.activityGroup = new ActivityGroup();
@@ -236,6 +239,7 @@ export class WorkTimeComponent implements OnInit {
     this.activityForm.controls['comment'].setValue('');
 
     this.selectedWorkGroup = new WorkGroup();
+    this.selectedWorkGroup.activityGroup = [];
     this.edit = false;
   }
 
@@ -293,7 +297,8 @@ export class WorkTimeComponent implements OnInit {
       this.selectedWorkGroup = this.workGroups[0];
       this.activityForm.controls['workGroup'].setValue(this.selectedWorkGroup.id);
     } else {
-      this.selectedWorkGroup = null;
+      this.selectedWorkGroup = new WorkGroup();
+      this.selectedWorkGroup.activityGroup = [];
     }
     this.selectWorkGroup();
   }
@@ -317,8 +322,33 @@ export class WorkTimeComponent implements OnInit {
     const min = this.activityForm.controls['min'].value
     const comment = this.activityForm.controls['comment'].value
 
-    if (!workGroup || !activityGroup || !hour || !min || !comment) {
+    if (!workGroup || !activityGroup || !hour || !min) {
       this.snackBar.sendMsg("Minden mező kitöltése kötelező!");
+      return false;
+    }
+
+    if(!this.utilService.isNumber(hour)){
+      this.snackBar.sendMsg("Az óra mezőben nem szám szerepel");
+      return false;
+    }
+
+    if(hour < 0 || hour > 24){
+      this.snackBar.sendMsg("Az óra értékének 0-24 között kell lenni");
+      return false;
+    }
+
+    if(!this.utilService.isNumber(min)){
+      this.snackBar.sendMsg("A perc mezőben nem szám szerepel");
+      return false;
+    }
+
+    if(min < 0 || min > 59){
+      this.snackBar.sendMsg("A perc értékének 0-59 között kell lenni");
+      return false;
+    }
+
+    if(((parseInt(hour) * 60) + parseInt(min)) > 1440){
+      this.snackBar.sendMsg("A tevékenység nem lehet 24 óránál több");
       return false;
     }
 

@@ -49,10 +49,6 @@ public class Activity extends BasicEntity implements Serializable{
     @Column
     private Boolean isCompleted;
     
-//    @Column
-//    @NotNull
-//    private Boolean locked;
-    
     @Column
     @NotNull
     private Date date;

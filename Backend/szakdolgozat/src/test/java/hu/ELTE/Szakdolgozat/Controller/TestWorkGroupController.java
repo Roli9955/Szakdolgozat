@@ -78,7 +78,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN", "ROLE_ACTIVITY_GROUP_ADMIN", "ROLE_LISTING"})
     public void testGetAllWorkGroupyReturnOkWithNull() throws Exception{
         Iterable<WorkGroup> iWorkGroup = null;
         doReturn(iWorkGroup).when(workGroupService).getWorkGroups();
@@ -86,7 +86,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN", "ROLE_ACTIVITY_GROUP_ADMIN", "ROLE_LISTING"})
     public void testGetAllWorkGroupyReturnOk() throws Exception{
         List<WorkGroup> workGroups = new ArrayList<>();
         workGroups.add(workGroupNotNull);
@@ -98,7 +98,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testPostNewWorkGroupReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -108,7 +108,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testPostNewWorkGroupReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -118,7 +118,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testPostAddUserWorkGroupReturnOk() throws Exception{
         List<UserWorkGroup> uwg = new ArrayList<>();
         uwg.add(userWorkGroupNotNull);
@@ -133,7 +133,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testPostAddUserWorkGroupReturnBadRequest() throws Exception{
         List<UserWorkGroup> uwg = new ArrayList<>();
         uwg.add(userWorkGroupNotNull);
@@ -148,7 +148,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testGetUserInWorkGroupReturnOk() throws Exception{
         List<WorkGroup> workGroups = new ArrayList<>();
         workGroups.add(workGroupNotNull);
@@ -158,7 +158,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testGetUserInWorkGroupReturnBadRequest() throws Exception{
         List<WorkGroup> workGroups = null;
         doReturn(workGroups).when(workGroupService).getUsersInWorkGroup(Mockito.any(Integer.class));
@@ -166,21 +166,21 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testDeleteWorkGroupReturnOk() throws Exception{
         doReturn(workGroupNotNull).when(workGroupService).deleteWorkGroup(Mockito.any(Integer.class));
         this.mvc.perform(delete("/work-group/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testDeleteWorkGroupReturnBadRequest() throws Exception{
         doReturn(null).when(workGroupService).deleteWorkGroup(Mockito.any(Integer.class));
         this.mvc.perform(delete("/work-group/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testPutEditWorkGroupReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -190,7 +190,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testPutEditWorkGroupReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -200,7 +200,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testPutEditUserWorkGroupInWorkGroupReturnOk() throws Exception{
         List<UserWorkGroup> uwg = new ArrayList<>();
         uwg.add(userWorkGroupNotNull);
@@ -215,7 +215,7 @@ public class TestWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PROJECT_ADMIN"})
     public void testPutEditUserWorkGroupInWorkGroupReturnBadRequest() throws Exception{
         List<UserWorkGroup> uwg = new ArrayList<>();
         uwg.add(userWorkGroupNotNull);

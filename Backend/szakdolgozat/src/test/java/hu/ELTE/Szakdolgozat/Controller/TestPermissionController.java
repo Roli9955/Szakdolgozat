@@ -73,7 +73,7 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testGetAllPermissionReturnOk() throws Exception{
         List<Permission> lPermission = new ArrayList<>();
         lPermission.add(permissionNotNull);
@@ -84,7 +84,7 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testGetAllPermissionsReturnBadRequest() throws Exception{
         Iterable<Permission> res = null;
         doReturn(res).when(permissionService).getAllPermission();
@@ -92,7 +92,7 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testPostNewPermissionReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -102,7 +102,7 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testPostNewPermissionReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -112,21 +112,21 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testDeletePermissionReturnOk() throws Exception{
         doReturn(permissionNotNull).when(permissionService).deletePermission(1);
         this.mvc.perform(delete("/permission/delete/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testDeletePermissionReturnBadRequest() throws Exception{
         doReturn(null).when(permissionService).deletePermission(1);
         this.mvc.perform(delete("/permission/delete/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testPutEditPermissionReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -137,7 +137,7 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testPutEditPermissionReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -148,7 +148,7 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testPutEditPermissionReturnBadRequest2() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -159,7 +159,7 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testGetPermissionsUsersReturnOk() throws Exception{
         List<User> lUsers = new ArrayList<>();
         lUsers.add(userNotNull);
@@ -168,14 +168,14 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testGetPermissionsUsersReturnOk2() throws Exception{
         doReturn(null).when(permissionService).getUsersByPermissionId(Mockito.any(Integer.class));
         this.mvc.perform(get("/permission/1/users").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testPutEditPermissionDetailReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -185,7 +185,7 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testPutEditPermissionDetailReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -195,7 +195,7 @@ public class TestPermissionController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_PERMISSION_ADMIN"})
     public void testPutEditPermissionUsersReturnBadRequest() throws Exception{
         List<User> users = new ArrayList<>();
         users.add(userNotNull);

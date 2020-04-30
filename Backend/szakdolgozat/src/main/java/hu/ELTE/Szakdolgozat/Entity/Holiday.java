@@ -5,6 +5,7 @@ import java.sql.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,6 +36,10 @@ public class Holiday extends BasicEntity implements Serializable {
     @Column
     @NotNull
     private Integer days;
+
+    @Column
+    @NotNull
+    private Boolean deleted;
 
     @Transient
     private Integer userId;

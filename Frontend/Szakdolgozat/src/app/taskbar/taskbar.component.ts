@@ -6,6 +6,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../classes/user';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SnackComponent } from '../snack/snack.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-taskbar',
@@ -98,13 +99,16 @@ export class TaskbarComponentDialog {
     private dialogRef: MatDialogRef<TaskbarComponentDialog>,
     private userService: UserService,
     private activityService: ActivityService,
-    private snackBar: SnackComponent
+    private snackBar: SnackComponent,
+    private authService: AuthService
   ){
     this.load();
   }
 
   async load(){
-    this.users = await this.userService.getUsers();
+    if(this.havePermission('ROLE_ADD_TASK')){
+      this.users = await this.userService.getUsers();
+    }
 
     var today = new Date();
 		var dd = String(today.getDate()).padStart(2, '0');
@@ -112,6 +116,18 @@ export class TaskbarComponentDialog {
 		var yyyy = today.getFullYear();
 
 		this.taskForm.controls['date'].setValue(yyyy + "-" + mm + "-" + dd);
+  }
+
+  havePermission(permission: string){
+    var l: boolean = false;
+    this.authService.getUser().permission.details.forEach(p => {
+      if(p.roleTag == permission){
+        l = true;
+        return;
+      }
+    });
+
+    return l;
   }
 
   save(){
@@ -128,8 +144,10 @@ export class TaskbarComponentDialog {
     activity.date = date;
     activity.deadline = date;
     activity.description = msg;
-    activity.user = new User();
-    activity.user.id = user;
+    if(this.havePermission('ROLE_ADD_TASK')){
+      activity.user = new User();
+      activity.user.id = user;
+    }
 
     this.activityService.addTask(activity).then(() => {
       this.snackBar.sendMsg("Feladat sikeresen mentésre került");

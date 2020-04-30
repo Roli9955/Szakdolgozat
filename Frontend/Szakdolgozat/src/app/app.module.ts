@@ -24,7 +24,7 @@ import { MaintenanceActivityGroupComponent, MaintenanceActivityGroupDialog } fro
 import { MaintenancePermissionComponent, MaintenancePermissionDialog } from './maintenance-permission/maintenance-permission.component';
 import { ListingProjectComponent } from './listing-project/listing-project.component';
 import { ListingHolidayComponent } from './listing-holiday/listing-holiday.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent, LoginComponentDialog } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,8 @@ import { LoginComponent } from './login/login.component';
     ListingProjectComponent,
     ListingHolidayComponent,
     TaskbarComponentDialog,
-    LoginComponent
+    LoginComponent,
+    LoginComponentDialog
   ],
   imports: [
     BrowserModule,
@@ -70,7 +71,8 @@ import { LoginComponent } from './login/login.component';
     MaintenanceProjectDialog,
     MaintenanceActivityGroupDialog,
     MaintenancePermissionDialog,
-    TaskbarComponentDialog
+    TaskbarComponentDialog,
+    LoginComponentDialog
   ]
 })
 export class AppModule { }
