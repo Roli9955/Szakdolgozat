@@ -62,7 +62,7 @@ public class TestHolidayService {
         list.add(holidayNotNull);
         list.add(holidayNotNull2);
 
-        Mockito.when(holidayRepository.findByUser(userNotNull)).thenReturn(list);
+        Mockito.when(holidayRepository.findByUserAndDeletedFalse(userNotNull)).thenReturn(list);
 
         Iterable<Holiday> res = holidayService.getHolidayByUser();
 
@@ -129,7 +129,7 @@ public class TestHolidayService {
         TestGlobalMocks.fill();
 
         Optional<Holiday> oHoliday = Optional.empty();
-        Mockito.when(holidayRepository.findById(userNotNull.getId())).thenReturn(oHoliday);
+        Mockito.when(holidayRepository.findByIdAndDeletedFalse(userNotNull.getId())).thenReturn(oHoliday);
 
         Holiday res = holidayService.deleteHoliday(holidayNotNull.getId());
 
@@ -141,9 +141,10 @@ public class TestHolidayService {
         TestGlobalMocks.fill();
 
         Optional<Holiday> oHoliday = Optional.of(holidayNotNull);
-        Mockito.when(holidayRepository.findById(userNotNull.getId())).thenReturn(oHoliday);
+        Mockito.when(holidayRepository.findByIdAndDeletedFalse(userNotNull.getId())).thenReturn(oHoliday);
 
         Holiday res = holidayService.deleteHoliday(holidayNotNull.getId());
+        holidayNotNull.setDeleted(true);
 
         assertEquals(holidayNotNull, res);
     }
@@ -156,7 +157,7 @@ public class TestHolidayService {
         list.add(holidayNotNull);
         list.add(holidayNotNull2);
 
-        Mockito.when(holidayRepository.findAll()).thenReturn(list);
+        Mockito.when(holidayRepository.findByDeletedFalse()).thenReturn(list);
 
         Iterable<Holiday> res = holidayService.getHolidays();
 

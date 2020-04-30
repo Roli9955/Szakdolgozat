@@ -3,14 +3,20 @@ package hu.ELTE.Szakdolgozat.Service;
 import hu.ELTE.Szakdolgozat.AuthenticatedUser;
 import hu.ELTE.Szakdolgozat.Entity.Activity;
 import hu.ELTE.Szakdolgozat.Entity.ActivityGroup;
+import hu.ELTE.Szakdolgozat.Entity.Holiday;
 import hu.ELTE.Szakdolgozat.Entity.User;
 import hu.ELTE.Szakdolgozat.Repository.ActivityGroupRepository;
 import hu.ELTE.Szakdolgozat.Repository.ActivityRepository;
 import hu.ELTE.Szakdolgozat.Repository.UserRepository;
+import hu.ELTE.Szakdolgozat.WebSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +33,10 @@ public class UserService {
 
     @Autowired
     private ActivityRepository activityRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     
     public Iterable<User> getAllUser(){
         
@@ -45,6 +55,16 @@ public class UserService {
             u.setLastLogin(null);
             u.setCanLogIn(null);
             u.setPermission(null);
+
+            List<Holiday> deleteList = new ArrayList<>();
+            for(Holiday h: u.getHolidays()){
+                if(h.getDeleted()){
+                   deleteList.add(h);
+                }
+            }
+            for(Holiday h: deleteList){
+                u.getHolidays().remove(h);
+            }
         }
         return iUser;
     }
@@ -58,7 +78,7 @@ public class UserService {
             user.setId(null);
             user.setLastLogin(null);
             user.setDeleted(false);
-            user.setPassword("alma");
+            user.setPassword("");
             return this.userRepository.save(user);
         } catch(NullPointerException e){
             return null;
@@ -81,7 +101,7 @@ public class UserService {
         Optional<User> oUser = this.userRepository.findByEmailAndLoginName(user.getEmail(), user.getLoginName());
         if(!oUser.isPresent()) return  null;
 
-        oUser.get().setLoginName(user.getLastName());
+        oUser.get().setLastName(user.getLastName());
         oUser.get().setFirstName(user.getFirstName());
         oUser.get().setMaxHoliday(user.getMaxHoliday());
         oUser.get().setCanLogIn(user.getCanLogIn());
@@ -114,5 +134,24 @@ public class UserService {
         this.activityRepository.save(activity);
 
         return res.get();
+    }
+
+    public User getUserLoggedEver(String userName){
+        Optional<User> oUser = this.userRepository.findByLoginName(userName);
+        if(!oUser.isPresent()) return null;
+
+        if(oUser.get().getPassword().equals("")){
+            return oUser.get();
+        } else {
+            return null;
+        }
+    }
+
+    public User setNotLoggedUserPassword(User user){
+        Optional<User> oUser = this.userRepository.findById(user.getId());
+        if(!oUser.isPresent()) return  null;
+
+        oUser.get().setPassword(encoder.encode(user.getPassword()));
+        return this.userRepository.save(oUser.get());
     }
 }

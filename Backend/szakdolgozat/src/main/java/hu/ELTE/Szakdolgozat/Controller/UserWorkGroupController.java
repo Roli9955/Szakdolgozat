@@ -5,6 +5,7 @@ import hu.ELTE.Szakdolgozat.Entity.WorkGroup;
 import hu.ELTE.Szakdolgozat.Service.UserWorkGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ public class UserWorkGroupController {
     private UserWorkGroupService userWorkGroupService;
     
     @GetMapping("/year/{year}/month/{month}/day/{day}")
+    @Secured({"ROLE_USER"})
     public ResponseEntity<Iterable<WorkGroup>> getActivitiesByDate(
             @PathVariable("year") Integer year,
             @PathVariable("month") Integer month,
@@ -30,6 +32,7 @@ public class UserWorkGroupController {
     }
 
     @GetMapping("/user/{id}")
+    @Secured({"ROLE_USER_ADMIN"})
     public  ResponseEntity<Iterable<UserWorkGroup>> getWorkGroupsByUser(@PathVariable("id") Integer userId){
         Iterable<UserWorkGroup> iUserWorkGroups = this.userWorkGroupService.getWorkGroupyByUser(userId);
         if(iUserWorkGroups == null){

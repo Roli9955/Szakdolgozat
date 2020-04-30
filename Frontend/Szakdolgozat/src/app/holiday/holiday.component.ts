@@ -144,6 +144,11 @@ export class HolidayComponent implements OnInit {
       return;
     }
 
+    if(new Date(from) > new Date(to)){
+      this.snackBar.sendMsg("Az első nap nem lehet nagyobb az utolsó napnál");
+      return;
+    }
+
     const fromDate = new Date(from).getFullYear();
     const toDate = new Date(to).getFullYear();
 

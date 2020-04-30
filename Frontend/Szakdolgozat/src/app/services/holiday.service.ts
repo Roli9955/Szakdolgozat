@@ -30,6 +30,10 @@ export class HolidayService {
     return this.httpService.get(this.url);
   }
 
+  getOwnHolidays(): Promise<Holiday[]>{
+    return this.httpService.get(this.url + "/me");
+  }
+
   makeExcelFile(userId: number, year: number){
     return this.httpService.downloadFile(this.url + "/excel/user/" + userId + "/year/" + year).subscribe(response => {
       console.log(response.header)

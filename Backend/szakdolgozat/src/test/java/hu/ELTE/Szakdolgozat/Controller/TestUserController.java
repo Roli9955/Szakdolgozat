@@ -64,7 +64,7 @@ public class TestUserController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER_ADMIN", "ROLE_PERMISSION_ADMIN", "ROLE_ADD_TASK", "ROLE_PROJECT_ADMIN", "ROLE_LISTING"})
     public void testGetAllUsersReturnOk() throws Exception{
         List<User> users = new ArrayList<>();
         users.add(userNotNull);
@@ -75,7 +75,7 @@ public class TestUserController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER_ADMIN", "ROLE_PERMISSION_ADMIN", "ROLE_ADD_TASK", "ROLE_PROJECT_ADMIN", "ROLE_LISTING"})
     public void testGetAllUsersReturnOk2() throws Exception{
         List<User> users = new ArrayList<>();
         Iterable<User> res = users;
@@ -84,7 +84,7 @@ public class TestUserController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER_ADMIN"})
     public void testPostUserReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -94,7 +94,7 @@ public class TestUserController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_HOLIDAY_ADMIN"})
     public void testGetUsersForHolidayReturnOk() throws Exception{
         List<User> users = new ArrayList<>();
         users.add(userNotNull);
@@ -105,7 +105,7 @@ public class TestUserController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_HOLIDAY_ADMIN"})
     public void testGetUsersForHolidayReturnBadRequest() throws Exception{
         Iterable<User> res = null;
         doReturn(res).when(userService).getUsersForHoliday();
@@ -113,21 +113,21 @@ public class TestUserController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER_ADMIN"})
     public void testDeleteUserReturnOk() throws Exception{
         doReturn(userNotNull).when(userService).deleteUser(Mockito.any(Integer.class));
         this.mvc.perform(delete("/user/delete/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER_ADMIN"})
     public void testDeleteUserReturnBadRequest() throws Exception{
         doReturn(null).when(userService).deleteUser(Mockito.any(Integer.class));
         this.mvc.perform(delete("/user/delete/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER_ADMIN"})
     public void testPutEditUserReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -137,7 +137,7 @@ public class TestUserController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER_ADMIN"})
     public void testPutEditUserReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);

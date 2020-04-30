@@ -65,7 +65,7 @@ public class TestUserWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testGetUserWorkGroupsReturnOkWithNull() throws Exception{
         Iterable<UserWorkGroup> iUserWorkGroup = null;
         doReturn(iUserWorkGroup).when(userWorkGroupService).getUserWorkGroupByDate(2020, 04, 26);
@@ -73,7 +73,7 @@ public class TestUserWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testGetUserWorkGroupsReturnOk() throws Exception{
         List<UserWorkGroup> uwg = new ArrayList<>();
         uwg.add(userWorkGroupNotNull);
@@ -85,7 +85,7 @@ public class TestUserWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER_ADMIN"})
     public void testGetUserWorkGroupsByUserReturnOk() throws Exception{
         List<UserWorkGroup> uwg = new ArrayList<>();
         uwg.add(userWorkGroupNotNull);
@@ -97,7 +97,7 @@ public class TestUserWorkGroupController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER_ADMIN"})
     public void testGetUserWorkGroupsByUserReturnBadRequest() throws Exception{
         Iterable<UserWorkGroup> iUserWorkGroup = null;
         doReturn(iUserWorkGroup).when(userWorkGroupService).getWorkGroupyByUser(Mockito.any(Integer.class));

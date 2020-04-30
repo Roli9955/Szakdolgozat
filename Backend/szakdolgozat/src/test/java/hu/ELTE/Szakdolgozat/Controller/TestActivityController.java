@@ -82,7 +82,7 @@ public class TestActivityController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testGetActivityReturnOkWithNull() throws Exception{
         Iterable<Activity> iActivity = null;
         doReturn(iActivity).when(activityService).getActivitiesByDate(2020, 04, 26);
@@ -90,7 +90,7 @@ public class TestActivityController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testGetActivityReturnOk() throws Exception{
         List<Activity> tmp = new ArrayList<>();
         tmp.add(activityNotNull);
@@ -100,7 +100,7 @@ public class TestActivityController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testGetAllActivityReturnOk() throws Exception{
         List<Activity> tmp = new ArrayList<>();
         tmp.add(activityNotNull);
@@ -111,7 +111,7 @@ public class TestActivityController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testPostActivityReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -121,21 +121,21 @@ public class TestActivityController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testDeleteActivityReturnOk() throws Exception{
         doReturn(activityNotNull).when(activityService).deleteActivity(activityNotNull.getId());
         this.mvc.perform(delete("/activity/delete/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testDeleteActivityReturnBadRequest() throws Exception{
         doReturn(activityNotNull).when(activityService).deleteActivity(activityNotNull.getId());
         this.mvc.perform(delete("/activity/delete/2").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testEditActivityReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -145,7 +145,7 @@ public class TestActivityController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testGetMyTaskReturnOk() throws Exception{
         List<Activity> db = new ArrayList<>();
         db.add(task);
@@ -157,7 +157,7 @@ public class TestActivityController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testCompleteATaskReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -167,7 +167,7 @@ public class TestActivityController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {})
     public void testCompleteATaskReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -177,21 +177,21 @@ public class TestActivityController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testDeleteATaskReturnOk() throws Exception{
         doReturn(task).when(activityService).deleteTask(task.getId());
         this.mvc.perform(delete("/activity/delete/task/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testDeleteATaskReturnBadRequest() throws Exception{
         doReturn(task).when(activityService).deleteTask(task.getId());
         this.mvc.perform(delete("/activity/delete/task/2").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER", "ROLE_ADD_TASK"})
     public void testPostTaskReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);

@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Permission } from '../classes/permission';
 import { UserWorkGroup } from '../classes/user-work-group';
 import { UserWorkGroupService } from '../services/user-work-group.service';
+import { UtilService } from '../services/util.service';
 
 export interface DialogData{
   user: User
@@ -37,7 +38,8 @@ export class MaintenanceUserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private snackBar: SnackComponent,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private utilService: UtilService
   ) { 
     this.newUser = new User();
     this.selectedUser = new User();
@@ -65,6 +67,11 @@ export class MaintenanceUserComponent implements OnInit {
 
     if(!lastName || !firstName || !loginName || !email || !maxHoliday || !canLogIn){
       this.snackBar.sendMsg("Minden mező kitöltése kötelező");
+      return;
+    }
+
+    if(!this.utilService.isNumber(maxHoliday)){
+      this.snackBar.sendMsg("Az összes szabadság mező nem megfelelő típust tartalmaz");
       return;
     }
 

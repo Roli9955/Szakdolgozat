@@ -71,7 +71,7 @@ public class TestHolidayController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_USER"})
     public void testGetUsersHolidayReturnOk() throws Exception{
         List<Holiday> iHoliday = new ArrayList<>();
         iHoliday.add(holidayNotNull);
@@ -80,7 +80,7 @@ public class TestHolidayController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_HOLIDAY_ADMIN", "ROLE_LISTING"})
     public void testHolidayYearsReturnOk() throws Exception{
         List<Integer> years = new ArrayList<>();
         years.add(2020);
@@ -90,7 +90,7 @@ public class TestHolidayController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_HOLIDAY_ADMIN"})
     public void testAddHolidayReturnOk() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -100,7 +100,7 @@ public class TestHolidayController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_HOLIDAY_ADMIN"})
     public void testAddHolidayReturnBadRequest() throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -110,21 +110,21 @@ public class TestHolidayController {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_HOLIDAY_ADMIN"})
     public void testHolidayDeleteReturnOk() throws Exception{
         doReturn(holidayNotNull).when(holidayService).deleteHoliday(Mockito.any(Integer.class));
         this.mvc.perform(delete("/holiday/delete/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_HOLIDAY_ADMIN"})
     public void testHolidayDeleteReturnBadRequest() throws Exception{
         doReturn(null).when(holidayService).deleteHoliday(Mockito.any(Integer.class));
         this.mvc.perform(delete("/holiday/delete/1").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {})
+    @WithMockUser(username = "admin", password = "admin", authorities = {"ROLE_LISTING"})
     public void testGetAllHolidaysReturnOk() throws Exception{
         List<Holiday> iHoliday = new ArrayList<>();
         iHoliday.add(holidayNotNull);

@@ -1,4 +1,25 @@
 <div class="w-100 h-100">
-    <div class="w-50 h-100 float-left p-md-2">a</div>
-    <div class="w-50 h-100 float-right p-md-2">b</div>
+    <div class="w-100 h-100 float-left p-lg-5">
+        <h2 class="text-center">Üdvözöljük {{ user.lastName }} {{ user.firstName }}</h2>
+        <br>
+        <br>
+        <h4 class="text-center">Szabadságok</h4>
+        <br>
+        <table class="table border table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Mikortól</th>
+                    <th scope="col">Meddig</th>
+                    <th scope="col">Nap</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let holiday of holidays">
+                    <td>{{ holiday.holidayFrom }}</td>
+                    <td>{{ holiday.holidayTo }}</td>
+                    <td>{{ holiday.days }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

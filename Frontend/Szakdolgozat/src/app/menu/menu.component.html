@@ -26,17 +26,17 @@
                     <a class="dropdown-item" routerLink="listing-holiday">Szabadságok</a>
                 </div>
             </li>
-            <li *ngIf="authService.getIsLoggedIn()" class="nav-item active dropdown">
+            <li *ngIf="authService.getIsLoggedIn() && (havePermission('ROLE_USER_ADMIN') || havePermission('ROLE_PROJECT_ADMIN') || havePermission('ROLE_ACTIVITY_GROUP_ADMIN') || havePermission('ROLE_PERMISSION_ADMIN'))" class="nav-item active dropdown">
                 <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Karbantartás
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a *ngIf="authService.getIsLoggedIn() && havePermission('ROLE_USER_ADMIN')" class="dropdown-item" routerLink="maintenance-user">Felhasználók</a>
-                    <div class="dropdown-divider"></div>
+                    <!-- <div class="dropdown-divider"></div> -->
                     <a *ngIf="authService.getIsLoggedIn() && havePermission('ROLE_PROJECT_ADMIN')" class="dropdown-item" routerLink="maintenance-project">Projektek</a>
-                    <div class="dropdown-divider"></div>
+                    <!-- <div class="dropdown-divider"></div> -->
                     <a *ngIf="authService.getIsLoggedIn() && havePermission('ROLE_ACTIVITY_GROUP_ADMIN')" class="dropdown-item" routerLink="maintenance-activity-group">Feladatok</a>
-                    <div class="dropdown-divider"></div>
+                    <!-- <div class="dropdown-divider"></div> -->
                     <a *ngIf="authService.getIsLoggedIn() && havePermission('ROLE_PERMISSION_ADMIN')" class="dropdown-item" routerLink="maintenance-permission">Jogosultságok</a>
                 </div>
             </li> 

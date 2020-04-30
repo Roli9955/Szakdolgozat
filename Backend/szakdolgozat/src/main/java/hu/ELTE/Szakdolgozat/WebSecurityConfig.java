@@ -1,6 +1,5 @@
 package hu.ELTE.Szakdolgozat;
 
-import hu.ELTE.Szakdolgozat.Service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +34,12 @@ public class WebSecurityConfig extends  WebSecurityConfigurerAdapter{
                 .and()
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/h2/**", "/activity-group/easy-log-in" ,"/easy-log-in/activity-group/**").permitAll()
+                .antMatchers(
+                        "/h2/**",
+                        "/activity-group/easy-log-in",
+                        "/easy-log-in/activity-group/{id}",
+                        "/loged-ever/{username}",
+                        "/set-not-logged-user-password").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .httpBasic()

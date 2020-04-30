@@ -6,6 +6,7 @@ import hu.ELTE.Szakdolgozat.Entity.User;
 import hu.ELTE.Szakdolgozat.Service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @GetMapping("")
+    @Secured({"ROLE_PERMISSION_ADMIN"})
     public ResponseEntity<Iterable<Permission>> getAllPermission(){
         Iterable<Permission> iPermissions = this.permissionService.getAllPermission();
         if(iPermissions == null){
@@ -29,6 +31,7 @@ public class PermissionController {
     }
 
     @PostMapping("/add")
+    @Secured({"ROLE_PERMISSION_ADMIN"})
     public ResponseEntity<Permission> addNewPermission(@RequestBody Permission permission){
         Permission res = this.permissionService.addNewPermission(permission);
         if(res == null){
@@ -39,6 +42,7 @@ public class PermissionController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @Secured({"ROLE_PERMISSION_ADMIN"})
     public ResponseEntity<Permission> deletePermission(@PathVariable("id") Integer permissionId){
         Permission permission = this.permissionService.deletePermission(permissionId);
         if(permission == null){
@@ -49,6 +53,7 @@ public class PermissionController {
     }
 
     @PutMapping("/edit")
+    @Secured({"ROLE_PERMISSION_ADMIN"})
     public ResponseEntity<Object> editPermisson(@RequestBody Permission permission){
         Result<Permission, String> res = this.permissionService.editPermission(permission);
         if(res.getRes1() == null){
@@ -59,12 +64,14 @@ public class PermissionController {
     }
 
     @GetMapping("/{id}/users")
+    @Secured({"ROLE_PERMISSION_ADMIN"})
     public ResponseEntity<List<User>> getUsers(@PathVariable("id") Integer permissionId){
         List<User> lUsers = this.permissionService.getUsersByPermissionId(permissionId);
         return ResponseEntity.ok(lUsers);
     }
 
     @PutMapping("/edit/permission-detail")
+    @Secured({"ROLE_PERMISSION_ADMIN"})
     public ResponseEntity<Permission> editPermissionDetail(@RequestBody Permission permission){
         Permission res = this.permissionService.editPermissionDetail(permission);
         if(res == null){
@@ -75,6 +82,7 @@ public class PermissionController {
     }
 
     @PutMapping("/edit/{id}/user")
+    @Secured({"ROLE_PERMISSION_ADMIN"})
     public ResponseEntity<Permission> editPermissionUsers(
             @PathVariable("id") Integer permissionId,
             @RequestBody Iterable<User> users
