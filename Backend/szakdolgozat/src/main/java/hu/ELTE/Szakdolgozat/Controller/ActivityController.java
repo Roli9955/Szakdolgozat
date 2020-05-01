@@ -140,4 +140,12 @@ public class ActivityController {
         }
     }
 
+    @GetMapping("/task/owned")
+    @Secured({"ROLE_ADD_TASK"})
+    public ResponseEntity<Iterable<Activity>> getOwnedTasks(){
+        Iterable<Activity> activities = this.activityService.getOwnedTasks();
+        return ResponseEntity.ok(activities);
+    }
+
+
 }

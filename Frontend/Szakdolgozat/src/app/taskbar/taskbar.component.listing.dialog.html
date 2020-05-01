@@ -1,0 +1,24 @@
+<table class="table table-striped">
+  <thead>
+      <tr>
+          <th scope="col">Határidő</th>
+          <th scope="col">Leírás</th>
+          <th scope="col">Felhazsnáló</th>
+          <th scope="col">Teljesített</th>
+          <th scope="col">Teljesítés dátuma</th>
+          <th scope="col"></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let task of tasks">
+          <td style="width: 19%;">{{ task.deadline }}</td>
+          <td style="width: 19%;">{{ task.description }}</td>
+          <td style="width: 19%;">{{ task.user.lastName }}  {{ task.user.firstName }}</td>
+          <td style="width: 19%;">{{ task.isCompleted ? "✔️" : "❌" }}</td>
+          <td style="width: 19%;">{{ task.isCompleted ? task.date : "" }}</td>
+          <td style="width: 5%;">
+              <button *ngIf="!task.isCompleted" type="button" class="btn btn-danger mr-1" (click)="delete(task.id)">🗑️</button>
+          </td>
+      </tr>
+  </tbody>
+</table>

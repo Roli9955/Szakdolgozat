@@ -1,6 +1,7 @@
 <div class="w-100 h-100 p-md-2 border-left">
 
-  <button class="btn btn-light w-100" (click)="newTask()">Feladat rögzítése</button>
+  <button class="btn btn-light w-100 m-1" (click)="newTask()">Feladat rögzítése</button>
+  <button *ngIf="havePermission('ROLE_ADD_TASK')" class="btn btn-light w-100 m-1" (click)="listTasks()">Kiosztott feladatok</button>
 
   <br><br>
 

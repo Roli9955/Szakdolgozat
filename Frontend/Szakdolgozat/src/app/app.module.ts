@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
-import { TaskbarComponent, TaskbarComponentDialog } from './taskbar/taskbar.component';
+import { TaskbarComponent, TaskbarComponentDialog, TaskbarComponentListDialog } from './taskbar/taskbar.component';
 import { ContentComponent } from './content/content.component';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -25,6 +25,7 @@ import { MaintenancePermissionComponent, MaintenancePermissionDialog } from './m
 import { ListingProjectComponent } from './listing-project/listing-project.component';
 import { ListingHolidayComponent } from './listing-holiday/listing-holiday.component';
 import { LoginComponent, LoginComponentDialog } from './login/login.component';
+import { WorkTimePlannerComponent, WorkTimePlannerDialog, WorkTimePlannerListingDialog } from './work-time-planner/work-time-planner.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,11 @@ import { LoginComponent, LoginComponentDialog } from './login/login.component';
     ListingHolidayComponent,
     TaskbarComponentDialog,
     LoginComponent,
-    LoginComponentDialog
+    LoginComponentDialog,
+    WorkTimePlannerComponent,
+    WorkTimePlannerDialog,
+    WorkTimePlannerListingDialog,
+    TaskbarComponentListDialog
   ],
   imports: [
     BrowserModule,
@@ -72,7 +77,10 @@ import { LoginComponent, LoginComponentDialog } from './login/login.component';
     MaintenanceActivityGroupDialog,
     MaintenancePermissionDialog,
     TaskbarComponentDialog,
-    LoginComponentDialog
+    LoginComponentDialog,
+    WorkTimePlannerDialog,
+    WorkTimePlannerListingDialog,
+    TaskbarComponentListDialog
   ]
 })
 export class AppModule { }

@@ -22,7 +22,8 @@ export class TaskbarComponent implements OnInit {
 
   constructor(
     private activityService: ActivityService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) { 
     var today = new Date();
 		var dd = String(today.getDate()).padStart(2, '0');
@@ -77,6 +78,24 @@ export class TaskbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.update();
     })
+  }
+
+  havePermission(permission: string){
+    var l: boolean = false;
+    this.authService.getUser().permission.details.forEach(p => {
+      if(p.roleTag == permission){
+        l = true;
+        return;
+      }
+    });
+
+    return l;
+  }
+
+  listTasks(){
+    const dialogRef = this.dialog.open(TaskbarComponentListDialog, {
+      width: '60%'
+    });
   }
 
 }
@@ -154,6 +173,41 @@ export class TaskbarComponentDialog {
       this.dialogRef.close();
     });
 
+  }
+
+}
+
+@Component({
+  templateUrl: './taskbar.component.listing.dialog.html',
+  styleUrls: ['./taskbar.component.css']
+})
+export class TaskbarComponentListDialog {
+
+  public tasks: Activity[] = [];
+
+  constructor(
+    private activityService: ActivityService,
+    private snackBar: SnackComponent,
+    private dialogRef: MatDialogRef<TaskbarComponentListDialog>
+  ){
+    this.load();
+  }
+
+  async load(){
+    await this.activityService.getOwnedTasks().then(res => {
+      res.forEach(task => {
+        if(task.user.id != task.owner.id){
+          this.tasks.push(task);
+        }
+      });
+    })
+  }
+
+  async delete(id: number){
+    await this.activityService.deleteTask(id).then(() => {
+      this.snackBar.sendMsg("A feladat sikeresen törlésre került");
+      this.dialogRef.close();
+    });
   }
 
 }

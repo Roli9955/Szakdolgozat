@@ -16,7 +16,7 @@ public class UserController {
     private UserService userService;
     
     @GetMapping("")
-    @Secured({"ROLE_USER_ADMIN", "ROLE_PERMISSION_ADMIN", "ROLE_ADD_TASK", "ROLE_PROJECT_ADMIN", "ROLE_LISTING"})
+    @Secured({"ROLE_USER_ADMIN", "ROLE_PERMISSION_ADMIN", "ROLE_ADD_TASK", "ROLE_PROJECT_ADMIN", "ROLE_LISTING", "ROLE_ACTIVITY_PLAN_ADMIN"})
     public ResponseEntity<Iterable<User>> getUsers(){
         Iterable<User> iUser = this.userService.getAllUser();
         return ResponseEntity.ok(iUser);
