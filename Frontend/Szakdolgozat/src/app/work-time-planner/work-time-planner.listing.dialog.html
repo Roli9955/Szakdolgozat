@@ -1,0 +1,22 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Dátum</th>
+            <th scope="col">Cím</th>
+            <th scope="col">Leírás</th>
+            <th scope="col">Kiadott felhasználó</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let plan of plans">
+            <td style="width: 23%;">{{ plan.date | date:'yyyy. MM. dd. HH:mm' }}</td>
+            <td style="width: 23%;">{{ plan.title }}</td>
+            <td style="width: 23%;">{{ plan.description }}</td>
+            <td style="width: 23%;">{{ plan.user.lastName }} {{ plan.user.firstName }}</td>
+            <td style="width: 8%;">
+                <button type="button" class="btn btn-danger mr-1" (click)="delete(plan.id)">🗑️</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

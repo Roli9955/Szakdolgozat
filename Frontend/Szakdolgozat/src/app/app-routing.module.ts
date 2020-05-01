@@ -10,6 +10,7 @@ import { MaintenancePermissionComponent } from './maintenance-permission/mainten
 import { ListingProjectComponent } from './listing-project/listing-project.component';
 import { ListingHolidayComponent } from './listing-holiday/listing-holiday.component';
 import { LoginComponent } from './login/login.component';
+import { WorkTimePlannerComponent } from './work-time-planner/work-time-planner.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,9 @@ const routes: Routes = [
   {path: 'maintenance-permission', component: MaintenancePermissionComponent},
   {path: 'listing-project', component: ListingProjectComponent},
   {path: 'listing-holiday', component: ListingHolidayComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'work-time-planner', component: WorkTimePlannerComponent}
+
 ];
 
 @NgModule({

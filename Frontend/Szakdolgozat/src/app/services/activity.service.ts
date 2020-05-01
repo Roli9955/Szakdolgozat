@@ -56,4 +56,8 @@ export class ActivityService {
   addTask(activity: Activity): Promise<Activity>{
     return this.httpService.post(this.url + "/add/task", activity);
   }
+
+  getOwnedTasks(): Promise<Activity[]>{
+    return this.httpService.get(this.url + "/task/owned");
+  }
 }

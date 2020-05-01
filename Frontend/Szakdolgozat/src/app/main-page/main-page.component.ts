@@ -11,23 +11,19 @@ import { HolidayService } from '../services/holiday.service';
 })
 export class MainPageComponent implements OnInit {
 
-  public user: User;
   public holidays: Holiday[];
 
   constructor(
-    private authUser: AuthService,
+    public authUser: AuthService,
     private holidayService: HolidayService
   ) {
-    this.user = new User();
-   }
-
+  }
+  
   ngOnInit() {
     this.load();
   }
 
   async load(){
-
-    this.user = this.authUser.getUser();
     this.holidays = await this.holidayService.getOwnHolidays().then(res => {
       var year = new Date().getFullYear();
       var list: Holiday[] = [];

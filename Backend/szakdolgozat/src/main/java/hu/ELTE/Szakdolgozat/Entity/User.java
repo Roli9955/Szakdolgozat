@@ -2,10 +2,8 @@ package hu.ELTE.Szakdolgozat.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -83,6 +81,14 @@ public class User extends BasicEntity implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<UserWorkGroup> userWorkGroup;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ActivityPlan> activityPlans;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ActivityPlan> ownedActivityPlans;
 
     @Override
     public String getData(Integer id) {

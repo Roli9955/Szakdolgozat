@@ -15,6 +15,7 @@ export class Activity {
     public activityGroup: ActivityGroup;
     public workGroup: WorkGroup;
     public user: User;
+    public owner: User;
 
     public visible: boolean;
     

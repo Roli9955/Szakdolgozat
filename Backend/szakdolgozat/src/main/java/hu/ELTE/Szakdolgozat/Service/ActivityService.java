@@ -203,6 +203,11 @@ public class ActivityService {
         return iActivities;
     }
 
+    public Iterable<Activity> getOwnedTasks(){
+        Iterable<Activity> activities = this.activityRepository.findByOwnerAndIsTaskTrueOrderByDeadlineDesc(this.authenticatedUser.getUser());
+        return activities;
+    }
+
     public Activity completeActivity(Activity activity){
         Optional<Activity> oActivity = this.activityRepository.findById(activity.getId());
         if(!oActivity.isPresent()) return null;
