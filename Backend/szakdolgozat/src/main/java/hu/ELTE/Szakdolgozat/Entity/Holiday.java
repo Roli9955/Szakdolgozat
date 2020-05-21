@@ -47,6 +47,7 @@ public class Holiday extends BasicEntity implements Serializable {
     @JoinColumn
     @ManyToOne
     @JsonIgnore
+    @NotNull
     private User user;
 
     @Override

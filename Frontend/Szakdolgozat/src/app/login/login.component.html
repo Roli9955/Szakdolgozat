@@ -4,7 +4,7 @@
         <br>
         <div class="input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text">Bejelentkezési név</span>
+                <span class="input-group-text">Felhasználónév</span>
             </div>
             <input formControlName="loginName" type="text" class="form-control">
         </div>
@@ -24,14 +24,14 @@
         <br>
         <div class="input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text">Bejelentkezési név</span>
+                <span class="input-group-text">Felhasználónév</span>
             </div>
             <input formControlName="loginName" type="text" class="form-control">
         </div>
         <br>
         <div class="input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text">Jelszó</span>
+                <span class="input-group-text">Tevékenység</span>
             </div>
             <select formControlName="activityGroup" class="custom-select">
                 <option *ngFor="let activityGroup of activityGroups" value="{{activityGroup.id}}">{{ activityGroup.name }}</option>
