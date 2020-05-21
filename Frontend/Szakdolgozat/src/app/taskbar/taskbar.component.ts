@@ -127,6 +127,7 @@ export class TaskbarComponentDialog {
   async load(){
     if(this.havePermission('ROLE_ADD_TASK')){
       this.users = await this.userService.getUsers();
+      this.taskForm.controls['user'].setValue(this.authService.getUser().id);
     }
 
     var today = new Date();
@@ -134,7 +135,7 @@ export class TaskbarComponentDialog {
 		var mm = String(today.getMonth() + 1).padStart(2, '0');
 		var yyyy = today.getFullYear();
 
-		this.taskForm.controls['date'].setValue(yyyy + "-" + mm + "-" + dd);
+    this.taskForm.controls['date'].setValue(yyyy + "-" + mm + "-" + dd);
   }
 
   havePermission(permission: string){
