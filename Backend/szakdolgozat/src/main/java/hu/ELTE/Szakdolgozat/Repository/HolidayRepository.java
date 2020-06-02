@@ -15,6 +15,6 @@ public interface HolidayRepository extends CrudRepository<Holiday, Integer> {
     public Iterable<Holiday> findByDeletedFalse();
     public Optional<Holiday> findByIdAndDeletedFalse(Integer id);
 
-    @Query(value = "SELECT YEAR(HOLIDAY_FROM) AS YEAR FROM HOLIDAY GROUP BY YEAR(HOLIDAY_FROM) ORDER BY YEAR DESC", nativeQuery = true)
+    @Query(value = "SELECT YEAR(HOLIDAY_FROM) AS YEAR FROM holiday GROUP BY YEAR(HOLIDAY_FROM) ORDER BY YEAR DESC", nativeQuery = true)
     public List<Integer> getYears();
 }

@@ -35,7 +35,7 @@ public class UserWorkGroupService {
 
         for (UserWorkGroup uwg : iUserWorkGroups) {
 
-            int dateStatusFrom = date.compareTo(uwg.getInWorkGroupFrom());
+            int dateStatusFrom = date.compareTo(Date.valueOf(uwg.getInWorkGroupFrom().toString()));
             int dateStatusTo;
 
             if (uwg.getInWorkGroupTo() != null) {

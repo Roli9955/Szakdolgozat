@@ -56,6 +56,7 @@ export class WorkTimePlannerComponent implements OnInit {
   fillTable() {
     this.year = this.date.getFullYear();
     const data = document.querySelector("#data");
+    console.log(this.date)
     const weekOfTheDate = this.date.getDay();
     this.date.setDate(this.date.getDate() - (weekOfTheDate - 1));
 

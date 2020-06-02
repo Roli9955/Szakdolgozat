@@ -30,10 +30,32 @@
                     <td>{{ permission.userCount }}</td>
                     <td>
                         <button type="button" class="btn btn-primary mr-1" (click)="editLoad($event, permission)">🔧</button>
-                        <button type="button" class="btn btn-danger mr-1" (click)="delete($event, permission.id)">🗑️</button>
+                        <button type="button" class="btn btn-danger mr-1" data-toggle="modal" data-target="#deletePermission" (click)="selectForDelete(permission)">🗑️</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="modal fade" id="deletePermission" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Jogosultsági csoport törlése</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Biztosan törölni szeretné a következő jogosultsági csoportot: 
+                <br><br>
+                <b>Jogosultsági csoport neve:</b> {{ deletePermission.name }} <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Törlés</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -75,6 +75,11 @@ export class MaintenanceUserComponent implements OnInit {
       return;
     }
 
+    if(maxHoliday < 0){
+      this.snackBar.sendMsg("Az összes szabadság nem lehet negatív szám");
+      return;
+    }
+
     this.newUser.lastName = lastName;
     this.newUser.firstName = firstName;
     this.newUser.loginName = loginName;

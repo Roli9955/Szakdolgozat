@@ -23,6 +23,8 @@ export class MaintenancePermissionComponent implements OnInit {
   public permissions: Permission[];
   public newPermission: Permission;
 
+  public deletePermission: Permission;
+
   public edit: boolean;
 
   public permissionForm = new FormGroup({
@@ -41,6 +43,7 @@ export class MaintenancePermissionComponent implements OnInit {
 
   async update(){
     this.newPermission = new Permission();
+    this.deletePermission = new Permission();
     this.edit = false;
     this.permissions = await this.permissionService.getAllPermissions();
 
@@ -95,9 +98,12 @@ export class MaintenancePermissionComponent implements OnInit {
     });
   }
 
-  async delete(event, id: number){
-    event.stopPropagation();
-    await this.permissionService.deletePermission(id).then(() => {
+  selectForDelete(permission: Permission){
+    this.deletePermission = permission;
+  }
+
+  async delete(){
+    await this.permissionService.deletePermission(this.deletePermission.id).then(() => {
       this.snackBar.sendMsg("Sikeresen törlésre került");
       this.update();
     });

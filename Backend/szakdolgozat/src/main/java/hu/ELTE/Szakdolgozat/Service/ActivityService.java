@@ -4,13 +4,11 @@ import hu.ELTE.Szakdolgozat.AuthenticatedUser;
 import hu.ELTE.Szakdolgozat.Class.ExcelMaker;
 import hu.ELTE.Szakdolgozat.Entity.Activity;
 import hu.ELTE.Szakdolgozat.Entity.ActivityGroup;
-import hu.ELTE.Szakdolgozat.Entity.PermissionDetail;
 import hu.ELTE.Szakdolgozat.Entity.User;
 import hu.ELTE.Szakdolgozat.Entity.UserWorkGroup;
 import hu.ELTE.Szakdolgozat.Entity.WorkGroup;
 import hu.ELTE.Szakdolgozat.Repository.ActivityGroupRepository;
 import hu.ELTE.Szakdolgozat.Repository.ActivityRepository;
-import hu.ELTE.Szakdolgozat.Repository.PermissionDetailRepository;
 import hu.ELTE.Szakdolgozat.Repository.UserRepository;
 import hu.ELTE.Szakdolgozat.Repository.UserWorkGroupRepository;
 import hu.ELTE.Szakdolgozat.Repository.WorkGroupRepository;
@@ -19,9 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 public class ActivityService {
@@ -52,9 +48,11 @@ public class ActivityService {
         List<Activity> iActivity = new ArrayList();
         for (Activity ua : iUserActivities) {
             if (ua.getDate().equals(date)) {
-                if(!ua.getIsTask()) {
-                    ua.getWorkGroup().setActivityGroup(null);
-                    iActivity.add(ua);
+                if(!ua.getIsTask() ) {
+                    if(ua.getWorkGroup() != null){
+                        ua.getWorkGroup().setActivityGroup(null);
+                        iActivity.add(ua);
+                    }
                 } else if(ua.getIsCompleted()){
                     iActivity.add(ua);
                 }
